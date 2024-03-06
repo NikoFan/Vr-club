@@ -1,0 +1,389 @@
+﻿<Window
+    x:Class="VR_registration.UserRegistration"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:VR_registration"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="USER_REGISTRATION"
+    Title="Регистрация пользователя"
+    Width="1100"
+    Height="900"
+    ResizeMode="NoResize"
+    mc:Ignorable="d">
+    <!--  Блок для устранения шапки окна  -->
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" ResizeBorderThickness="5" />
+    </WindowChrome.WindowChrome>
+    <Grid x:Name="fullGrid" ShowGridLines="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="333*" />
+            <RowDefinition Height="551*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="regColumn" />
+            <ColumnDefinition x:Name="authColumn" />
+        </Grid.ColumnDefinitions>
+        <!--  Левая колонка  -->
+        <Border
+            x:Name="LeftBorder"
+            Grid.RowSpan="2"
+            Grid.Column="0">
+            <Grid>
+                <!--  шапка колонки регистрации  -->
+                <Grid
+                    x:Name="Head_left"
+                    Background="#5D40CE"
+                    MouseLeftButtonDown="MoveWindow"
+                    Style="{StaticResource head_style}">
+                    <Border x:Name="regBorder" Style="{StaticResource reg_auth_Border_style}">
+                        <TextBlock
+                            Foreground="Black"
+                            Style="{StaticResource normalText_style}"
+                            Text="Регистрация" />
+
+                    </Border>
+                    <TextBlock
+                        Margin="0,0,0,10"
+                        VerticalAlignment="Bottom"
+                        FontSize="25"
+                        Style="{StaticResource normalText_style}"
+                        Text="Создайте аккаунт" />
+                    <Image
+                        MouseDown="closeApp"
+                        Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\cross.png"
+                        Style="{StaticResource cross_style}" />
+                </Grid>
+                <!--  Тело левой колонки  -->
+                <Grid x:Name="Body_left" Style="{StaticResource body_style}">
+                    <Grid x:Name="SummaryReg" Style="{StaticResource summary_style}">
+                        <!--  Подсказка для пользователя при регистрации  -->
+                        <TextBlock
+                            Height="170"
+                            VerticalAlignment="Center"
+                            Foreground="Black"
+                            Style="{StaticResource normalText_style}"
+                            Text="Введите данные для регистрации"
+                            TextWrapping="Wrap" />
+
+                    </Grid>
+                    <!--  Ввод данных пользователя  -->
+                    <Grid
+                        x:Name="nameInput"
+                        Margin="0,0,0,200"
+                        Style="{StaticResource reg_auth_grid_styles}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+
+                        <Image Grid.Column="0" Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\nameIcon.png" />
+                        <TextBox
+                            x:Name="REG_inputName"
+                            Grid.Column="1"
+                            MaxLength="30"
+                            MouseLeave="FillTextBox"
+                            Style="{StaticResource inputs_Style}" />
+                        <TextBlock
+                            x:Name="Reg_inputName_textBlock"
+                            Grid.Column="1"
+                            MouseEnter="ClearTextBox"
+                            Style="{StaticResource text_hint_style}"
+                            Text="Введите Имя" />
+                    </Grid>
+                    <!--  Ввод пароля  -->
+                    <!--  Кнопка для просмотра пароля  -->
+                    <Border
+                        x:Name="seePassBtn_reg"
+                        Margin="340,0,0,100"
+                        Style="{StaticResource SeePasswordBtn_style}">
+                        <Border.Background>
+                            <ImageBrush
+                                x:Name="Eye"
+                                ImageSource="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\Eye close.png"
+                                Stretch="Fill" />
+                        </Border.Background>
+                        <Grid>
+                            <Button Click="ShowPass" Style="{StaticResource button_style}" />
+                        </Grid>
+
+                    </Border>
+
+                    <Grid
+                        x:Name="passInput"
+                        Margin="0,0,0,100"
+                        Style="{StaticResource reg_auth_grid_styles}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\passwordIcon.png" />
+                        <PasswordBox
+                            x:Name="REG_inputPassword"
+                            Grid.Column="1"
+                            MouseLeave="FillTextBox"
+                            Style="{StaticResource inputsPass_Style}" />
+                        <TextBox
+                            x:Name="ShowPassword_reg"
+                            Grid.Column="1"
+                            MouseLeave="FillTextBox"
+                            Style="{StaticResource inputs_Style}"
+                            Visibility="Hidden" />
+                        <TextBlock
+                            x:Name="Reg_inputPassword_textBlock"
+                            Grid.Column="1"
+                            MouseEnter="ClearTextBox"
+                            Style="{StaticResource text_hint_style}"
+                            Text="Введите пароль" />
+                    </Grid>
+                    <!--  Ввод почты  -->
+                    <Grid x:Name="passMail" Style="{StaticResource reg_auth_grid_styles}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\mailIcon.png" />
+                        <TextBox
+                            x:Name="REG_inputEmail"
+                            Grid.Column="1"
+                            MaxLength="30"
+                            MouseLeave="FillTextBox"
+                            Style="{StaticResource inputs_Style}" />
+                        <TextBlock
+                            x:Name="Reg_inputEmail_textBlock"
+                            Grid.Column="1"
+                            MouseEnter="ClearTextBox"
+                            Style="{StaticResource text_hint_style}"
+                            Text="Введите Почту" />
+                    </Grid>
+                    <!--  Ввод номера телефона  -->
+                    <Grid
+                        x:Name="passPhone"
+                        Margin="0,100,0,0"
+                        Style="{StaticResource reg_auth_grid_styles}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\phoneIcon.png" />
+                        <TextBox
+                            x:Name="REG_inputPhone"
+                            Grid.Column="1"
+                            MaxLength="15"
+                            MouseLeave="FillTextBox"
+                            Style="{StaticResource inputs_Style}" />
+
+                        <TextBlock
+                            x:Name="Reg_inputPhone_textBlock"
+                            Grid.Column="1"
+                            MouseEnter="ClearTextBox"
+                            Style="{StaticResource text_hint_style}"
+                            Text="8900.../+7900..." />
+                    </Grid>
+
+                    <Grid x:Name="Reg_ButtonsBlock" Style="{StaticResource buttonsGridRegAuth_style}">
+                        <!--  кнопка регистрации  -->
+                        <Border
+                            x:Name="registration_border"
+                            Background="#5D40CE"
+                            Style="{StaticResource Reg_Auth_buttons_style}">
+                            <Grid>
+                                <TextBlock
+                                    FontSize="30"
+                                    Style="{StaticResource normalText_style}"
+                                    Text="Создать аккаунт" />
+                                <Button Click="registrationUser" Style="{StaticResource button_style}" />
+                            </Grid>
+                        </Border>
+
+                        <!--  кнопка возврата на прошлое окно  -->
+                        <Border
+                            x:Name="back_border"
+                            Background="black"
+                            Style="{StaticResource onLastWin_buttons_style}">
+                            <Grid>
+                                <TextBlock
+                                    Padding="0,0,40,0"
+                                    FontSize="30"
+                                    Style="{StaticResource normalText_style}"
+                                    Text="Обратно"
+                                    TextAlignment="Right" />
+                                <Image HorizontalAlignment="Left" Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\OnLastWin.png" />
+                                <Button Click="onLastWindow" Style="{StaticResource button_style}" />
+                            </Grid>
+                        </Border>
+
+                    </Grid>
+                </Grid>
+                <Border
+                    x:Name="LeftShadow"
+                    Grid.Column="0"
+                    Background="Black"
+                    MouseEnter="resizeRegColumn"
+                    Opacity="0.2" />
+
+            </Grid>
+        </Border>
+        <!--  Правая колонка  -->
+        <Border
+            x:Name="RightBorder"
+            Grid.RowSpan="2"
+            Grid.Column="1">
+            <Grid>
+                <!--  Шапка правой колонки  -->
+                <Grid
+                    x:Name="Head_right"
+                    Background="#4ED494"
+                    MouseLeftButtonDown="MoveWindow"
+                    Style="{StaticResource head_style}">
+                    <Border x:Name="authBorder" Style="{StaticResource reg_auth_Border_style}">
+                        <TextBlock
+                            Foreground="Black"
+                            Style="{StaticResource normalText_style}"
+                            Text="Авторизация" />
+                    </Border>
+                    <TextBlock
+                        Margin="0,0,0,10"
+                        VerticalAlignment="Bottom"
+                        FontSize="25"
+                        Style="{StaticResource normalText_style}"
+                        Text="Войдите в аккаунт" />
+
+                </Grid>
+                <!--  Тело правой колонки  -->
+                <Grid x:Name="Body_right" Style="{StaticResource body_style}">
+                    <Grid x:Name="SummaryAuth" Style="{StaticResource summary_style}">
+                        <TextBlock
+                            Height="120"
+                            VerticalAlignment="Bottom"
+                            Foreground="Black"
+                            Style="{StaticResource normalText_style}"
+                            Text="Войдите в ваш аккаунт"
+                            TextWrapping="Wrap" />
+
+                    </Grid>
+                    <!--  Ввод данных пользователя  -->
+                    <Grid
+                        x:Name="phoneInput_auth"
+                        Margin="0,0,0,100"
+                        Style="{StaticResource reg_auth_grid_styles}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\phoneIcon.png" />
+                        <TextBox
+                            x:Name="AUTH_inputPhone"
+                            Grid.Column="1"
+                            MaxLength="15"
+                            MouseLeave="FillTextBox"
+                            Style="{StaticResource inputs_Style}" />
+                        <TextBlock
+                            x:Name="Auth_inputPhone_textBlock"
+                            Grid.Column="1"
+                            MouseEnter="ClearTextBox"
+                            Style="{StaticResource text_hint_style}"
+                            Text="Введите Номер телефона" />
+                    </Grid>
+                    <!--  Кнопка для просмотра пароля  -->
+                    <Border
+                        x:Name="seePassBtn_Auth"
+                        Margin="340,0,0,0"
+                        Style="{StaticResource SeePasswordBtn_style}">
+                        <Border.Background>
+                            <ImageBrush
+                                x:Name="EyeAuth"
+                                ImageSource="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\Eye close.png"
+                                Stretch="Fill" />
+                        </Border.Background>
+                        <Grid>
+                            <Button Click="ShowPass" Style="{StaticResource button_style}" />
+                        </Grid>
+
+                    </Border>
+                    <!--  Ввод пароля  -->
+                    <Grid
+                        x:Name="passInput_auth"
+                        Margin="0,0,0,0"
+                        Style="{StaticResource reg_auth_grid_styles}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\passwordIcon.png" />
+                        <PasswordBox
+                            x:Name="AUTH_inputPassword"
+                            Grid.Column="1"
+                            MouseLeave="FillTextBox"
+                            Style="{StaticResource inputsPass_Style}" />
+                        <TextBox
+                            x:Name="ShowPassword_Auth"
+                            Grid.Column="1"
+                            MouseLeave="FillTextBox"
+                            Style="{StaticResource inputs_Style}"
+                            Visibility="Hidden" />
+                        <TextBlock
+                            x:Name="Auth_inputPassword_textBlock"
+                            Grid.Column="1"
+                            MouseEnter="ClearTextBox"
+                            Style="{StaticResource text_hint_style}"
+                            Text="Введите пароль" />
+                    </Grid>
+
+
+                    <Grid x:Name="Auth_ButtonsBlock" Style="{StaticResource buttonsGridRegAuth_style}">
+                        <!--  кнопка авторизации  -->
+                        <Border
+                            x:Name="authorization_border"
+                            Background="#4ED494"
+                            Style="{StaticResource Reg_Auth_buttons_style}">
+                            <Grid>
+                                <TextBlock
+                                    FontSize="30"
+                                    Style="{StaticResource normalText_style}"
+                                    Text="Войти в аккаунт" />
+                                <Button Click="authorizationUser" Style="{StaticResource button_style}" />
+                            </Grid>
+                        </Border>
+
+                        <!--  кнопка возврата на прошлое окно  -->
+                        <Border
+                            x:Name="auth_back_border"
+                            Background="black"
+                            Style="{StaticResource onLastWin_buttons_style}">
+                            <Grid>
+                                <TextBlock
+                                    Padding="0,0,40,0"
+                                    FontSize="30"
+                                    Style="{StaticResource normalText_style}"
+                                    Text="Обратно"
+                                    TextAlignment="Right" />
+                                <!--  Разворот фотки  -->
+                                <Image
+                                    HorizontalAlignment="Left"
+                                    RenderTransformOrigin="0.5,0.5"
+                                    Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\goBack.png">
+                                    <Image.RenderTransform>
+                                        <ScaleTransform ScaleX="-1" />
+                                    </Image.RenderTransform>
+                                </Image>
+                                <Button Click="onLastWindow" Style="{StaticResource button_style}" />
+                            </Grid>
+                        </Border>
+
+                    </Grid>
+
+                </Grid>
+                <Border
+                    x:Name="RightShadow"
+                    Grid.Column="1"
+                    Background="Black"
+                    MouseEnter="resizeAuthColumn"
+                    Opacity="0.2" />
+
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

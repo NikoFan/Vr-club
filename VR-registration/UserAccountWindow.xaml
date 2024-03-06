@@ -1,0 +1,192 @@
+﻿<Window
+    x:Class="VR_registration.UserAccountWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:VR_registration"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="USER_ACCOUNT"
+    Title="Аккаунт пользователя"
+    Width="1100"
+    Height="900"
+    ResizeMode="NoResize"
+    mc:Ignorable="d">
+    <!--  Блок для устранения шапки окна  -->
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" ResizeBorderThickness="5" />
+    </WindowChrome.WindowChrome>
+    <Grid>
+        <Grid
+            x:Name="Head"
+            MouseLeftButtonDown="MoveWindow"
+            Style="{StaticResource head_style}">
+            <Image
+                MouseDown="closeApp"
+                Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\cross.png"
+                Style="{StaticResource cross_style}" />
+            <Grid x:Name="Org_Information" Style="{StaticResource OrgInf_style}">
+                <TextBlock Style="{StaticResource OrgName_style}" Text="VR клуб" />
+                <Border
+                    x:Name="buttonGoVk"
+                    Margin="0,70,0,0"
+                    Style="{StaticResource ChatsIconsBorder_style}">
+                    <Grid>
+                        <Image Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\vk.png" Style="{StaticResource ChatsIcons_style}" />
+                        <Button Click="goVK" Style="{StaticResource button_style}" />
+                    </Grid>
+
+                </Border>
+                <Border
+                    x:Name="buttonGoTelegram"
+                    Margin="0,70,100,0"
+                    Style="{StaticResource ChatsIconsBorder_style}">
+                    <Grid>
+                        <Image Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\tg.png" Style="{StaticResource ChatsIcons_style}" />
+                        <Button Click="goTelegram" Style="{StaticResource button_style}" />
+                    </Grid>
+
+                </Border>
+                <Border
+                    x:Name="buttonGoYouTube"
+                    Margin="100,70,0,0"
+                    Style="{StaticResource ChatsIconsBorder_style}">
+                    <Grid>
+                        <Image Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\youtube.png" Style="{StaticResource ChatsIcons_style}" />
+                        <Button Click="goYouTube" Style="{StaticResource button_style}" />
+                    </Grid>
+
+                </Border>
+
+
+            </Grid>
+
+            <!--  Блок кнопок  -->
+            <Grid Style="{StaticResource buttons_block}">
+                <!--  Тени для кнопок  -->
+                <Border
+                    x:Name="shadow_UserButton"
+                    HorizontalAlignment="Center"
+                    Style="{StaticResource shadow_head_btn}" />
+                <Border
+                    x:Name="shadow_goBackButton"
+                    HorizontalAlignment="Right"
+                    Style="{StaticResource shadow_head_btn}" />
+
+
+                <!--  Кнопка перехода на аккаунт пользователя  -->
+                <Border
+                    x:Name="UserButton"
+                    HorizontalAlignment="Center"
+                    Style="{StaticResource head_btn}">
+                    <Grid>
+                        <Image Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\user.png" Style="{StaticResource icons_style}" />
+                        <Button
+                            x:Name="go_user_acc"
+                            Click="goUserAcc"
+                            Style="{StaticResource button_style}" />
+
+                    </Grid>
+
+
+
+                </Border>
+
+                <!--  Кнопка возврата на прошлое окно  -->
+                <Border
+                    x:Name="goBackButton"
+                    HorizontalAlignment="Right"
+                    Style="{StaticResource head_btn}">
+                    <Grid>
+
+                        <Image
+                            HorizontalAlignment="Left"
+                            RenderTransformOrigin="0.52,0"
+                            Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\back.png"
+                            Style="{StaticResource icons_style}">
+                            <Image.RenderTransform>
+                                <ScaleTransform ScaleX="-1" />
+                            </Image.RenderTransform>
+
+                        </Image>
+                        <Button
+                            x:Name="go_back"
+                            Click="goBack"
+                            Style="{StaticResource button_style}" />
+
+                    </Grid>
+
+
+                </Border>
+
+            </Grid>
+        </Grid>
+        <Grid x:Name="Body" Style="{StaticResource body_style}">
+            <Grid x:Name="information" Style="{StaticResource userInformation_style}">
+                <TextBlock
+                    Padding="100,0,0,0"
+                    VerticalAlignment="Top"
+                    Foreground="Black"
+                    Style="{StaticResource normalText_style}"
+                    Text="Имя"
+                    TextAlignment="Left" />
+                <TextBlock
+                    x:Name="nameOfCustomer"
+                    Margin="0,60,0,0"
+                    Padding="100,0,0,0"
+                    VerticalAlignment="Top"
+                    Foreground="Black"
+                    Style="{StaticResource normalText_style}"
+                    Text="-"
+                    TextAlignment="Left" />
+
+                <TextBlock
+                    Margin="0,120,0,0"
+                    Padding="100,0,0,0"
+                    VerticalAlignment="Top"
+                    Foreground="Black"
+                    Style="{StaticResource normalText_style}"
+                    Text="Почта"
+                    TextAlignment="Left" />
+                <TextBlock
+                    x:Name="mailOfCustomer"
+                    Margin="0,180,0,0"
+                    Padding="100,0,0,0"
+                    VerticalAlignment="Top"
+                    Foreground="Black"
+                    Style="{StaticResource normalText_style}"
+                    Text="-"
+                    TextAlignment="Left" />
+
+                <TextBlock
+                    Margin="0,240,0,0"
+                    Padding="100,0,0,0"
+                    VerticalAlignment="Top"
+                    Foreground="Black"
+                    Style="{StaticResource normalText_style}"
+                    Text="Телефон"
+                    TextAlignment="Left" />
+                <TextBlock
+                    x:Name="phoneOfCustomer"
+                    Margin="0,300,0,0"
+                    Padding="100,0,0,0"
+                    VerticalAlignment="Top"
+                    Foreground="Black"
+                    Style="{StaticResource normalText_style}"
+                    Text="-"
+                    TextAlignment="Left" />
+            </Grid>
+
+            <Border
+                x:Name="logOut"
+                Width="400"
+                Style="{StaticResource bookPlace_btn_style}">
+                <Grid>
+                    <TextBlock Style="{StaticResource normalText_style}" Text="Выйти из аккаунта" />
+                    <Button Click="logOutFromAccount" Style="{StaticResource button_style}"/>
+                </Grid>
+
+            </Border>
+
+        </Grid>
+    </Grid>
+</Window>

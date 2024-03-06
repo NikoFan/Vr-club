@@ -1,0 +1,341 @@
+﻿<Application
+    x:Class="VR_registration.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:VR_registration"
+    StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <!--  Стиль для шапки окна {grid}  -->
+        <Style x:Key="head_style" TargetType="Grid">
+            <Setter Property="Background" Value="#856ADC" />
+            <Setter Property="Height" Value="150" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            
+        </Style>
+
+        <!--  Черта {Border}  -->
+        <Style x:Key="longUnderCross" TargetType="Border">
+            <Setter Property="Height" Value="10" />
+            <Setter Property="Background" Value="Black" />
+
+        </Style>
+
+        <!--  Стиль для направляющих кнопок при перемотке игр {BORDER}  -->
+        <Style x:Key="SideButtonBorder_style" TargetType="Border">
+            <Setter Property="Height" Value="250" />
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Background" Value="MediumPurple" />
+        </Style>
+
+        <!--  Стиль для подсказки пользоватлею про замки {Grid}  -->
+        <Style x:Key="blocksHint_style" TargetType="Grid">
+            <Setter Property="Width" Value="200" />
+            <Setter Property="Height" Value="100" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="Margin" Value="0,0,100,70" />
+        </Style>
+
+        <!--  Стиль для блока кнопок в календаре {Grid}  -->
+        <Style x:Key="YearChangerGrid_style" TargetType="Grid">
+            <Setter Property="Width" Value="300" />
+            <Setter Property="Height" Value="50" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,0,0,20" />
+        </Style>
+        <!--  Стиль для Org Information {grid}  -->
+        <Style x:Key="OrgInf_style" TargetType="Grid">
+            <Setter Property="Width" Value="600" />
+            <Setter Property="Height" Value="150" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Margin" Value="150,0,0,0" />
+        </Style>
+
+        <!--  Стиль для вывески {Text Block}  -->
+        <Style x:Key="OrgName_style" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="70" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="Padding" Value="0,0,0,50" />
+            <Setter Property="Height" Value="150" />
+        </Style>
+
+        <!--  Стиль для фоток игр {Border}  -->
+        <Style x:Key="gameImageBorder_style" TargetType="Border">
+            <Setter Property="Height" Value="200" />
+            <Setter Property="Width" Value="150" />
+            <Setter Property="Margin" Value="0,0,200,0" />
+        </Style>
+
+        <!--  Стиль для фоток игр на заднем плане {Border}  -->
+        <Style x:Key="gameBackImageBorder_style" TargetType="Border">
+            <Setter Property="Height" Value="160" />
+            <Setter Property="Width" Value="110" />
+            <Setter Property="Margin" Value="0,0,360,0" />
+            <Setter Property="Opacity" Value="0.4" />
+        </Style>
+
+        <!--  Стиль для инфы про игры {Border}  -->
+        <Style x:Key="gameInformationBorder_style" TargetType="Border">
+            <Setter Property="Height" Value="200" />
+            <Setter Property="Width" Value="270" />
+            <Setter Property="Margin" Value="230,0,0,0" />
+        </Style>
+
+        <!--  Стиль для сетки дней недели {Grid}  -->
+        <Style x:Key="weekDaysName_style" TargetType="Grid">
+            <Setter Property="Height" Value="50" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+        </Style>
+
+        <!--  Стиль для простого текста без смещений {TextBlock}  -->
+        <Style x:Key="TextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="25" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="Black" />
+            
+        </Style>
+
+        <!--  Стиль для маленького текста {TextBloxk}  -->
+        <Style x:Key="smallImportantText_style" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Padding" Value="10,10,0,0" />
+        </Style>
+        <!--  Стиль для обычного текста {Text Block}  -->
+        <Style x:Key="normalText_style" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="40" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            
+        </Style>
+
+        <!--  Стиль для иконок мессенджеров {Image}  -->
+        <Style x:Key="ChatsIcons_style" TargetType="Image">
+            <Setter Property="Width" Value="30" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <!--  Стиль для подложки иконок мессенджеров {Border}  -->
+        <Style x:Key="ChatsIconsBorder_style" TargetType="Border">
+            <Setter Property="Width" Value="30" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <!--  Стиль для кнопок в шапке {border}  -->
+        <Style x:Key="head_btn" TargetType="Border">
+            <Setter Property="Background" Value="#BEC1E4" />
+            <Setter Property="Width" Value="70" />
+            <Setter Property="Height" Value="70" />
+            <Setter Property="CornerRadius" Value="35" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+
+        </Style>
+
+        <!--  Стиль для теней кнопок в шапке {border}  -->
+        <Style x:Key="shadow_head_btn" TargetType="Border">
+            <Setter Property="Background" Value="#3C459F" />
+            <Setter Property="Width" Value="70" />
+            <Setter Property="Height" Value="70" />
+            <Setter Property="CornerRadius" Value="35" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,10,0,0" />
+
+
+        </Style>
+
+        <!--  Стиль для кнопки просмотра пароля {Border}  -->
+        <Style x:Key="SeePasswordBtn_style" TargetType="Border">
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+
+        <!--  Стиль для блока кнопок {grid}  -->
+        <Style x:Key="buttons_block" TargetType="Grid">
+            <Setter Property="Margin" Value="0,0,50,0" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Width" Value="300" />
+        </Style>
+
+        <!--  Стили для кнопок {button}  -->
+        <Style x:Key="button_style" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="Foreground" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Opacity" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+
+        </Style>
+
+        <!--  Стили для иконок на кнопках в шапке {Image}  -->
+        <Style x:Key="icons_style" TargetType="Image">
+            <Setter Property="Width" Value="65" />
+            <Setter Property="Height" Value="65" />
+        </Style>
+
+        <!--  Стиль для Body {grid}  -->
+        <Style x:Key="body_style" TargetType="Grid">
+            <Setter Property="Height" Value="750" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+        </Style>
+
+        <!--  Стилоь для кнопки "Забронировать" {border}  -->
+        <Style x:Key="bookPlace_btn_style" TargetType="Border">
+            <Setter Property="Width" Value="350" />
+            <Setter Property="Height" Value="150" />
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="CornerRadius" Value="40" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="Margin" Value="0,0,0,80" />
+        </Style>
+
+        <!--  Стиль для информации про клубы {Grid}  -->
+        <Style x:Key="clubInformationGrid_style" TargetType="Grid">
+            <Setter Property="Height" Value="400" />
+            <Setter Property="Width" Value="1000" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+
+        <!--  Стиль для информации про набор игр {Grid}  -->
+        <Style x:Key="gamesInformationGrid_style" TargetType="Grid">
+            <Setter Property="Height" Value="250" />
+            <Setter Property="Width" Value="700" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,0,0,50" />
+        </Style>
+        <!--  Стиль для кнопки "Бронировать" {border}  -->
+        <Style x:Key="poster_style" TargetType="Border">
+            <Setter Property="Width" Value="600" />
+            <Setter Property="Height" Value="400" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,0,0,200" />
+        </Style>
+
+        <!--  Стиль для крестика {Image}  -->
+        <Style x:Key="cross_style" TargetType="Image">
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Width" Value="40" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="Margin" Value="10,10,0,0" />
+        </Style>
+
+        <!--  Стиль для кнопок шапки регистрации и авторизации {border}  -->
+        <Style x:Key="reg_auth_Border_style" TargetType="Border">
+            <Setter Property="Width" Value="300" />
+            <Setter Property="Height" Value="80" />
+            <Setter Property="CornerRadius" Value="40" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="3" />
+            <Setter Property="Margin" Value="0,0,0,30" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+
+        <!--  Стиль для ввода текста {TextBox}  -->
+        <Style x:Key="inputs_Style" TargetType="TextBox">
+            <Setter Property="Width" Value="260" />
+            <Setter Property="Height" Value="40" />
+            <!--  Настройки шрифта  -->
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="TextAlignment" Value="Left" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="inputsPass_Style" TargetType="PasswordBox">
+            <Setter Property="Width" Value="260" />
+            <Setter Property="Height" Value="40" />
+            <!--  Настройки шрифта  -->
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="MaxLength" Value="15" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+
+        <!--  Стили для сеток регистрации и авторизации {grid}  -->
+        <Style x:Key="reg_auth_grid_styles" TargetType="Grid">
+            <Setter Property="Width" Value="300" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+
+        <!--  Стили для сетки подсказки {grid}  -->
+        <Style x:Key="summary_style" TargetType="Grid">
+            <Setter Property="Width" Value="300" />
+            <Setter Property="Height" Value="200" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+
+        <!--  Стиль для подсказки на вводе {TextBlock}  -->
+        <Style x:Key="text_hint_style" TargetType="TextBlock">
+            <Setter Property="Width" Value="260" />
+            <Setter Property="Height" Value="40" />
+            <!--  Настройки шрифта  -->
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="TextAlignment" Value="Left" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="Foreground" Value="Gray" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+
+        </Style>
+
+        <!--  Стиль для блока кнопок на страничке регистрации и авторизации {Grid}  -->
+        <Style x:Key="buttonsGridRegAuth_style" TargetType="Grid">
+            <Setter Property="Width" Value="300" />
+            <Setter Property="Height" Value="250" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="Margin" Value="0,0,0,25" />
+        </Style>
+
+        <!--  Стиль для кнопки регистрации/авторизации {Border}  -->
+        <Style x:Key="Reg_Auth_buttons_style" TargetType="Border">
+            <Setter Property="Height" Value="80" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="Margin" Value="0,10,0,0" />
+            <Setter Property="CornerRadius" Value="30" />
+        </Style>
+
+        <!--  Стили для кнопок возврата к прошлой страницк ( окно регистрации ) {Border}  -->
+        <Style x:Key="onLastWin_buttons_style" TargetType="Border">
+            <Setter Property="Height" Value="120" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="Margin" Value="0,0,0,0" />
+            <Setter Property="CornerRadius" Value="30" />
+        </Style>
+
+        <!--  Стиль для сетки информации о пользователе { Grid }  -->
+        <Style x:Key="userInformation_style" TargetType="Grid">
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Width" Value="1000" />
+            <Setter Property="Height" Value="500" />
+            <Setter Property="Margin" Value="0,40,0,0" />
+        </Style>
+
+        <!--  Стиль для кнопки разлога { Border }  -->
+        <Style x:Key="logOut_style" TargetType="Border">
+            <Setter Property="Width" Value="400" />
+            <Setter Property="Height" Value="200" />
+            <Setter Property="Background" Value="Red" />
+            <Setter Property="CornerRadius" Value="40" />
+        </Style>
+    </Application.Resources>
+</Application>
