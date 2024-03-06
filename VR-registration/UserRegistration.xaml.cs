@@ -158,31 +158,33 @@ namespace VR_registration
             
         }
 
-        
-
         // Удаление маски телефона
         public string deletePhoneMask(string phoneMask)
         {
             phoneMask = phoneMask.Replace("(", "");
             phoneMask = phoneMask.Replace(")", "");
             phoneMask = phoneMask.Replace("-", "");
-            Console.WriteLine("PHONEMASK: " + phoneMask);
             return phoneMask;
         }
         private bool checkCorrectRegistrationInfo()
         {
             ShowPassword_reg.Text = REG_inputPassword.Password.ToString();
             controlInputData.controlTelephoneNumbers(deletePhoneMask(REG_inputPhone.Text.ToString()));
-            if (controlInputData.checkIncorrectSymbolsInTextInputs(REG_inputPassword.Password.ToString()) &&
-                controlInputData.controlTelephoneNumbers(deletePhoneMask(REG_inputPhone.Text.ToString())) &&
-                controlInputData.checkIncorrectSymbolsInTextInputs(ShowPassword_reg.Text.ToString()) &&
-                controlInputData.checkIncorrectSymbolsInTextInputs(REG_inputName.Text.ToString()) &&
-                controlInputData.checkIncorrectSymbolsInTextInputs(REG_inputEmail.Text.ToString()) &&
-                controlInputData.checkIncorrectSymbolsInTextInputs(deletePhoneMask(REG_inputPhone.Text.ToString())))
+            string[] informationArray = new string[] 
+            { 
+                ShowPassword_reg.Text.ToString(), REG_inputEmail.Text.ToString(),
+                REG_inputName.Text.ToString(), deletePhoneMask(REG_inputPhone.Text.ToString())
+            };
+            if (controlInputData.checkIncorrectSymbolsInTextInputs(informationArray)
+                &&
+                controlInputData.controlTelephoneNumbers(deletePhoneMask(REG_inputPhone.Text.ToString()))
+                &&
+                controlInputData.IsValidEmail(REG_inputEmail.Text.ToString()))
+                
             {
                 return true;
             }
-            dumbMessageBox($"проверьте корректность данных\n" +
+            dumbMessageBox($"Проверьте корректность данных\n" +
                 $"Проверьте чтобы не осталось пустых полей!\n" +
                 $"Проверьте чтобы в введенных данных отсутствовали символы: ', -, ;");
             return false;
@@ -220,10 +222,6 @@ namespace VR_registration
                 }
             }
             ThreadEx = true;
-
-
-
-
         }
 
         public void goUserAccountWindow()
@@ -257,14 +255,10 @@ namespace VR_registration
         // возвращение к прошлому окну
         public void onLastWindow(object sender, RoutedEventArgs e)
         {
-            // извлечение имени предыдущего окна
             string lastWindowName = programCashReader.returnLastWindowsName();
             Console.WriteLine("последнее окно " + lastWindowName);
-            // запись окна как предыдущего, для дальнейшей смены
             this.Visibility = Visibility.Hidden;
-            // programCashReader.recordingLastWinsName(this.Title.ToString());
             programCashReader.recordingLastActiveWindowCoordinates(makeCoordinates());
-            // смена на предыдущее окно
             switchWins.Windows_X_Names[lastWindowName]();
         }
 

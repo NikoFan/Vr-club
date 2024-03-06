@@ -12,21 +12,26 @@ namespace VR_registration
     public class ControlInputData
     {
         // Проверка sqli
-        public bool checkIncorrectSymbolsInTextInputs(string inputText)
+        public bool checkIncorrectSymbolsInTextInputs(string[] arrayOfInputInformation)
         {
+            // Массив запрещенных символов
             List<string> incorrectSymbolsArr = new List<string>()
             {
                 "'", "-", ";"
             };
-            if (inputText.Length == 0)
+            // Цикл для перебора данных
+            foreach (string stringData in arrayOfInputInformation)
             {
-                return false;
-            }
-            foreach (var symbol in inputText)
-            {
-                if (incorrectSymbolsArr.Contains(symbol.ToString()))
+                if (stringData.Length == 0)
                 {
                     return false;
+                }
+                foreach (var symbol in stringData)
+                {
+                    if (incorrectSymbolsArr.Contains(symbol.ToString()))
+                    {
+                        return false;
+                    }
                 }
             }
             return true;
@@ -39,19 +44,22 @@ namespace VR_registration
                 "[8][0-9]{10}");
             Regex plusPhoneNumberController = new Regex(
                 "[+7][0-9]{10}");
+            Console.WriteLine("Results 1: " + outPlusPhoneNumberController.IsMatch(telephoneNumberData));
+            Console.WriteLine("Results 2: " + plusPhoneNumberController.IsMatch(telephoneNumberData));
             if (outPlusPhoneNumberController.IsMatch(telephoneNumberData))
             {
+                
                 return outPlusPhoneNumberController.IsMatch(telephoneNumberData);
             }
             return plusPhoneNumberController.IsMatch(telephoneNumberData);
         }
 
         // Проверка почты
-        public string IsValidEmail(string email)
+        public bool IsValidEmail(string email)
         {
 
             if (string.IsNullOrWhiteSpace(email))
-                return "false";
+                return false;
 
             try
             {
@@ -73,20 +81,20 @@ namespace VR_registration
             }
             catch (RegexMatchTimeoutException)
             {
-                return "false";
+                return false;
             }
             catch (ArgumentException)
             {
-                return "false";
+                return false;
             }
 
             try
             {
-                return $"{Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250))}";
+                return Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
             }
             catch (RegexMatchTimeoutException)
             {
-                return "false";
+                return false;
             }
         }
     }

@@ -43,7 +43,7 @@ namespace VR_registration
         public ProgramCashReader programCashReader = new ProgramCashReader();
         public ControlInputData controlInputData = new ControlInputData();
         
-        public string ConnectionString = "data source=5.tcp.eu.ngrok.io, 13970;" +
+        public string ConnectionString = "data source=0.tcp.eu.ngrok.io, 10595;" +
             "Database=VR_club;" +
             "User Id=sa;" +
             "Password=7784865Oleg#;" +
@@ -60,14 +60,15 @@ namespace VR_registration
                     cmd.Connection = conn;
                     cmd.CommandText = @"
                     Use VR_club
-                    SELECT *
+                    SELECT [Id Пользователя]
                     FROM Пользователь;
                     ";
 
                     SqlDataReader dr = cmd.ExecuteReader();
                     while (dr.Read())
                     {
-                        activeUsersId++;
+                        string count = "" + dr["Id Пользователя"];
+                        activeUsersId = Convert.ToInt32("" + dr["Id Пользователя"]) + 1;
                     }
                     dr.Close();
                 }
@@ -234,7 +235,7 @@ namespace VR_registration
         // проверка почт на совпадение
         public bool checkMails(string userMailFromRegistrationWindow)
         {
-            if (controlInputData.IsValidEmail(userMailFromRegistrationWindow) == "false")
+            if (!controlInputData.IsValidEmail(userMailFromRegistrationWindow))
             {
                 return false;
             }
@@ -272,15 +273,13 @@ namespace VR_registration
         
         public string getNameOfUserToCompleteInformation()
         {
-            Console.WriteLine(">>> "+programCashReader.returnActiveUserId());
             DatabaseInformationStruct databaseUserTableColumn = new DatabaseInformationStruct();
             using (SqlConnection conn = new SqlConnection(ConnectionString))
             {
                 conn.Open();
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    Console.WriteLine("name: Reg");
-                    Console.WriteLine($"name id: {programCashReader.returnActiveUserId()}");
+
                     cmd.Connection = conn;
                     cmd.CommandText = $@"
                         Use VR_club
@@ -290,12 +289,6 @@ namespace VR_registration
                         ";
 
                     SqlDataReader dr = cmd.ExecuteReader();
-                    /*if (!dr.Read())
-                    {
-                        Console.WriteLine("--" + dr.Read());
-                        Console.WriteLine("NULL");
-                        
-                    }*/
                     while (dr.Read())
                     {
                         databaseUserTableColumn.userNameFromDB = (string)dr["ФИО"];
@@ -305,11 +298,7 @@ namespace VR_registration
                 }
                 conn.Close();
             }
-            Console.WriteLine("<< "+databaseUserTableColumn.userNameFromDB.Trim());
             return databaseUserTableColumn.userNameFromDB.Trim();
-            
-            
-            
         }
 
         public string getMailOfUserToCompleteInformation()

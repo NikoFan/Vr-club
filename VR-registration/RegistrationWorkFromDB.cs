@@ -13,7 +13,8 @@ namespace VR_registration
         // Регистрация пользователя
         public bool registarationUserInUserTableFromDataBase(Dictionary<string, string> userInformationFromRegistrationWindow)
         {
-            
+            Console.WriteLine("Активный id: " + activeUsersId);
+
             takeTruthId();
             if (!checkPhoneNumber(userInformationFromRegistrationWindow["Phone"])
                 || !checkMails(userInformationFromRegistrationWindow["Email"]))

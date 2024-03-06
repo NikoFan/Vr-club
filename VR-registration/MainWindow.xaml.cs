@@ -90,6 +90,7 @@ namespace VR_registration
 
         public void goUserAcc(object sender, RoutedEventArgs e)
         {
+            StopThread = true;
             if (programCashReader.returnActiveUserId() == "out")
             {
                 goUserRegistrationWindow();
@@ -140,17 +141,10 @@ namespace VR_registration
         public void goBack(object sender, RoutedEventArgs e)
         {
             StopThread = true;
-            // извлечение имени предыдущего окна
             string lastWindowName = programCashReader.returnLastWindowsName().Replace("]", "");
             Console.WriteLine("последнее окно " + lastWindowName);
-            // перевод окна в невидимый режим
             this.Visibility = Visibility.Hidden;
-            // запись нынешнего окна как предыдущего, для дальнейшей смены
-
-            // programCashReader.recordingLastWinsName(this.Title.ToString());
-            // запись координат окна на момент смены
             programCashReader.recordingLastActiveWindowCoordinates(makeCoordinates());
-            // смена на предыдущее окно
             switchWins.Windows_X_Names[lastWindowName]();
         }
         public void goVK(object sender, RoutedEventArgs e)
