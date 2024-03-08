@@ -162,5 +162,47 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="cross.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="tg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="vk.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="youtube.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Sale.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="phoneIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Eye close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="passwordIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="goBack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="OnLastWin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="mailIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="nameIcon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

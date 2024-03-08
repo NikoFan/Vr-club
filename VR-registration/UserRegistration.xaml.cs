@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Threading;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace VR_registration
 {
@@ -23,9 +24,21 @@ namespace VR_registration
     /// </summary>
     public partial class UserRegistration : Window
     {
+        public bool seePassword = false;
+        private Dictionary<int, string> mask = new Dictionary<int, string>()
+        {
+            {1, "#"}, {2, "#(#"}, {3, "#(##"}, {4, "#(###)"}, {5, "#(###)#"},
+            {6, "#(###)##"}, {7, "#(###)###"}, {8, "#(###)###-#"}, {9, "#(###)###-##"}, 
+            {10, "#(###)###-###"}, {11, "#(###)###-####"}
+        };
         private bool ThreadEx = false;
         private int constLenght = 0;
         private int constLenghtA = 0;
+        // ПУть до папки на ПК
+        public const string computerFoldersPATH = @"C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\";
+        // Путь до папки на Ноуте
+        // public const string computerFoldersPATH = @"C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\";
+
 
         public ControlInputData controlInputData = new ControlInputData();
         public ConnectDataBase connect = new ConnectDataBase();
@@ -33,7 +46,10 @@ namespace VR_registration
         public ProgramCashReader programCashReader = new ProgramCashReader();
         public RegistrationWorkFromDB registrtationWorkFromDB = new RegistrationWorkFromDB();
         public AuthorizationWorkFromDB authorizationWorkFromDB = new AuthorizationWorkFromDB();
-        public bool seePassword = false;
+        
+        
+
+
 
         public UserRegistration()
         {
@@ -43,105 +59,73 @@ namespace VR_registration
             // Потоки маски телефона
             Thread registrationPhoneMask = new Thread(createRegistrationPhoneInputMask);
             registrationPhoneMask.Start();
-
             Thread authorizationPhoneMask = new Thread(createAuthorizationPhoneInputMask);
             authorizationPhoneMask.Start();
 
         }
+        // Очистка поля ввода
+        public void cleanTextBoxR(object sender, RoutedEventArgs e)
+        {
+            REG_inputPhone.Text = "";
+        }
+        public void cleanTextBoxA(object sender, RoutedEventArgs e)
+        {
+            AUTH_inputPhone.Text = "";
+        }
+
+
         // маска при регистрации номера телефона
         private void createRegistrationPhoneInputMask()
         {
-            string registrationNumberOfPhone = "";
+            
+            var newPhoneInputVersion = "";
+            var lastPhoneInputVersion = "";
             while (!ThreadEx)
             {
-                
-                REG_inputPhone.Dispatcher.BeginInvoke(new Action(() => registrationNumberOfPhone = REG_inputPhone.Text.ToString()));
-
-                if (registrationNumberOfPhone.Length != constLenght)
+                this.Dispatcher.BeginInvoke(new Action(() => newPhoneInputVersion = REG_inputPhone.Text.ToString()));
+                if (newPhoneInputVersion.Length > 0 && newPhoneInputVersion != lastPhoneInputVersion)
                 {
-                    bool plusContainResult = false;
-                    int doubleArgToMask = 0;
-                    // Номер телефона начинается с +
-                    if (!(plusContainResult = registrationNumberOfPhone.Contains("+")))
-                    {
-                        doubleArgToMask++;
-                    }
-                    constLenght = registrationNumberOfPhone.Length;
-                    switch (constLenght+doubleArgToMask)
-                    {
-                        case (2):
-                            REG_inputPhone.Dispatcher.BeginInvoke(new Action(() => 
-                                REG_inputPhone.Text += "("));
-                            REG_inputPhone.Dispatcher.BeginInvoke(new Action(() => 
-                                REG_inputPhone.SelectionStart = REG_inputPhone.Text.Length));
+                    lastPhoneInputVersion = newPhoneInputVersion;
+                    var inputVersionWithReplace = newPhoneInputVersion.Replace("(", "");
+                    inputVersionWithReplace = inputVersionWithReplace.Replace(")", "");
+                    inputVersionWithReplace = inputVersionWithReplace.Replace("-", "");
 
-                            break;
-                        case (6):
-                            REG_inputPhone.Dispatcher.BeginInvoke(new Action(() => 
-                                REG_inputPhone.Text += ")"));
-                            REG_inputPhone.Dispatcher.BeginInvoke(new Action(() => 
-                                REG_inputPhone.SelectionStart = REG_inputPhone.Text.Length));
+                    inputVersionWithReplace = inputVersionWithReplace.Replace("+", "");
+                    int inputLength = inputVersionWithReplace.Length;
+                    var readyPhoneNumber = Convert.ToInt64(inputLength);
+                    this.Dispatcher.BeginInvoke(new Action(() => REG_inputPhone.Text = (readyPhoneNumber).ToString(mask[inputLength])));
+                    this.Dispatcher.BeginInvoke(new Action(() => REG_inputPhone.CaretIndex = REG_inputPhone.Text.Length));
 
-                            break;
-                        case (10):
-
-                            REG_inputPhone.Dispatcher.BeginInvoke(new Action(() => 
-                                REG_inputPhone.Text += "-"));
-                            REG_inputPhone.Dispatcher.BeginInvoke(new Action(() => 
-                                REG_inputPhone.SelectionStart = REG_inputPhone.Text.Length));
-
-                            break;
-                        default:
-                            break;
-                    }
                 }
-                Thread.Sleep(50);
+                Thread.Sleep(1);
+
+
             }
         }
         // маска при авторизации номера телефона
         private void createAuthorizationPhoneInputMask()
         {
-            string authorizationNumberOfPhone = "";
+            var newPhoneInputVersion = "";
+            var lastPhoneInputVersion = "";
             while (!ThreadEx)
             {
-
-                AUTH_inputPhone.Dispatcher.BeginInvoke(new Action(() => authorizationNumberOfPhone = AUTH_inputPhone.Text.ToString()));
-
-                if (authorizationNumberOfPhone.Length != constLenght)
+                this.Dispatcher.BeginInvoke(new Action(() => newPhoneInputVersion = AUTH_inputPhone.Text.ToString()));
+                if (newPhoneInputVersion.Length > 0 && newPhoneInputVersion != lastPhoneInputVersion)
                 {
-                    bool plusContainResult = false;
-                    int doubleArgToMask = 0;
-                    // Номер телефона начинается с +
-                    if (!(plusContainResult = authorizationNumberOfPhone.Contains("+")))
-                    {
-                        doubleArgToMask++;
-                    }
-                    constLenghtA = authorizationNumberOfPhone.Length;
-                    switch (constLenghtA + doubleArgToMask)
-                    {
-                        case (2):
-                            AUTH_inputPhone.Dispatcher.BeginInvoke(new Action(() => 
-                                AUTH_inputPhone.Text += "("));
-                            AUTH_inputPhone.Dispatcher.BeginInvoke(new Action(() => 
-                                AUTH_inputPhone.SelectionStart = AUTH_inputPhone.Text.Length));
-                            break;
-                        case (6):
-                            AUTH_inputPhone.Dispatcher.BeginInvoke(new Action(() => 
-                                AUTH_inputPhone.Text += ")"));
-                            AUTH_inputPhone.Dispatcher.BeginInvoke(new Action(() => 
-                                AUTH_inputPhone.SelectionStart = AUTH_inputPhone.Text.Length));
-                            break;
-                        case (10):
-                            AUTH_inputPhone.Dispatcher.BeginInvoke(new Action(() => 
-                                AUTH_inputPhone.Text += "-"));
-                            AUTH_inputPhone.Dispatcher.BeginInvoke(new Action(() => 
-                                AUTH_inputPhone.SelectionStart = AUTH_inputPhone.Text.Length));
-                            break;
-                        default:
-                            break;
-                    }
+                    lastPhoneInputVersion = newPhoneInputVersion;
+                    var inputVersionWithReplace = newPhoneInputVersion.Replace("(", "");
+                    inputVersionWithReplace = inputVersionWithReplace.Replace(")", "");
+                    inputVersionWithReplace = inputVersionWithReplace.Replace("-", "");
+
+                    inputVersionWithReplace = inputVersionWithReplace.Replace("+", "");
+                    int inputLength = inputVersionWithReplace.Length;
+                    var readyPhoneNumber = Convert.ToInt64(inputLength);
+                    this.Dispatcher.BeginInvoke(new Action(() => AUTH_inputPhone.Text = (readyPhoneNumber).ToString(mask[inputLength])));
+                    this.Dispatcher.BeginInvoke(new Action(() => AUTH_inputPhone.CaretIndex = AUTH_inputPhone.Text.Length));
                 }
-                Thread.Sleep(50);
+                Thread.Sleep(1);
+
+
             }
         }
 
@@ -166,8 +150,22 @@ namespace VR_registration
             phoneMask = phoneMask.Replace("-", "");
             return phoneMask;
         }
+        private void changePasswordValue()
+        {
+            /*
+            Если пароль не видно -> назначаем основным паролем для чтения тот, что скрыт;
+            Если пароль видно, назначаем на обработку тот пароль, что видно;
+            */
+            if (!seePassword)
+            {
+                ShowPassword_reg.Text = REG_inputPassword.Password.ToString();
+                return;
+            }
+            REG_inputPassword.Password = ShowPassword_reg.Text.ToString();
+        }
         private bool checkCorrectRegistrationInfo()
         {
+            changePasswordValue();
             ShowPassword_reg.Text = REG_inputPassword.Password.ToString();
             controlInputData.controlTelephoneNumbers(deletePhoneMask(REG_inputPhone.Text.ToString()));
             string[] informationArray = new string[] 
@@ -282,7 +280,6 @@ namespace VR_registration
         // увеличение колонки регистрации при наведении мыши
         private void resizeRegColumn(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("reg column");
             LeftShadow.Visibility = Visibility.Hidden;
             authColumn.Width = new GridLength(400);
             regColumn.Width = new GridLength(700);
@@ -294,7 +291,6 @@ namespace VR_registration
         // увеличение колонки авторизации при наведении мыши
         private void resizeAuthColumn(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("auth column");
             RightShadow.Visibility = Visibility.Hidden;
             regColumn.Width = new GridLength(400);
             authColumn.Width = new GridLength(700);
@@ -307,9 +303,6 @@ namespace VR_registration
         private void ClearTextBox(object sender, RoutedEventArgs e)
         {
             ((FrameworkElement)sender).Visibility = Visibility.Hidden;
-            Console.WriteLine("NAME: " + ((FrameworkElement)sender).Name);
-
-
         }
 
         
@@ -344,6 +337,7 @@ namespace VR_registration
                     Reg_inputPhone_textBlock.Visibility =
                         (REG_inputPhone.IsSelectionActive || REG_inputPhone.Text.ToString().Trim() != "")
                         ? Visibility.Hidden : Visibility.Visible;
+
                     break;
 
                 case ("AUTH_inputPhone"):
@@ -351,6 +345,8 @@ namespace VR_registration
                     Auth_inputPhone_textBlock.Visibility =
                         (AUTH_inputPhone.IsSelectionActive || AUTH_inputPhone.Text.ToString().Trim() != "")
                         ? Visibility.Hidden : Visibility.Visible;
+
+                    
                     break;
                 case ("AUTH_inputPassword"):
                     
@@ -378,7 +374,6 @@ namespace VR_registration
         {
             if (!seePassword)
             {
-                
                 Console.WriteLine("show");
                 ShowPassword_reg.Text = REG_inputPassword.Password.ToString();
                 ShowPassword_Auth.Text = AUTH_inputPassword.Password.ToString();
@@ -386,14 +381,14 @@ namespace VR_registration
                 ShowPassword_Auth.Visibility = Visibility.Visible;
                 Eye.ImageSource = new BitmapImage(
                 new Uri(
-                       $@"C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\Eye open.png"))
+                       $@"{computerFoldersPATH}Eye open.png"))
                 {
                     DecodePixelHeight = 40,
                     DecodePixelWidth = 40
                 };
                 EyeAuth.ImageSource = new BitmapImage(
                 new Uri(
-                       $@"C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\Eye open.png"))
+                       $@"{computerFoldersPATH}Eye open.png"))
                 {
                     DecodePixelHeight = 40,
                     DecodePixelWidth = 40
@@ -407,10 +402,10 @@ namespace VR_registration
                 ShowPassword_Auth.Visibility = Visibility.Hidden;
                 EyeAuth.ImageSource = new BitmapImage(
                 new Uri(
-                       $@"C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\Eye close.png"));
+                       $@"{computerFoldersPATH}Eye close.png"));
                 Eye.ImageSource = new BitmapImage(
                 new Uri(
-                       $@"C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\Eye close.png"));
+                       $@"{computerFoldersPATH}Eye close.png"));
                 REG_inputPassword.Password = ShowPassword_reg.Text.ToString();
                 AUTH_inputPassword.Password = ShowPassword_Auth.Text.ToString();
                 seePassword = false;
@@ -420,8 +415,7 @@ namespace VR_registration
         {
             // Создание messagebox для защиты от случайных действий
 
-            var result = MessageBox.Show(message, "Служба поддержки", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-            if (result == MessageBoxResult.Yes)
+            if (MessageBox.Show(message, "Служба поддержки", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
                 return true;
             }

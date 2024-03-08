@@ -32,7 +32,11 @@ namespace VR_registration
         public AuthorizationWorkFromDB authorizationWorkFromDB = new AuthorizationWorkFromDB();
         public ConnectDataBase connectDataBaseClass = new ConnectDataBase();
         public SwitchWindows switchWins = new SwitchWindows();
-        
+
+        // ПУть до папки на ПК
+        public const string computerFoldersPATH = @"C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\";
+        // Путь до папки на Ноуте
+        // public const string computerFoldersPATH = @"C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\";
 
         public MainWindow()
         {
@@ -72,7 +76,7 @@ namespace VR_registration
                 
                 Posters.Dispatcher.BeginInvoke(new Action(() => Posters.ImageSource = new BitmapImage(
                 new Uri(
-                       $@"C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\poster_{bannersPhotoIndex}.jpg"))
+                       $@"{computerFoldersPATH}poster_{bannersPhotoIndex}.jpg"))
                 {
                     DecodePixelWidth = 600,
                     DecodePixelHeight = 400
