@@ -174,7 +174,20 @@
                             Grid.Column="1"
                             MaxLength="14"
                             MouseLeave="FillTextBox"
-                            Style="{StaticResource inputs_Style}" />
+                            Style="{StaticResource inputs_Style}">
+                            <TextBox.ToolTip>
+                                <ToolTip
+                                    Width="100"
+                                    Height="50"
+                                    Background="White">
+                                    <StackPanel>
+                                        <TextBlock Text="Пример:" />
+                                        <TextBlock Text="89037784865" />
+                                    </StackPanel>
+                                </ToolTip>
+
+                            </TextBox.ToolTip>
+                        </TextBox>
                         <Image
                             Grid.Column="1"
                             Width="20"
@@ -289,7 +302,21 @@
                             Grid.Column="1"
                             MaxLength="14"
                             MouseLeave="FillTextBox"
-                            Style="{StaticResource inputs_Style}" />
+                            Style="{StaticResource inputs_Style}">
+                            <TextBox.ToolTip>
+                                <ToolTip
+                                    Width="100"
+                                    Height="50"
+                                    Background="White">
+                                    <StackPanel>
+                                        <TextBlock Text="Пример:" />
+                                        <TextBlock Text="89037784865" />
+                                    </StackPanel>
+                                </ToolTip>
+
+                            </TextBox.ToolTip>
+                        </TextBox>
+
                         <Image
                             Grid.Column="1"
                             Width="20"
@@ -304,7 +331,7 @@
                             Grid.Column="1"
                             MouseEnter="ClearTextBox"
                             Style="{StaticResource text_hint_style}"
-                            Text="Введите Номер телефона" />
+                            Text="Введите телефон" />
                     </Grid>
                     <!--  Кнопка для просмотра пароля  -->
                     <Border

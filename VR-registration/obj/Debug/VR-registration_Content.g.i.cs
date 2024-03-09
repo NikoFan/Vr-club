@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("nameicon.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("video.gif")]
 
 

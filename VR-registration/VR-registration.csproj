@@ -204,5 +204,8 @@
   <ItemGroup>
     <Resource Include="nameIcon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="video.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

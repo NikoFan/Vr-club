@@ -32,8 +32,7 @@ namespace VR_registration
             {10, "#(###)###-###"}, {11, "#(###)###-####"}
         };
         private bool ThreadEx = false;
-        private int constLenght = 0;
-        private int constLenghtA = 0;
+        
         // ПУть до папки на ПК
         public const string computerFoldersPATH = @"C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\";
         // Путь до папки на Ноуте
@@ -73,6 +72,19 @@ namespace VR_registration
             AUTH_inputPhone.Text = "";
         }
 
+        private string putMask(TextBox takenTextBox, string lastPhoneInputVersion, string newPhoneInputVersion)
+        {
+            lastPhoneInputVersion = newPhoneInputVersion;
+            var inputVersionWithReplace = newPhoneInputVersion.Replace("(", "")
+                .Replace("-", "")
+                .Replace(")", "");
+            int inputLength = inputVersionWithReplace.Length;
+            Console.WriteLine("Length: " + inputLength);
+            var readyPhoneNumber = Convert.ToInt64(inputVersionWithReplace);
+            this.Dispatcher.BeginInvoke(new Action(() => takenTextBox.Text = (readyPhoneNumber).ToString(mask[inputLength])));
+            this.Dispatcher.BeginInvoke(new Action(() => takenTextBox.CaretIndex = takenTextBox.Text.Length));
+            return lastPhoneInputVersion;
+        }
 
         // маска при регистрации номера телефона
         private void createRegistrationPhoneInputMask()
@@ -85,16 +97,8 @@ namespace VR_registration
                 this.Dispatcher.BeginInvoke(new Action(() => newPhoneInputVersion = REG_inputPhone.Text.ToString()));
                 if (newPhoneInputVersion.Length > 0 && newPhoneInputVersion != lastPhoneInputVersion)
                 {
-                    lastPhoneInputVersion = newPhoneInputVersion;
-                    var inputVersionWithReplace = newPhoneInputVersion.Replace("(", "");
-                    inputVersionWithReplace = inputVersionWithReplace.Replace(")", "");
-                    inputVersionWithReplace = inputVersionWithReplace.Replace("-", "");
-
-                    inputVersionWithReplace = inputVersionWithReplace.Replace("+", "");
-                    int inputLength = inputVersionWithReplace.Length;
-                    var readyPhoneNumber = Convert.ToInt64(inputLength);
-                    this.Dispatcher.BeginInvoke(new Action(() => REG_inputPhone.Text = (readyPhoneNumber).ToString(mask[inputLength])));
-                    this.Dispatcher.BeginInvoke(new Action(() => REG_inputPhone.CaretIndex = REG_inputPhone.Text.Length));
+                    lastPhoneInputVersion = putMask(REG_inputPhone, lastPhoneInputVersion, newPhoneInputVersion);
+                    
 
                 }
                 Thread.Sleep(1);
@@ -112,16 +116,8 @@ namespace VR_registration
                 this.Dispatcher.BeginInvoke(new Action(() => newPhoneInputVersion = AUTH_inputPhone.Text.ToString()));
                 if (newPhoneInputVersion.Length > 0 && newPhoneInputVersion != lastPhoneInputVersion)
                 {
-                    lastPhoneInputVersion = newPhoneInputVersion;
-                    var inputVersionWithReplace = newPhoneInputVersion.Replace("(", "");
-                    inputVersionWithReplace = inputVersionWithReplace.Replace(")", "");
-                    inputVersionWithReplace = inputVersionWithReplace.Replace("-", "");
+                    lastPhoneInputVersion = putMask(AUTH_inputPhone, lastPhoneInputVersion, newPhoneInputVersion);
 
-                    inputVersionWithReplace = inputVersionWithReplace.Replace("+", "");
-                    int inputLength = inputVersionWithReplace.Length;
-                    var readyPhoneNumber = Convert.ToInt64(inputLength);
-                    this.Dispatcher.BeginInvoke(new Action(() => AUTH_inputPhone.Text = (readyPhoneNumber).ToString(mask[inputLength])));
-                    this.Dispatcher.BeginInvoke(new Action(() => AUTH_inputPhone.CaretIndex = AUTH_inputPhone.Text.Length));
                 }
                 Thread.Sleep(1);
 
@@ -145,10 +141,9 @@ namespace VR_registration
         // Удаление маски телефона
         public string deletePhoneMask(string phoneMask)
         {
-            phoneMask = phoneMask.Replace("(", "");
-            phoneMask = phoneMask.Replace(")", "");
-            phoneMask = phoneMask.Replace("-", "");
-            return phoneMask;
+            return phoneMask.Replace("(", "")
+                .Replace(")", "")
+                .Replace("-", ""); ;
         }
         private void changePasswordValue()
         {
@@ -239,7 +234,8 @@ namespace VR_registration
         // click авторизации пользователя
         public void authorizationUser(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Авторизация пользователя");
+
+
             displayMessageBox("пользователь авторизован");
         }
 
@@ -253,8 +249,8 @@ namespace VR_registration
         // возвращение к прошлому окну
         public void onLastWindow(object sender, RoutedEventArgs e)
         {
+
             string lastWindowName = programCashReader.returnLastWindowsName();
-            Console.WriteLine("последнее окно " + lastWindowName);
             this.Visibility = Visibility.Hidden;
             programCashReader.recordingLastActiveWindowCoordinates(makeCoordinates());
             switchWins.Windows_X_Names[lastWindowName]();
