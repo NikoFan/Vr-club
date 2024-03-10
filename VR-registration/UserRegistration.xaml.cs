@@ -80,6 +80,7 @@ namespace VR_registration
                 .Replace(")", "");
             int inputLength = inputVersionWithReplace.Length;
             Console.WriteLine("Length: " + inputLength);
+
             var readyPhoneNumber = Convert.ToInt64(inputVersionWithReplace);
             this.Dispatcher.BeginInvoke(new Action(() => takenTextBox.Text = (readyPhoneNumber).ToString(mask[inputLength])));
             this.Dispatcher.BeginInvoke(new Action(() => takenTextBox.CaretIndex = takenTextBox.Text.Length));
@@ -89,18 +90,31 @@ namespace VR_registration
         // маска при регистрации номера телефона
         private void createRegistrationPhoneInputMask()
         {
-            
+            //89036674744
             var newPhoneInputVersion = "";
             var lastPhoneInputVersion = "";
+            bool message = true;
             while (!ThreadEx)
             {
-                this.Dispatcher.BeginInvoke(new Action(() => newPhoneInputVersion = REG_inputPhone.Text.ToString()));
-                if (newPhoneInputVersion.Length > 0 && newPhoneInputVersion != lastPhoneInputVersion)
+                try
                 {
-                    lastPhoneInputVersion = putMask(REG_inputPhone, lastPhoneInputVersion, newPhoneInputVersion);
-                    
 
+                    this.Dispatcher.BeginInvoke(new Action(() => newPhoneInputVersion = REG_inputPhone.Text.ToString()));
+                    if (newPhoneInputVersion.Length > 0 && newPhoneInputVersion != lastPhoneInputVersion)
+                    {
+                        lastPhoneInputVersion = putMask(REG_inputPhone, lastPhoneInputVersion, newPhoneInputVersion);
+                    }
+                    message = true;
+                } catch (Exception)
+                {
+                    this.Dispatcher.BeginInvoke(new Action(() => REG_inputPhone.Text = ""));
+                    if (message)
+                    {
+                        dumbMessageBox("Проверьте текст, который пытаетесь вставить в поле");
+                        message = false;
+                    }
                 }
+                
                 Thread.Sleep(1);
 
 
@@ -111,14 +125,29 @@ namespace VR_registration
         {
             var newPhoneInputVersion = "";
             var lastPhoneInputVersion = "";
+            bool message = true;
             while (!ThreadEx)
             {
-                this.Dispatcher.BeginInvoke(new Action(() => newPhoneInputVersion = AUTH_inputPhone.Text.ToString()));
-                if (newPhoneInputVersion.Length > 0 && newPhoneInputVersion != lastPhoneInputVersion)
+                try
                 {
-                    lastPhoneInputVersion = putMask(AUTH_inputPhone, lastPhoneInputVersion, newPhoneInputVersion);
-
+                    this.Dispatcher.BeginInvoke(new Action(() => newPhoneInputVersion = AUTH_inputPhone.Text.ToString()));
+                    if (newPhoneInputVersion.Length > 0 && newPhoneInputVersion != lastPhoneInputVersion)
+                    {
+                        lastPhoneInputVersion = putMask(AUTH_inputPhone, lastPhoneInputVersion, newPhoneInputVersion);
+                    }
+                    message = true;
+                } catch (Exception)
+                {
+                    this.Dispatcher.BeginInvoke(new Action(() => AUTH_inputPhone.Text = ""));
+                    if (message)
+                    {
+                        dumbMessageBox("Проверьте текст, который пытаетесь вставить в поле");
+                        message = false;
+                    }
+                    
+                    
                 }
+
                 Thread.Sleep(1);
 
 
@@ -143,7 +172,7 @@ namespace VR_registration
         {
             return phoneMask.Replace("(", "")
                 .Replace(")", "")
-                .Replace("-", ""); ;
+                .Replace("-", "");
         }
         private void changePasswordValue()
         {
@@ -158,11 +187,34 @@ namespace VR_registration
             }
             REG_inputPassword.Password = ShowPassword_reg.Text.ToString();
         }
+        // Первичная проверка данных пользователя при авторизации
+        private bool checkCorrectAuthorizationInfo()
+        {
+            // changePasswordValue();
+            ShowPassword_Auth.Text = AUTH_inputPassword.Password.ToString();
+
+            string[] informationArray = new string[]
+            {
+                ShowPassword_Auth.Text.ToString(), deletePhoneMask(AUTH_inputPhone.Text.ToString())
+            };
+            if (controlInputData.checkIncorrectSymbolsInTextInputs(informationArray)
+                &&
+                controlInputData.controlTelephoneNumbers(deletePhoneMask(AUTH_inputPhone.Text.ToString())))
+
+            {
+                return true;
+            }
+            dumbMessageBox($"Проверьте корректность данных\n" +
+                $"Проверьте чтобы не осталось пустых полей!\n" +
+                $"Проверьте чтобы в введенных данных отсутствовали символы: ', -, ;");
+            return false;
+        }
+        // Первичная проверка данных при регистрации
         private bool checkCorrectRegistrationInfo()
         {
             changePasswordValue();
             ShowPassword_reg.Text = REG_inputPassword.Password.ToString();
-            controlInputData.controlTelephoneNumbers(deletePhoneMask(REG_inputPhone.Text.ToString()));
+            
             string[] informationArray = new string[] 
             { 
                 ShowPassword_reg.Text.ToString(), REG_inputEmail.Text.ToString(),
@@ -206,15 +258,15 @@ namespace VR_registration
                 {
                     ThreadEx = true;
                     displayMessageBox("Пользователь зарегистрирован");
-                    MainWindow mainWindow = new MainWindow();
+                    programCashReader.createStartWindow();
                     goUserAccountWindow();
                 }
                 else
                 {
-                    dumbMessageBox("Данные совпадают с другим аккаунтом!\n<b>Регистрация отменена!</b>\nИзмените номер телефона или Почтовый адрес!");
+                    dumbMessageBox("Данные совпадают с другим аккаунтом!\nРегистрация отменена!\nИзмените номер телефона или Почтовый адрес!");
                 }
             }
-            ThreadEx = true;
+            
         }
 
         public void goUserAccountWindow()
@@ -235,8 +287,31 @@ namespace VR_registration
         public void authorizationUser(object sender, RoutedEventArgs e)
         {
 
-
-            displayMessageBox("пользователь авторизован");
+            
+            if (checkCorrectAuthorizationInfo())
+            {
+                string readyToAuthorizationPassword = seePassword == false ?
+                AUTH_inputPassword.Password.ToString() :
+                ShowPassword_Auth.Text.ToString();
+                Console.WriteLine(Convert.ToString(deletePhoneMask(AUTH_inputPhone.Text.ToString())));
+                Dictionary<string, string> allRegistrationDataFromTextBoxes = new Dictionary<string, string>()
+                {
+                {"Password", readyToAuthorizationPassword},
+                {"Phone", Convert.ToString(deletePhoneMask(AUTH_inputPhone.Text.ToString()))}
+                };
+                // Регистрация пользователя
+                if (authorizationWorkFromDB.returnAuthorizationUserId(allRegistrationDataFromTextBoxes))
+                {
+                    ThreadEx = true;
+                    displayMessageBox("пользователь авторизован");
+                    programCashReader.createStartWindow();
+                    goUserAccountWindow();
+                }
+                else
+                {
+                    dumbMessageBox("Аккаунт пользователя не найден.\nПроверьте номер телефона и/или Пароль.");
+                }
+            }
         }
 
         // запись координат нынешнего окна для появления нового окна в тех же координатах

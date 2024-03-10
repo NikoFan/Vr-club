@@ -42,6 +42,14 @@ namespace VR_registration
 
         }
 
+        public void createStartWindow()
+        {
+            Settings.Default["lastWindowName"] = "";
+            Settings.Default.Save();
+            Settings.Default["lastWindowName"] += "Главное меню";
+            Settings.Default.Save();
+        }
+
         private void rewrite(string windowName)
         {
             Settings.Default["lastWindowName"] += windowName;

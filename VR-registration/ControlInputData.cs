@@ -42,16 +42,11 @@ namespace VR_registration
         {
             Regex outPlusPhoneNumberController = new Regex(
                 "[8][0-9]{10}");
-            Regex plusPhoneNumberController = new Regex(
-                "[+7][0-9]{10}");
+
             Console.WriteLine("Results 1: " + outPlusPhoneNumberController.IsMatch(telephoneNumberData));
-            Console.WriteLine("Results 2: " + plusPhoneNumberController.IsMatch(telephoneNumberData));
-            if (outPlusPhoneNumberController.IsMatch(telephoneNumberData))
-            {
-                
-                return outPlusPhoneNumberController.IsMatch(telephoneNumberData);
-            }
-            return plusPhoneNumberController.IsMatch(telephoneNumberData);
+            return outPlusPhoneNumberController.IsMatch(telephoneNumberData);
+
+
         }
 
         // Проверка почты
