@@ -121,7 +121,12 @@
             </Grid>
         </Grid>
         <Grid x:Name="Body" Style="{StaticResource body_style}">
-            <Grid x:Name="information" Style="{StaticResource userInformation_style}">
+            <Grid>
+                <Border Style="{StaticResource userPage_style}">
+                    
+                </Border>
+            </Grid>
+            <Grid x:Name="information" Opacity="0" Style="{StaticResource userInformation_style}">
                 <TextBlock
                     Padding="100,0,0,0"
                     VerticalAlignment="Top"
