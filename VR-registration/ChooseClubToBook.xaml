@@ -15,7 +15,7 @@
     </WindowChrome.WindowChrome>
     <Grid>
         <Grid x:Name="Head" Style="{StaticResource head_style}" MouseLeftButtonDown="MoveWindow">
-            <Image Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\cross.png"
+            <Image Source="Picture\cross.png"
        Style="{StaticResource cross_style}" MouseDown="closeApp"/>
             <Grid x:Name="Org_Information"
       Style="{StaticResource OrgInf_style}">
@@ -24,7 +24,7 @@
                 <Border x:Name="buttonGoVk"
         Style="{StaticResource ChatsIconsBorder_style}" Margin="0 70 0 0">
                     <Grid>
-                        <Image Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\vk.png"
+                        <Image Source="Picture\vk.png"
                 Style="{StaticResource ChatsIcons_style}"/>
                         <Button Click="goVK" Style="{StaticResource button_style}"/>
                     </Grid>
@@ -33,7 +33,7 @@
                 <Border x:Name="buttonGoTelegram"
         Style="{StaticResource ChatsIconsBorder_style}" Margin="0 70 100 0">
                     <Grid>
-                        <Image Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\tg.png"
+                        <Image Source="Picture\tg.png"
                 Style="{StaticResource ChatsIcons_style}"/>
                         <Button Click="goTelegram" Style="{StaticResource button_style}"/>
                     </Grid>
@@ -42,7 +42,7 @@
                 <Border x:Name="buttonGoYouTube"
         Style="{StaticResource ChatsIconsBorder_style}" Margin="100 70 0 0">
                     <Grid>
-                        <Image Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\youtube.png"
+                        <Image Source="Picture\youtube.png"
                 Style="{StaticResource ChatsIcons_style}"/>
                         <Button Click="goYouTube" Style="{StaticResource button_style}"/>
                     </Grid>
@@ -70,7 +70,7 @@
                         Style="{StaticResource head_btn}"
                         HorizontalAlignment="Center">
                     <Grid>
-                        <Image Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\user.png"
+                        <Image Source="Picture\user.png"
                                Style="{StaticResource icons_style}"/>
                         <Button x:Name="go_user_acc" Click="goUserAcc"
                                 Style="{StaticResource button_style}"/>
@@ -87,7 +87,7 @@
                         HorizontalAlignment="Right">
                     <Grid>
 
-                        <Image Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\back.png"
+                        <Image Source="Picture\back.png"
                                Style="{StaticResource icons_style}"
                                RenderTransformOrigin="0.52,0"
                                HorizontalAlignment="Left">

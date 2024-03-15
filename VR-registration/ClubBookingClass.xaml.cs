@@ -32,7 +32,7 @@ namespace VR_registration
         private int gameIndex = 0;
         private int GAMECOUNT = 0;
         private int setGameInfIndex = 0;
-        private string PATH = @"C:\\Users\\Олег\\Desktop\\Хакатон\\VR-registration\\VR-registration\\images\\";
+        public const string computerFoldersPATH = @"picture\";
         public ClubBookingClass()
         {
             InitializeComponent();
@@ -166,14 +166,14 @@ namespace VR_registration
         private void setMainGamePicture(string pictureName)
         {
             gamePicture.Source = new BitmapImage(
-                new Uri(PATH + pictureName));
+                new Uri(computerFoldersPATH + pictureName));
         }
 
         // Фоновая фотка
         private void setBackGroundGamePicture(string pictureName)
         {
             rightGamePic.Source = new BitmapImage(
-                new Uri(PATH + pictureName));
+                new Uri(computerFoldersPATH + pictureName));
         }
 
         public void bookingClub(object  sender, RoutedEventArgs e)

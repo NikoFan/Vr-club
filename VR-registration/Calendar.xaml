@@ -21,7 +21,7 @@
         <Grid x:Name="Head" Style="{StaticResource head_style}" MouseLeftButtonDown="MoveWindow">
             <Image
                 MouseDown="closeApp"
-                Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\cross.png"
+                Source="Picture\cross.png"
                 Style="{StaticResource cross_style}" />
             <Grid x:Name="Org_Information" Style="{StaticResource OrgInf_style}">
                 <TextBlock Style="{StaticResource OrgName_style}" Text="VR клуб" />
@@ -30,7 +30,7 @@
                     Margin="0,70,0,0"
                     Style="{StaticResource ChatsIconsBorder_style}">
                     <Grid>
-                        <Image Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\vk.png" Style="{StaticResource ChatsIcons_style}" />
+                        <Image Source="Picture\vk.png" Style="{StaticResource ChatsIcons_style}" />
                         <Button Click="goVK" Style="{StaticResource button_style}" />
                     </Grid>
 
@@ -40,7 +40,7 @@
                     Margin="0,70,100,0"
                     Style="{StaticResource ChatsIconsBorder_style}">
                     <Grid>
-                        <Image Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\tg.png" Style="{StaticResource ChatsIcons_style}" />
+                        <Image Source="Picture\tg.png" Style="{StaticResource ChatsIcons_style}" />
                         <Button Click="goTelegram" Style="{StaticResource button_style}" />
                     </Grid>
 
@@ -50,7 +50,7 @@
                     Margin="100,70,0,0"
                     Style="{StaticResource ChatsIconsBorder_style}">
                     <Grid>
-                        <Image Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\youtube.png" Style="{StaticResource ChatsIcons_style}" />
+                        <Image Source="Picture\youtube.png" Style="{StaticResource ChatsIcons_style}" />
                         <Button Click="goYouTube" Style="{StaticResource button_style}" />
                     </Grid>
 
@@ -77,7 +77,7 @@
                     HorizontalAlignment="Center"
                     Style="{StaticResource head_btn}">
                     <Grid>
-                        <Image Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\user.png" Style="{StaticResource icons_style}" />
+                        <Image Source="Picture\user.png" Style="{StaticResource icons_style}" />
                         <Button
                             x:Name="go_user_acc"
                             Click="goUserAcc"
@@ -99,7 +99,7 @@
                         <Image
                             HorizontalAlignment="Left"
                             RenderTransformOrigin="0.52,0"
-                            Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\back.png"
+                            Source="Picture\back.png"
                             Style="{StaticResource icons_style}">
                             <Image.RenderTransform>
                                 <ScaleTransform ScaleX="-1" />
@@ -161,7 +161,7 @@
                     Margin="15,0,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\Замок.png" />
+                    Source="Picture\Замок.png" />
                 <TextBlock
                     Padding="0,0,0,10"
                     VerticalAlignment="Bottom"
@@ -174,7 +174,7 @@
                     Margin="15,0,0,0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
-                    Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\Замок 2.png" />
+                    Source="Picture\Замок 2.png" />
                 <TextBlock
                     Padding="0,0,0,10"
                     HorizontalAlignment="Right"
@@ -191,7 +191,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center">
                     <Grid>
-                        <Image Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\calendarArrowLeft.png" />
+                        <Image Source="Picture\calendarArrowLeft.png" />
                         <Button Click="monthMinus" Style="{StaticResource button_style}" />
                     </Grid>
                 </Border>
@@ -210,7 +210,7 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center">
                     <Grid>
-                        <Image Source="C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\calendarArrow.png" />
+                        <Image Source="Picture\calendarArrow.png" />
                         <Button Click="monthPlus" Style="{StaticResource button_style}" />
 
                     </Grid>

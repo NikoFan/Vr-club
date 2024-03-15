@@ -22,7 +22,7 @@
             Style="{StaticResource head_style}">
             <Image
                 MouseDown="closeApp"
-                Source="/cross.png"
+                Source="Picture/cross.png"
                 Style="{StaticResource cross_style}" />
             <Grid x:Name="Org_Information" Style="{StaticResource OrgInf_style}">
                 <TextBlock Style="{StaticResource OrgName_style}" Text="VR клуб" />
@@ -31,7 +31,7 @@
                     Margin="0,70,0,0"
                     Style="{StaticResource ChatsIconsBorder_style}">
                     <Grid>
-                        <Image Source="/vk.png" Style="{StaticResource ChatsIcons_style}" />
+                        <Image Source="Picture/vk.png" Style="{StaticResource ChatsIcons_style}" />
                         <Button Click="goVK" Style="{StaticResource button_style}" />
                     </Grid>
 
@@ -41,7 +41,7 @@
                     Margin="0,70,100,0"
                     Style="{StaticResource ChatsIconsBorder_style}">
                     <Grid>
-                        <Image Source="/tg.png" Style="{StaticResource ChatsIcons_style}" />
+                        <Image Source="Picture/tg.png" Style="{StaticResource ChatsIcons_style}" />
                         <Button Click="goTelegram" Style="{StaticResource button_style}" />
                     </Grid>
 
@@ -51,7 +51,7 @@
                     Margin="100,70,0,0"
                     Style="{StaticResource ChatsIconsBorder_style}">
                     <Grid>
-                        <Image Source="/youtube.png" Style="{StaticResource ChatsIcons_style}" />
+                        <Image Source="Picture/youtube.png" Style="{StaticResource ChatsIcons_style}" />
                         <Button Click="goYouTube" Style="{StaticResource button_style}" />
                     </Grid>
 
@@ -78,7 +78,7 @@
                     HorizontalAlignment="Center"
                     Style="{StaticResource head_btn}">
                     <Grid>
-                        <Image Source="/user.png" Style="{StaticResource icons_style}" />
+                        <Image Source="Picture/user.png" Style="{StaticResource icons_style}" />
                         <Button
                             x:Name="go_user_acc"
                             Click="goUserAcc"
@@ -100,7 +100,7 @@
                         <Image
                             HorizontalAlignment="Left"
                             RenderTransformOrigin="0.52,0"
-                            Source="/back.png"
+                            Source="Picture/back.png"
                             Style="{StaticResource icons_style}">
                             <Image.RenderTransform>
                                 <ScaleTransform ScaleX="-1" />
@@ -133,7 +133,7 @@
                 Grid.Column="1"
                 Height="650"
                 VerticalAlignment="Center"
-                Source="/Sale.jpeg" />
+                Source="Picture/Sale.jpeg" />
             <Grid Grid.Column="0">
                 <Border Style="{StaticResource bookPlace_btn_style}">
                     <Grid>

@@ -35,6 +35,13 @@
             <Setter Property="VerticalAlignment" Value="Bottom" />
             <Setter Property="Margin" Value="0,0,100,70" />
         </Style>
+        
+        <!-- Стиль для пользовательского окна {Border} -->
+        <Style x:Key="userPage_style" TargetType="Border">
+            <Setter Property="Width" Value="800"/>
+            <Setter Property="Height" Value="500"/>
+            <Setter Property="Background" Value="Black"/>
+        </Style>
 
         <!--  Стиль для блока кнопок в календаре {Grid}  -->
         <Style x:Key="YearChangerGrid_style" TargetType="Grid">

@@ -33,10 +33,9 @@ namespace VR_registration
         public ConnectDataBase connectDataBaseClass = new ConnectDataBase();
         public SwitchWindows switchWins = new SwitchWindows();
 
-        // ПУть до папки на ПК
-        public const string computerFoldersPATH = @"C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\";
-        // Путь до папки на Ноуте
-        // public const string computerFoldersPATH = @"C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\";
+        
+        public const string computerFoldersPATH = @"C:\Users\user\Desktop\Курсовой проект\Vr-club\VR-registration\Picture\";
+
 
         public MainWindow()
         {
@@ -73,7 +72,8 @@ namespace VR_registration
             {
                 
                 Console.WriteLine("start another thread " + bannersPhotoIndex);
-                
+
+                Console.WriteLine($@"{computerFoldersPATH}poster_{bannersPhotoIndex}.jpg");
                 Posters.Dispatcher.BeginInvoke(new Action(() => Posters.ImageSource = new BitmapImage(
                 new Uri(
                        $@"{computerFoldersPATH}poster_{bannersPhotoIndex}.jpg"))
@@ -95,7 +95,7 @@ namespace VR_registration
         public void goUserAcc(object sender, RoutedEventArgs e)
         {
             StopThread = true;
-            if (programCashReader.returnActiveUserId() == "out")
+            if (programCashReader.returnActiveUserId() == "out" || programCashReader.returnActiveUserId() == "")
             {
                 goUserRegistrationWindow();
                 return;

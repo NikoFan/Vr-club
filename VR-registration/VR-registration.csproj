@@ -163,49 +163,44 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="cross.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="tg.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="vk.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="youtube.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="user.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="back.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Sale.jpeg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="phoneIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Eye close.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="passwordIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="goBack.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="OnLastWin.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="mailIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="nameIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="video.gif" />
+    <Resource Include="Picture\back.png" />
+    <Resource Include="Picture\bg-block-enter_1.png" />
+    <Resource Include="Picture\bg-block-leave_1.png" />
+    <Resource Include="Picture\bg-open-enter_1.png" />
+    <Resource Include="Picture\bg-open-leave_1.png" />
+    <Resource Include="Picture\Calendar.png" />
+    <Resource Include="Picture\calendarArrow.png" />
+    <Resource Include="Picture\calendarArrowLeft.png" />
+    <Resource Include="Picture\cardbackGround.png" />
+    <Resource Include="Picture\CarX Drift Racing Online.png" />
+    <Resource Include="Picture\clubInformationWindowBG.png" />
+    <Resource Include="Picture\cross.png" />
+    <Resource Include="Picture\Eye close.png" />
+    <Resource Include="Picture\Eye open.png" />
+    <Resource Include="Picture\goBack.png" />
+    <Resource Include="Picture\HalfLife Alyx.png" />
+    <Resource Include="Picture\HITMAN 3.png" />
+    <Resource Include="Picture\leftArrow.png" />
+    <Resource Include="Picture\mailIcon.png" />
+    <Resource Include="Picture\metka.png" />
+    <Resource Include="Picture\nameIcon.png" />
+    <Resource Include="Picture\No Man`s Sky.png" />
+    <Resource Include="Picture\OnLastWin.png" />
+    <Resource Include="Picture\passwordIcon.png" />
+    <Resource Include="Picture\PAYDAY 2.png" />
+    <Resource Include="Picture\Phasmophobia.png" />
+    <Resource Include="Picture\phoneIcon.png" />
+    <Resource Include="Picture\poster_1.jpg" />
+    <Resource Include="Picture\poster_2.jpg" />
+    <Resource Include="Picture\poster_3.jpg" />
+    <Resource Include="Picture\rightArrow.png" />
+    <Resource Include="Picture\Sale.jpeg" />
+    <Resource Include="Picture\tg.png" />
+    <Resource Include="Picture\user.png" />
+    <Resource Include="Picture\vk.png" />
+    <Resource Include="Picture\youtube.png" />
+    <Resource Include="Picture\Замок 2.png" />
+    <Resource Include="Picture\Замок.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

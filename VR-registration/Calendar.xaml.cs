@@ -30,6 +30,7 @@ namespace VR_registration
         public ConnectDataBase connectDataBaseClass = new ConnectDataBase();
         public SwitchWindows switchWins = new SwitchWindows();
         private string calendarBlocksName = "calendarBlock_number_";
+        public const string computerFoldersPATH = @"picture\";
         private Dictionary<int, int> countDaysInMonthsArray = new Dictionary<int, int>()
         {
             {1,31 }, {2,28 }, {3,31 }, {4,30 }, {5,31 }, {6, 30},
@@ -293,7 +294,7 @@ namespace VR_registration
             
             BitmapImage img
                 = new BitmapImage(
-                new Uri($@"C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\bg-{isDate}-enter_1.png"));
+                new Uri($@"{computerFoldersPATH}bg-{isDate}-enter_1.png"));
             ImageBrush image = new ImageBrush();
             image.ImageSource = img;
             nameOfChoosenBlock.Background = image;
@@ -303,7 +304,7 @@ namespace VR_registration
         {
             BitmapImage img
                 = new BitmapImage(
-                new Uri($@"C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\bg-{isDate}-leave_1.png"));
+                new Uri($@"C{computerFoldersPATH}bg -{isDate}-leave_1.png"));
             ImageBrush image = new ImageBrush();
             image.ImageSource = img;
             nameOfChoosenBlock.Background = image;
@@ -314,7 +315,7 @@ namespace VR_registration
 
             BitmapImage img
                 = new BitmapImage(
-                new Uri($@"C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\bg-{isDateBlocked}-leave_1.png"));
+                new Uri($@"{computerFoldersPATH}bg -{isDateBlocked}-leave_1.png"));
             ImageBrush image = new ImageBrush();
             image.ImageSource = img;
 

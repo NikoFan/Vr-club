@@ -29,6 +29,8 @@ namespace VR_registration
         public ConnectDataBase connectDataBaseClass = new ConnectDataBase();
         public SwitchWindows switchWins = new SwitchWindows();
 
+        public const string computerFoldersPATH = @"picture\";
+
 
         private Dictionary<string, string> buttonsNamesDict = new Dictionary<string, string>();
         public string choosenClub;
@@ -146,7 +148,7 @@ namespace VR_registration
         {
             Image cardBG = new Image();
             cardBG.Source = new BitmapImage(
-                new Uri("C:\\Users\\Олег\\Desktop\\Хакатон\\VR-registration\\VR-registration\\images\\cardbackGround.png"))
+                new Uri($"{computerFoldersPATH}cardbackGround.png"))
             {
                 DecodePixelHeight = 400,
                 DecodePixelWidth = 1100

@@ -27,6 +27,7 @@ namespace VR_registration
         public RegistrationWorkFromDB registrtationWorkFromDB = new RegistrationWorkFromDB();
         public AuthorizationWorkFromDB authorizationWorkFromDB = new AuthorizationWorkFromDB();
         public SwitchWindows switchWins = new SwitchWindows();
+        public const string computerFoldersPATH = @"picture\";
         public UserAccountWindow()
         {
             

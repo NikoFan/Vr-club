@@ -32,11 +32,9 @@ namespace VR_registration
             {10, "#(###)###-###"}, {11, "#(###)###-####"}
         };
         private bool ThreadEx = false;
-        
+
         // ПУть до папки на ПК
-        public const string computerFoldersPATH = @"C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\";
-        // Путь до папки на Ноуте
-        // public const string computerFoldersPATH = @"C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\images\";
+        public const string computerFoldersPATH = @"picture\";
 
 
         public ControlInputData controlInputData = new ControlInputData();
