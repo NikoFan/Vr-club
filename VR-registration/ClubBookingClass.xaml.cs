@@ -32,7 +32,8 @@ namespace VR_registration
         private int gameIndex = 0;
         private int GAMECOUNT = 0;
         private int setGameInfIndex = 0;
-        public const string computerFoldersPATH = @"picture\";
+        // public const string computerFoldersPATH = @"C:\Users\user\Desktop\Курсовой проект\Vr-club\VR-registration\Picture\";
+        public const string computerFoldersPATH = @"C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\Picture\";
         public ClubBookingClass()
         {
             InitializeComponent();

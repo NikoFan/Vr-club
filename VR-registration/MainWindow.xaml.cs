@@ -34,7 +34,8 @@ namespace VR_registration
         public SwitchWindows switchWins = new SwitchWindows();
 
         
-        public const string computerFoldersPATH = @"C:\Users\user\Desktop\Курсовой проект\Vr-club\VR-registration\Picture\";
+        // public const string computerFoldersPATH = @"C:\Users\user\Desktop\Курсовой проект\Vr-club\VR-registration\Picture\";
+        public const string computerFoldersPATH = @"C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\Picture\";
 
 
         public MainWindow()

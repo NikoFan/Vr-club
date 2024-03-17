@@ -29,7 +29,8 @@ namespace VR_registration
         public ConnectDataBase connectDataBaseClass = new ConnectDataBase();
         public SwitchWindows switchWins = new SwitchWindows();
 
-        public const string computerFoldersPATH = @"picture\";
+        // public const string computerFoldersPATH = @"C:\Users\user\Desktop\Курсовой проект\Vr-club\VR-registration\Picture\";
+        public const string computerFoldersPATH = @"C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\Picture\";
 
 
         private Dictionary<string, string> buttonsNamesDict = new Dictionary<string, string>();
