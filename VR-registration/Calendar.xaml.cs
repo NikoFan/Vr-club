@@ -31,7 +31,8 @@ namespace VR_registration
         public SwitchWindows switchWins = new SwitchWindows();
         private string calendarBlocksName = "calendarBlock_number_";
         // public const string computerFoldersPATH = @"C:\Users\user\Desktop\Курсовой проект\Vr-club\VR-registration\Picture\";
-        public const string computerFoldersPATH = @"C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\Picture\";
+        public string computerFoldersPATH = Convert.ToString(String.Join("\\", Environment.CurrentDirectory.ToString().Split('\\').Take(
+            Environment.CurrentDirectory.ToString().Split('\\').Length - 2))) + "/Picture/";
         private Dictionary<int, int> countDaysInMonthsArray = new Dictionary<int, int>()
         {
             {1,31 }, {2,28 }, {3,31 }, {4,30 }, {5,31 }, {6, 30},

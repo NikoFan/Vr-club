@@ -35,7 +35,8 @@ namespace VR_registration
 
         // ПУть до папки на ПК
         // public const string computerFoldersPATH = @"C:\Users\user\Desktop\Курсовой проект\Vr-club\VR-registration\Picture\";
-        public const string computerFoldersPATH = @"C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\Picture\";
+        public string computerFoldersPATH = Convert.ToString(String.Join("\\", Environment.CurrentDirectory.ToString().Split('\\').Take(
+            Environment.CurrentDirectory.ToString().Split('\\').Length - 2))) + "/Picture/";
 
 
         public ControlInputData controlInputData = new ControlInputData();

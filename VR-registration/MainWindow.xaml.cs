@@ -18,6 +18,7 @@ using System.Reflection;
 using static System.Net.Mime.MediaTypeNames;
 using System.Security.Policy;
 
+
 namespace VR_registration
 {
     /// <summary>
@@ -35,7 +36,12 @@ namespace VR_registration
 
         
         // public const string computerFoldersPATH = @"C:\Users\user\Desktop\Курсовой проект\Vr-club\VR-registration\Picture\";
-        public const string computerFoldersPATH = @"C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\Picture\";
+        // public const string computerFoldersPATH = @"C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\Picture\";
+        // public const string computerFoldersPATH = @"..//VR-registrarion//Picture/";
+        public string computerFoldersPATH = Convert.ToString(String.Join("\\", Environment.CurrentDirectory.ToString().Split('\\').Take(
+            Environment.CurrentDirectory.ToString().Split('\\').Length-2))) + "/Picture/";
+        
+
 
 
         public MainWindow()
@@ -73,11 +79,11 @@ namespace VR_registration
             {
                 
                 Console.WriteLine("start another thread " + bannersPhotoIndex);
-
+                Console.WriteLine(Environment.CurrentDirectory);
                 Console.WriteLine($@"{computerFoldersPATH}poster_{bannersPhotoIndex}.jpg");
                 Posters.Dispatcher.BeginInvoke(new Action(() => Posters.ImageSource = new BitmapImage(
                 new Uri(
-                       $@"{computerFoldersPATH}poster_{bannersPhotoIndex}.jpg"))
+                       $@"{computerFoldersPATH}poster_{bannersPhotoIndex}.jpg", UriKind.RelativeOrAbsolute))
                 {
                     DecodePixelWidth = 600,
                     DecodePixelHeight = 400
