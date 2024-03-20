@@ -40,7 +40,9 @@
         <Style x:Key="userPage_style" TargetType="Border">
             <Setter Property="Width" Value="800"/>
             <Setter Property="Height" Value="500"/>
-            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Background" Value="#7C4181"/>
+            
+            <Setter Property="CornerRadius" Value="20"/>
         </Style>
 
         <!--  Стиль для блока кнопок в календаре {Grid}  -->
@@ -204,6 +206,28 @@
             <Setter Property="CornerRadius" Value="40" />
             <Setter Property="VerticalAlignment" Value="Bottom" />
             <Setter Property="Margin" Value="0,0,0,80" />
+        </Style>
+
+        <!-- Стиль для области с текстовыми данными пользователя {Border}-->
+        <Style x:Key="textPlaceBorder_style" TargetType="Border">
+            <Setter Property="Width" Value="500"/>
+            <Setter Property="Height" Value="400"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Margin" Value="40 0 0 0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Background" Value="#C180C6"/>
+        </Style>
+        
+        <!-- Стиль для кнопки вызода из аккаунта {Border}-->
+        <Style x:Key="logOutButton_style" TargetType="Border">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="100"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Margin" Value="0 0 20 20"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Background" Value="#471C4A"/>
         </Style>
 
         <!--  Стиль для информации про клубы {Grid}  -->

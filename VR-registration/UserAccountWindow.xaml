@@ -123,75 +123,26 @@
         <Grid x:Name="Body" Style="{StaticResource body_style}">
             <Grid>
                 <Border Style="{StaticResource userPage_style}">
-                    
+                    <Grid>
+                        <!-- Текстовые поля -->
+                        <Border Style="{StaticResource textPlaceBorder_style}">
+                            <Grid>
+                                
+                            </Grid>
+                        </Border>
+                        <Border
+                x:Name="logOut"
+                
+                Style="{StaticResource logOutButton_style}">
+                            <Grid>
+                                <TextBlock Style="{StaticResource normalText_style}" Text="Выйти" />
+                                <Button Click="logOutFromAccount" Style="{StaticResource button_style}"/>
+                            </Grid>
+
+                        </Border>
+                    </Grid>
                 </Border>
             </Grid>
-            <Grid x:Name="information" Opacity="0" Style="{StaticResource userInformation_style}">
-                <TextBlock
-                    Padding="100,0,0,0"
-                    VerticalAlignment="Top"
-                    Foreground="Black"
-                    Style="{StaticResource normalText_style}"
-                    Text="Имя"
-                    TextAlignment="Left" />
-                <TextBlock
-                    x:Name="nameOfCustomer"
-                    Margin="0,60,0,0"
-                    Padding="100,0,0,0"
-                    VerticalAlignment="Top"
-                    Foreground="Black"
-                    Style="{StaticResource normalText_style}"
-                    Text="-"
-                    TextAlignment="Left" />
-
-                <TextBlock
-                    Margin="0,120,0,0"
-                    Padding="100,0,0,0"
-                    VerticalAlignment="Top"
-                    Foreground="Black"
-                    Style="{StaticResource normalText_style}"
-                    Text="Почта"
-                    TextAlignment="Left" />
-                <TextBlock
-                    x:Name="mailOfCustomer"
-                    Margin="0,180,0,0"
-                    Padding="100,0,0,0"
-                    VerticalAlignment="Top"
-                    Foreground="Black"
-                    Style="{StaticResource normalText_style}"
-                    Text="-"
-                    TextAlignment="Left" />
-
-                <TextBlock
-                    Margin="0,240,0,0"
-                    Padding="100,0,0,0"
-                    VerticalAlignment="Top"
-                    Foreground="Black"
-                    Style="{StaticResource normalText_style}"
-                    Text="Телефон"
-                    TextAlignment="Left" />
-                <TextBlock
-                    x:Name="phoneOfCustomer"
-                    Margin="0,300,0,0"
-                    Padding="100,0,0,0"
-                    VerticalAlignment="Top"
-                    Foreground="Black"
-                    Style="{StaticResource normalText_style}"
-                    Text="-"
-                    TextAlignment="Left" />
-            </Grid>
-
-            <Border
-                x:Name="logOut"
-                Width="400"
-                Style="{StaticResource bookPlace_btn_style}">
-                <Grid>
-                    <TextBlock Style="{StaticResource normalText_style}" Text="Выйти из аккаунта" />
-                    <Button Click="logOutFromAccount" Style="{StaticResource button_style}"/>
-                </Grid>
-
-            </Border>
-
         </Grid>
     </Grid>
 </Window>

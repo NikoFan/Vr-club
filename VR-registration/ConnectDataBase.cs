@@ -43,7 +43,7 @@ namespace VR_registration
         public ProgramCashReader programCashReader = new ProgramCashReader();
         public ControlInputData controlInputData = new ControlInputData();
         
-        public string ConnectionString = "data source=7.tcp.eu.ngrok.io, 15228;" +
+        public string ConnectionString = "data source=5.tcp.eu.ngrok.io, 18580;" +
             "Database=VR_club;" +
             "User Id=sa;" +
             "Password=7784865Oleg#;" +
