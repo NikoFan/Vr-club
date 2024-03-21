@@ -56,9 +56,9 @@ namespace VR_registration
         {
             if (connectDataBaseClass.getNameOfUserToCompleteInformation() != "ERROR")
             {
-                nameOfCustomer.Text = connectDataBaseClass.getNameOfUserToCompleteInformation();
-                mailOfCustomer.Text = connectDataBaseClass.getMailOfUserToCompleteInformation();
-                phoneOfCustomer.Text = connectDataBaseClass.getPhoneOfUserToCompleteInformation();
+                CustomerName.Text = connectDataBaseClass.getNameOfUserToCompleteInformation();
+                CustomerMailAddress.Text = connectDataBaseClass.getMailOfUserToCompleteInformation();
+                CustomerPhoneNumber.Text = Convert.ToInt64(connectDataBaseClass.getPhoneOfUserToCompleteInformation()).ToString("#(###)###-####");
             } else
             {
                 // При отсутствии записи - разлогинить пользователя

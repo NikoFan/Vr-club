@@ -126,9 +126,21 @@
                     <Grid>
                         <!-- Текстовые поля -->
                         <Border Style="{StaticResource textPlaceBorder_style}">
-                            <Grid>
+                            <StackPanel Margin="0 0 0 0">
+                                <TextBlock Text="Имя" Style="{StaticResource userAccountTextBlock_Style}"/>
+                                <Border Style="{StaticResource textBorder_style}">
+                                    <TextBox x:Name="CustomerName" Style="{StaticResource userAccountTextBox_Style}"/>
+                                </Border>
+                                <TextBlock Text="Телефон" Style="{StaticResource userAccountTextBlock_Style}"/>
+                                <Border Style="{StaticResource textBorder_style}">
+                                    <TextBox x:Name="CustomerPhoneNumber" Style="{StaticResource userAccountTextBox_Style}"/>
+                                </Border>
+                                <TextBlock Text="Почта" Style="{StaticResource userAccountTextBlock_Style}"/>
+                                <Border Style="{StaticResource textBorder_style}">
+                                    <TextBox x:Name="CustomerMailAddress" Style="{StaticResource userAccountTextBox_Style}"/>
+                                </Border>
                                 
-                            </Grid>
+                            </StackPanel>
                         </Border>
                         <Border
                 x:Name="logOut"
