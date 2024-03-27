@@ -43,7 +43,7 @@ namespace VR_registration
         
         
         
-        public string ConnectionString = "data source=6.tcp.eu.ngrok.io, 16707;" +
+        public string ConnectionString = "data source=0.tcp.eu.ngrok.io, 16847;" +
             "Database=VR_club;" +
             "User Id=sa;" +
             "Password=7784865Oleg#;" +

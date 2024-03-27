@@ -29,18 +29,17 @@ namespace VR_registration
             ProgramCashReader programCashReader = new ProgramCashReader();
             programCashReader.recordingLastWinsName(this.Title.ToString());
             programCashReader = null;
-            Thread CostCalculate = new Thread(CalculateCostOfOrder);
-            CostCalculate.Start();
+            new Thread(CalculateCostOfOrder).Start();
+            
         }
 
         // Рассчет стоимости заказа
         private void CalculateCostOfOrder()
         {
-            while (!threadStop)
-            {
-                this.Dispatcher.BeginInvoke(new Action(() => CostOfOrder.Text = $"Цена:\n{Convert.ToString(Convert.ToInt32(TextBoxValue.Text.ToString()) * 2300)}руб"));
-                Thread.Sleep(100);
-            }
+            
+            this.Dispatcher.BeginInvoke(new Action(() => CostOfOrder.Text = $"Цена:\n{Convert.ToString(Convert.ToInt32(TextBoxValue.Text.ToString()) * 2300)}руб"));
+                
+            
         }
 
 
@@ -129,6 +128,7 @@ namespace VR_registration
                 dumbMessageBox("Количество не может превышать 10");
             else
                 TextBoxValue.Text = Convert.ToString(Convert.ToInt32(TextBoxValue.Text.ToString()) + 1);
+            new Thread(CalculateCostOfOrder).Start();
         }
 
         // Уменьшить количество
@@ -138,6 +138,7 @@ namespace VR_registration
                 dumbMessageBox("Количество не может быть меньше 1");
             else
                 TextBoxValue.Text = Convert.ToString(Convert.ToInt32(TextBoxValue.Text.ToString()) - 1);
+            new Thread(CalculateCostOfOrder).Start();
         }
 
         public bool dumbMessageBox(string message)

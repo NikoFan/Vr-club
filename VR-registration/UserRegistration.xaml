@@ -9,12 +9,11 @@
     Title="Регистрация пользователя"
     Width="1100"
     Height="900"
+    AllowsTransparency="False"
     ResizeMode="NoResize"
+    WindowStyle="None"
     mc:Ignorable="d">
-    <!--  Блок для устранения шапки окна  -->
-    <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="0" ResizeBorderThickness="5" />
-    </WindowChrome.WindowChrome>
+
     <Grid x:Name="fullGrid" ShowGridLines="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="333*" />
