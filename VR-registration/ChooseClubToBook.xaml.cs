@@ -23,13 +23,7 @@ namespace VR_registration
     /// </summary>
     public partial class ChooseClubToBook : Window
     {
-        public ProgramCashReader programCashReader = new ProgramCashReader();
-        public RegistrationWorkFromDB registrtationWorkFromDB = new RegistrationWorkFromDB();
-        public AuthorizationWorkFromDB authorizationWorkFromDB = new AuthorizationWorkFromDB();
-        public ConnectDataBase connectDataBaseClass = new ConnectDataBase();
-        public SwitchWindows switchWins = new SwitchWindows();
-
-        // public const string computerFoldersPATH = @"C:\Users\user\Desktop\Курсовой проект\Vr-club\VR-registration\Picture\";
+        
         public string computerFoldersPATH = Convert.ToString(String.Join("\\", Environment.CurrentDirectory.ToString().Split('\\').Take(
             Environment.CurrentDirectory.ToString().Split('\\').Length - 2))) + "/Picture/";
 
@@ -40,7 +34,9 @@ namespace VR_registration
         {
             InitializeComponent();
             compliteFullInformationAboutClubs();
+            ProgramCashReader programCashReader = new ProgramCashReader();
             programCashReader.recordingLastWinsName(this.Title.ToString());
+            programCashReader = null;
         }
 
         public void MoveWindow(object sender, MouseButtonEventArgs e)
@@ -57,12 +53,10 @@ namespace VR_registration
         // Заполнение списка клубов
         public void compliteFullInformationAboutClubs()
         {
-            Dictionary<string, Dictionary<string, string>> returnInformationAboutClubs =
-                connectDataBaseClass.returnClubsInformation();
-            
+            ConnectDataBase connectDataBaseClass = new ConnectDataBase();
             int clubInformationButtonIndex = 0;
             
-            foreach (var dictionaryElement in returnInformationAboutClubs)
+            foreach (var dictionaryElement in connectDataBaseClass.returnClubsInformation())
             {
                 Console.WriteLine(dictionaryElement.Key);
                 
@@ -98,6 +92,7 @@ namespace VR_registration
                 clubCard.Child = informationGrid;
                 cardsShower.Children.Add(clubCard);
             }
+            connectDataBaseClass = null;
             Border saleAgitCard = createClubCardToChoose(50);
             saleAgitCard.Child = createSaleAgitation();
             cardsShower.Children.Add(saleAgitCard);
@@ -119,14 +114,13 @@ namespace VR_registration
             };
             return saleAgitation;
         }
-        // Определение выбранного клуба
+        // Переход к выбранному клубу
         private void goClubBooking(string informationBUtonName)
         {
+            Console.WriteLine("--------------------------------|||||||||||____________________________________________");
             Console.WriteLine("go club booking");
             Settings.Default["choosenClubInfo"] = buttonsNamesDict[informationBUtonName];
             Settings.Default.Save();
-            // отправка названия окна на запись
-            //programCashReader.recordingLastWinsName(this.Title.ToString());
             ClubBookingClass clubBookingClass = new ClubBookingClass()
             {
                 WindowStartupLocation = WindowStartupLocation.Manual,
@@ -136,6 +130,7 @@ namespace VR_registration
 
             this.Visibility = Visibility.Hidden;
             clubBookingClass.Show();
+            Console.WriteLine("--------------------------------||||----||||____________________________________________");
         }
 
         //-------------------------------------OTHER-----------------------------------------
@@ -282,11 +277,14 @@ namespace VR_registration
 
         public void goUserAcc(object sender, RoutedEventArgs e)
         {
-            if (programCashReader.returnActiveUserId() == "out")
+            ProgramCashReader programCashReader = new ProgramCashReader();
+            if (programCashReader.returnActiveUserId() == "out" || programCashReader.returnActiveUserId() == "")
             {
+                programCashReader = null;
                 goUserRegistrationWindow();
                 return;
             }
+            programCashReader = null;
             goUserAccountWindow();
             return;
         }
@@ -326,11 +324,15 @@ namespace VR_registration
         // возвращение к прошлому окну
         public void goBack(object sender, RoutedEventArgs e)
         {
+            ProgramCashReader programCashReader = new ProgramCashReader();
             string lastWindowName = programCashReader.returnLastWindowsName();
             Console.WriteLine("последнее окно " + lastWindowName);
             this.Visibility = Visibility.Hidden;
             programCashReader.recordingLastActiveWindowCoordinates(makeCoordinates());
+            programCashReader = null;
+            SwitchWindows switchWins = new SwitchWindows();
             switchWins.Windows_X_Names[lastWindowName]();
+            switchWins = null;
         }
 
         public void goVK(object sender, RoutedEventArgs e)
@@ -368,7 +370,9 @@ namespace VR_registration
         {
             if (dumbMessageBox("Вы уверены что хотите закрыть программу?"))
             {
+                ProgramCashReader programCashReader = new ProgramCashReader();
                 programCashReader.clearCash();
+                programCashReader = null;
                 Environment.Exit(0);
             }
 

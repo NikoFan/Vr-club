@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Threading;
 using VR_registration.Properties;
 
 namespace VR_registration
@@ -21,28 +22,29 @@ namespace VR_registration
     /// </summary>
     public partial class ClubBookingClass : Window
     {
-        public ProgramCashReader programCashReader = new ProgramCashReader();
-        public RegistrationWorkFromDB registrtationWorkFromDB = new RegistrationWorkFromDB();
-        public AuthorizationWorkFromDB authorizationWorkFromDB = new AuthorizationWorkFromDB();
-        public ConnectDataBase connectDataBaseClass = new ConnectDataBase();
-        public SwitchWindows switchWins = new SwitchWindows();
-        public ChooseClubToBook chooseClubToBook = new ChooseClubToBook();
+
         public Dictionary<string, string> clubFullInformation;
         public Dictionary<int, Dictionary<string, string>> gameInformationArray = new Dictionary<int, Dictionary<string, string>>();
         private int gameIndex = 0;
         private int GAMECOUNT = 0;
         private int setGameInfIndex = 0;
-        // public const string computerFoldersPATH = @"C:\Users\user\Desktop\Курсовой проект\Vr-club\VR-registration\Picture\";
         public string computerFoldersPATH = Convert.ToString(String.Join("\\", Environment.CurrentDirectory.ToString().Split('\\').Take(
             Environment.CurrentDirectory.ToString().Split('\\').Length - 2))) + "/Picture/";
+        
         public ClubBookingClass()
         {
             InitializeComponent();
             completeInformationAboutClub();
+            ProgramCashReader programCashReader = new ProgramCashReader();
             programCashReader.recordingLastWinsName(this.Title.ToString());
+            programCashReader = null;
+            
         }
 
-        // Метод для передвижения окна нажав на него ЛКМ
+        // -------------------------------Дейсвтия----------------------
+
+
+        // Передвижение окна
         public void MoveWindow(object sender, MouseButtonEventArgs e)
         {
             try
@@ -55,140 +57,28 @@ namespace VR_registration
             }
         }
 
-        private void completeInformationAboutClub()
-        {
-            Console.WriteLine("Заполение информации");
-            Console.WriteLine("Клуб: " + Settings.Default["choosenClubInfo"].ToString());
-            clubFullInformation =
-                connectDataBaseClass.returnInformationAboutClub(Settings.Default["choosenClubInfo"].ToString()); ;
-            setTextInTextBlock(clubFullInformation);
-            completeInformationAboutGames();
-        }
-        private void completeInformationAboutGames()
+
+        // Забронировать клуб
+        public void bookingClub(object sender, RoutedEventArgs e)
         {
             
-
-            
-            foreach(var dictItem in clubFullInformation)
-            {
-                Console.WriteLine(dictItem.Key + ": " + dictItem.Value);
-                if (dictItem.Key == "Список игр")
-                {
-                    
-                    string[] array = dictItem.Value.ToString().Split('|');
-                    for(int i = 0; i < array.Count() - 1; i++)
-                    {
-                        
-                        Console.WriteLine($"index: {gameIndex}");
-                        string[] info = array[i].Split('-');
-                        gameInformationArray[gameIndex] = distribusionGameInformation(info);
-                        gameIndex++;
-                    }
-                    GAMECOUNT = gameIndex - 1;
-                    
-                }
-                Console.WriteLine("-");
-            }
-            Console.WriteLine("------------");
-
-            foreach(var dictItem in gameInformationArray)
-            {
-                Console.WriteLine(dictItem.Key);
-                foreach(var info in dictItem.Value)
-                {
-                    Console.WriteLine(info.Key);
-                    Console.WriteLine(info.Value);
-                }
-                Console.WriteLine("-----");
-            }
-            setGameInfoIntoBlocks();
-
-        }
-
-        private Dictionary<string, string> distribusionGameInformation(string[] allInfo)
-        {
-            Dictionary<string, string> distribution = new Dictionary<string, string>()
-            {
-                {"Name", ""},
-                {"Rating", ""},
-                {"Cooperative", ""},
-                {"Photo", ""}
-            };
-
-            List<string> kategory = new List<string>()
-            {
-                "Name", "Rating", "Cooperative", "Photo"
-            };
-            int index = 0;
-            foreach(var infoElement in allInfo)
-            {
-                distribution[kategory[index]] = infoElement;
-                index++;
-            }
-
-            return distribution;
-        }
-
-        // Установка текста
-        private void setTextInTextBlock(Dictionary<string, string> textParams)
-        {
-            ClubName.Text = "VR_ZONE";
-            ClubAddress.Text = "Адрес: " + textParams["Адрес"];
-            ClubMail.Text = "Почта: " + textParams["Почта"];
-            ClubPhone.Text = "Тел. " + textParams["Телефон"];
-            ClubPrice.Text += " " + connectDataBaseClass.takeClubPrice(textParams["Тариф"]);
-            
-        }
-
-        private void setGameInfoIntoBlocks()
-        {
-            Console.WriteLine(":: " + gameInformationArray[setGameInfIndex]["Name"]);
-
-            GameName.Text = gameInformationArray[setGameInfIndex]["Name"];
-            GameRate.Text = gameInformationArray[setGameInfIndex]["Rating"] + "/10";
-
-            GameCoop.Text =
-                (gameInformationArray[setGameInfIndex]["Cooperative"].Trim() == "1") ? "Есть" : "Отсутствует";
-            setMainGamePicture(gameInformationArray[setGameInfIndex]["Photo"]);
-            if (setGameInfIndex - 1 >= 0)
-            {
-                setBackGroundGamePicture(gameInformationArray[setGameInfIndex-1]["Photo"]);
-            }
-            else
-            {
-                Console.WriteLine("GAMECOUNT: " + GAMECOUNT);
-                Console.WriteLine(gameInformationArray[GAMECOUNT]["Photo"]);
-                setBackGroundGamePicture(gameInformationArray[GAMECOUNT]["Photo"]);
-            }
-            
-
-
-        }
-        // Основная фотка
-        private void setMainGamePicture(string pictureName)
-        {
-            gamePicture.Source = new BitmapImage(
-                new Uri(computerFoldersPATH + pictureName));
-        }
-
-        // Фоновая фотка
-        private void setBackGroundGamePicture(string pictureName)
-        {
-            rightGamePic.Source = new BitmapImage(
-                new Uri(computerFoldersPATH + pictureName));
-        }
-
-        public void bookingClub(object  sender, RoutedEventArgs e)
-        {
             Console.WriteLine("Бронирование клуба");
+            OrderClubClass orderClubClass = new OrderClubClass()
+            {
+                WindowStartupLocation = WindowStartupLocation.Manual,
+                Left = Left,
+                Top = Top
+            };
+            this.Visibility = Visibility.Hidden;
+            orderClubClass.Show();
+            
         }
 
+        // Расписание клуба
         public void timingClub(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Расписание клуба");
-            
-            // отправка названия окна на запись
-            // programCashReader.recordingLastWinsName(this.Title.ToString());
+
             Calendar calendarClassOpener = new Calendar()
             {
                 WindowStartupLocation = WindowStartupLocation.Manual,
@@ -200,23 +90,10 @@ namespace VR_registration
             calendarClassOpener.Show();
         }
 
-        public void goUserAcc(object sender, RoutedEventArgs e)
-        {
-            Console.WriteLine(":: " + programCashReader.returnActiveUserId());
-            if (programCashReader.returnActiveUserId() == "out")
-            {
-                goUserRegistrationWindow();
-                return;
-            }
-            goUserAccountWindow();
-            return;
-        }
+        // Переход на Аккаунт
         public void goUserAccountWindow()
         {
             Console.WriteLine("go user account");
-            // отправка названия окна на запись
-            // programCashReader.recordingLastWinsName(this.Title.ToString());
-            
             UserAccountWindow userAccountWindow = new UserAccountWindow()
             {
                 WindowStartupLocation = WindowStartupLocation.Manual,
@@ -228,12 +105,10 @@ namespace VR_registration
             userAccountWindow.Show();
         }
 
+        // Переход в окно регистрации
         public void goUserRegistrationWindow()
         {
             Console.WriteLine("go user registration");
-            // отправка названия окна на запись
-            // programCashReader.recordingLastWinsName(this.Title.ToString());
-            
             UserRegistration userRegistrationWindow = new UserRegistration()
             {
                 WindowStartupLocation = WindowStartupLocation.Manual,
@@ -245,40 +120,50 @@ namespace VR_registration
             userRegistrationWindow.Show();
         }
 
-        // Формирование координат
-        private string makeCoordinates()
-        {
-            string coord = this.Left.ToString() + "_" + this.Top.ToString();
-            return coord;
-        }
-
-        public void swapToRightSide(object sender, RoutedEventArgs e)
+        public void SwapRight(object sender, RoutedEventArgs e)
         {
             setGameInfIndex++;
             completeInformationAboutGames();
         }
 
-        public void swapToLeftSide(object sender, RoutedEventArgs e)
+        public void SwapLeft(object sender, RoutedEventArgs e)
         {
             setGameInfIndex--;
             completeInformationAboutGames();
         }
 
-        // возвращение к прошлому окну
+        // Открыть Список игр
+        public void OpenGameInformation(object sender, RoutedEventArgs e)
+        {
+            GameInformationSheild.Visibility = Visibility.Hidden;
+            completeInformationAboutGames();
+        }
+
+        // Покрасить кнопку при наведении
+        public void DoSeen(object sender, RoutedEventArgs e)
+        {
+            Border buttonBorder = sender as Border;
+            buttonBorder.Background = new SolidColorBrush(Colors.DarkSeaGreen);
+        }
+
+        public void DoHide(object sender, RoutedEventArgs e)
+        {
+            Border buttonBorder = sender as Border;
+            buttonBorder.Background = new SolidColorBrush(Colors.Black);
+        }
+
+        // Возвращение к прошлому окну
         public void goBack(object sender, RoutedEventArgs e)
         {
-            // извлечение имени предыдущего окна
+            ProgramCashReader programCashReader = new ProgramCashReader();
             string lastWindowName = programCashReader.returnLastWindowsName();
             Console.WriteLine("последнее окно " + lastWindowName);
-            // перевод окна в невидимый режим
             this.Visibility = Visibility.Hidden;
-            // запись нынешнего окна как предыдущего, для дальнейшей смены
-
-            // programCashReader.recordingLastWinsName(this.Title.ToString());
-            // запись координат окна на момент смены
             programCashReader.recordingLastActiveWindowCoordinates(makeCoordinates());
-            // смена на предыдущее окно
+            SwitchWindows switchWins = new SwitchWindows();
             switchWins.Windows_X_Names[lastWindowName]();
+            switchWins = null;
+            programCashReader = null;
         }
         public void goVK(object sender, RoutedEventArgs e)
         {
@@ -315,10 +200,141 @@ namespace VR_registration
         {
             if (dumbMessageBox("Вы уверены что хотите закрыть программу?"))
             {
+                ProgramCashReader programCashReader = new ProgramCashReader();
                 programCashReader.clearCash();
                 Environment.Exit(0);
             }
 
         }
+
+        // --------------------Логика-------------------------
+
+        // Заполнение информации про клуб
+        private void completeInformationAboutClub()
+        {
+            ConnectDataBase connectDataBaseClass = new ConnectDataBase();
+            clubFullInformation =
+                connectDataBaseClass.returnInformationAboutClub(Settings.Default["choosenClubInfo"].ToString());
+            connectDataBaseClass = null;
+            setTextInTextBlock(clubFullInformation);
+            
+        }
+
+        // Заполнение информации про игры
+        private void completeInformationAboutGames()
+        {
+            string[] array = clubFullInformation["Список игр"].ToString().Split('|');
+            for (int i = 0; i < array.Count() - 1; i++)
+            {
+                // Помещаем инфу про игры в словарь
+                string[] info = array[i].Split('-');
+                gameInformationArray[gameIndex] = distribusionGameInformation(info);
+                gameIndex++;
+            }
+            GAMECOUNT = gameIndex - 1;
+
+            setGameInfoIntoBlocks();
+
+        }
+
+        // Хранение информации про игры в словаре
+        private Dictionary<string, string> distribusionGameInformation(string[] allInfo)
+        {
+            Dictionary<string, string> distribution = new Dictionary<string, string>()
+            {
+                {"Name", ""},
+                {"Rating", ""},
+                {"Cooperative", ""},
+                {"Photo", ""}
+            };
+
+            List<string> kategory = new List<string>()
+            {
+                "Name", "Rating", "Cooperative", "Photo"
+            };
+            int index = 0;
+            foreach(var infoElement in allInfo)
+            {
+                distribution[kategory[index]] = infoElement;
+                index++;
+            }
+
+            return distribution;
+        }
+
+        // Проверка Кеша
+        public void goUserAcc(object sender, RoutedEventArgs e)
+        {
+            ProgramCashReader programCashReader = new ProgramCashReader();
+            Console.WriteLine(":: " + programCashReader.returnActiveUserId());
+            if (programCashReader.returnActiveUserId() == "out" || programCashReader.returnActiveUserId() == "")
+            {
+                programCashReader = null;
+                goUserRegistrationWindow();
+                return;
+            }
+            programCashReader = null;
+            goUserAccountWindow();
+            return;
+        }
+
+        
+        // Формирование координат
+        private string makeCoordinates()
+        {
+            string coord = this.Left.ToString() + "_" + this.Top.ToString();
+            return coord;
+        }
+
+        // -----------------------------Интерфейс--------------------------------
+
+        // Установка текста
+        private void setTextInTextBlock(Dictionary<string, string> textParams)
+        {
+            clubAddressTextBox.Text = "Адрес: " + textParams["Адрес"];
+            clubMailTextBox.Text = "Почта: " + textParams["Почта"];
+            clubPhoneTextBox.Text = "Тел. " + textParams["Телефон"];
+            ConnectDataBase connectDataBaseClass = new ConnectDataBase();
+            Cost.Text = connectDataBaseClass.takeClubPrice(textParams["Тариф"].Trim());
+            connectDataBaseClass = null;
+            
+        }
+        // Установка списка игр
+        private void setGameInfoIntoBlocks()
+        {
+            if (setGameInfIndex < 0)
+                setGameInfIndex = GAMECOUNT;
+            Console.WriteLine(":: " + gameInformationArray[setGameInfIndex]["Name"]);
+
+            GameName.Text = gameInformationArray[setGameInfIndex]["Name"];
+            GameRating.Text = "Рейтинг: " + gameInformationArray[setGameInfIndex]["Rating"] + "/10";
+
+            GameCoop.Text =
+                (gameInformationArray[setGameInfIndex]["Cooperative"].Trim() == "1") ? "Совместная: Да" : "Совместная: Нет";
+            setMainGamePicture(gameInformationArray[setGameInfIndex]["Photo"]);
+            if (!(setGameInfIndex - 1 >= 0))
+            {
+                Console.WriteLine("GAMECOUNT: " + GAMECOUNT);
+                Console.WriteLine(gameInformationArray[GAMECOUNT]["Photo"]);
+            }
+            
+        }
+
+        // Основная фотка
+        private void setMainGamePicture(string pictureName)
+        {
+            FrontGamePicture.Source = new BitmapImage(
+                new Uri(computerFoldersPATH + pictureName));
+        }
+
+        
+        
+        
+
+        
+
+        
+
+        
     }
 }

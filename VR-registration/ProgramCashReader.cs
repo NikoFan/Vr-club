@@ -22,12 +22,8 @@ namespace VR_registration
         {
             if (Settings.Default["lastWindowName"].ToString().Length != 0)
             {
-                Console.WriteLine(Settings.Default["lastWindowName"].ToString());
-                Console.WriteLine(Settings.Default["lastWindowName"].ToString().Length);
                 if (windowName.Length != 0)
                 {
-                    Console.WriteLine("windowName: " + windowName + "|");
-                    Console.WriteLine("windowName L: " + windowName.Length);
                     Settings.Default["lastWindowName"] += "_" + windowName;
                     Settings.Default.Save();
                     
@@ -50,11 +46,7 @@ namespace VR_registration
             Settings.Default.Save();
         }
 
-        private void rewrite(string windowName)
-        {
-            Settings.Default["lastWindowName"] += windowName;
-            Settings.Default.Save();
-        }
+
 
         // Возврат имени окна
         public string returnLastWindowsName()
@@ -66,8 +58,6 @@ namespace VR_registration
             Console.WriteLine("------------------------------------------- " + cashArray.Length);
             if (cashArray.Length == 1)
             {
-                Console.WriteLine("|||||||||||||||");
-                Console.WriteLine(String.Join(" ", cashArray));
                 Settings.Default["lastWindowName"] = "";
                 Settings.Default.Save();
                 return cashArray[cashArray.Length-1];
@@ -87,12 +77,10 @@ namespace VR_registration
             Settings.Default.Save();
             while (cashArray[iteration] != findingWindowsName)
             {
-                Console.WriteLine("Element: " + cashArray[iteration]);
                 recordingLastWinsName(cashArray[iteration]);
                 iteration++;
             }
             
-            Console.WriteLine("Backer: " + findingWindowsName);
             return findingWindowsName;
         }
 
@@ -111,10 +99,8 @@ namespace VR_registration
         // Сохранение ID активного пользвателя
         public void recordingCurrentCustomersIdInCash(int currentUserID)
         {
-            Console.WriteLine(":::::"+Convert.ToString(currentUserID));
             Settings.Default["activeUserId"] = Convert.ToString(currentUserID);
             Settings.Default.Save();
-            Console.WriteLine("-- "+Settings.Default["activeUserId"]);
         }
         // Возвращение активного ID пользователя
         public string returnActiveUserId()

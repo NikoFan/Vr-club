@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\obj\Debug\
+C:\Users\Олег\Desktop\Хакатон\Vr-club\VR-registration\obj\Debug\
 VR_registration
 none
 false
 DEBUG;TRACE
-C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\App.xaml
-61795726823
+C:\Users\Олег\Desktop\Хакатон\Vr-club\VR-registration\App.xaml
+7-2147065195
 
-16-1277965180
+171281242050
 13-1310406943
-Calendar.xaml;ChooseClubToBook.xaml;ClubBookingClass.xaml;MainWindow.xaml;UserAccountWindow.xaml;UserRegistration.xaml;
+Calendar.xaml;ChooseClubToBook.xaml;ClubBookingClass.xaml;MainWindow.xaml;OrderClubClass.xaml;UserAccountWindow.xaml;UserRegistration.xaml;
 
 False
 

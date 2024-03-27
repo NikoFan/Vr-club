@@ -24,13 +24,8 @@ namespace VR_registration
     /// </summary>
     public partial class Calendar : Window 
     {
-        public ProgramCashReader programCashReader = new ProgramCashReader();
-        public RegistrationWorkFromDB registrtationWorkFromDB = new RegistrationWorkFromDB();
-        public AuthorizationWorkFromDB authorizationWorkFromDB = new AuthorizationWorkFromDB();
-        public ConnectDataBase connectDataBaseClass = new ConnectDataBase();
-        public SwitchWindows switchWins = new SwitchWindows();
+
         private string calendarBlocksName = "calendarBlock_number_";
-        // public const string computerFoldersPATH = @"C:\Users\user\Desktop\Курсовой проект\Vr-club\VR-registration\Picture\";
         public string computerFoldersPATH = Convert.ToString(String.Join("\\", Environment.CurrentDirectory.ToString().Split('\\').Take(
             Environment.CurrentDirectory.ToString().Split('\\').Length - 2))) + "/Picture/";
         private Dictionary<int, int> countDaysInMonthsArray = new Dictionary<int, int>()
@@ -75,9 +70,12 @@ namespace VR_registration
         public Calendar()
         {
             InitializeComponent();
+
             takeCorrectDateInformation();
             DisplayCalendar();
+            ProgramCashReader programCashReader = new ProgramCashReader();
             programCashReader.recordingLastWinsName(this.Title.ToString());
+            programCashReader = null;
             Thread dateSetterThread = new Thread(setDateUnderMouseInTextBlock);
             dateSetterThread.Start();
 
@@ -116,7 +114,9 @@ namespace VR_registration
 
             if (dumbMessageBox("Вы уверены что хотите закрыть программу?"))
             {
+                ProgramCashReader programCashReader = new ProgramCashReader();
                 programCashReader.clearCash();
+                programCashReader = null;
                 threadStoper = true;
                 Environment.Exit(0);
             }
@@ -136,18 +136,16 @@ namespace VR_registration
         public void goBack(object sender, RoutedEventArgs e)
         {
             threadStoper = true;
-            // извлечение имени предыдущего окна
+            ProgramCashReader programCashReader = new ProgramCashReader();
             string lastWindowName = programCashReader.returnLastWindowsName();
             Console.WriteLine("последнее окно " + lastWindowName);
-            // перевод окна в невидимый режим
             this.Visibility = Visibility.Hidden;
-            // запись нынешнего окна как предыдущего, для дальнейшей смены
 
-            //programCashReader.recordingLastWinsName(this.Title.ToString());
-            // запись координат окна на момент смены
             programCashReader.recordingLastActiveWindowCoordinates(makeCoordinates());
-            // смена на предыдущее окно
+            programCashReader = null;
+            SwitchWindows switchWins = new SwitchWindows();
             switchWins.Windows_X_Names[lastWindowName]();
+            switchWins = null;
         }
 
         public void goVK(object sender, RoutedEventArgs e)
@@ -173,11 +171,14 @@ namespace VR_registration
         public void goUserAcc(object sender, RoutedEventArgs e)
         {
             threadStoper = true;
-            if (programCashReader.returnActiveUserId() == "out")
+            ProgramCashReader programCashReader = new ProgramCashReader();
+            if (programCashReader.returnActiveUserId() == "out" || programCashReader.returnActiveUserId() == "")
             {
+                programCashReader = null;
                 goUserRegistrationWindow();
                 return;
             }
+            programCashReader = null;
             goUserAccountWindow();
             return;
         }

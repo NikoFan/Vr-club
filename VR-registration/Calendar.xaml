@@ -9,7 +9,6 @@
     Title="Расписание клуба"
     Width="1100"
     Height="900"
-    
     ResizeMode="NoResize"
     mc:Ignorable="d">
 
@@ -18,7 +17,10 @@
         <WindowChrome CaptionHeight="0" ResizeBorderThickness="5" />
     </WindowChrome.WindowChrome>
     <Grid>
-        <Grid x:Name="Head" Style="{StaticResource head_style}" MouseLeftButtonDown="MoveWindow">
+        <Grid
+            x:Name="Head"
+            MouseLeftButtonDown="MoveWindow"
+            Style="{StaticResource head_style}">
             <Image
                 MouseDown="closeApp"
                 Source="Picture\cross.png"

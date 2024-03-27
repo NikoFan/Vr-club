@@ -39,22 +39,11 @@ namespace VR_registration
             Environment.CurrentDirectory.ToString().Split('\\').Length - 2))) + "/Picture/";
 
 
-        public ControlInputData controlInputData = new ControlInputData();
-        public ConnectDataBase connect = new ConnectDataBase();
-        public SwitchWindows switchWins = new SwitchWindows();
-        public ProgramCashReader programCashReader = new ProgramCashReader();
-        public RegistrationWorkFromDB registrtationWorkFromDB = new RegistrationWorkFromDB();
-        public AuthorizationWorkFromDB authorizationWorkFromDB = new AuthorizationWorkFromDB();
-        
-        
-
-
-
         public UserRegistration()
         {
             InitializeComponent();
             createStartView();
-            programCashReader.recordingLastWinsName(this.Title.ToString());
+            new ProgramCashReader().recordingLastWinsName(this.Title.ToString());
             // Потоки маски телефона
             Thread registrationPhoneMask = new Thread(createRegistrationPhoneInputMask);
             registrationPhoneMask.Start();
@@ -197,13 +186,14 @@ namespace VR_registration
             {
                 ShowPassword_Auth.Text.ToString(), deletePhoneMask(AUTH_inputPhone.Text.ToString())
             };
-            if (controlInputData.checkIncorrectSymbolsInTextInputs(informationArray)
-                &&
+            ControlInputData controlInputData = new ControlInputData();
+            if (controlInputData.checkIncorrectSymbolsInTextInputs(informationArray) &&
                 controlInputData.controlTelephoneNumbers(deletePhoneMask(AUTH_inputPhone.Text.ToString())))
-
             {
+                controlInputData = null;
                 return true;
             }
+            controlInputData = null;
             dumbMessageBox($"Проверьте корректность данных\n" +
                 $"Проверьте чтобы не осталось пустых полей!\n" +
                 $"Проверьте чтобы в введенных данных отсутствовали символы: ', -, ;");
@@ -220,15 +210,15 @@ namespace VR_registration
                 ShowPassword_reg.Text.ToString(), REG_inputEmail.Text.ToString(),
                 REG_inputName.Text.ToString(), deletePhoneMask(REG_inputPhone.Text.ToString())
             };
-            if (controlInputData.checkIncorrectSymbolsInTextInputs(informationArray)
-                &&
-                controlInputData.controlTelephoneNumbers(deletePhoneMask(REG_inputPhone.Text.ToString()))
-                &&
-                controlInputData.IsValidEmail(REG_inputEmail.Text.ToString()))
-                
+            ControlInputData controlInputData = new ControlInputData();
+            if (controlInputData.checkIncorrectSymbolsInTextInputs(informationArray) &&
+                controlInputData.controlTelephoneNumbers(deletePhoneMask(REG_inputPhone.Text.ToString())) &&
+                controlInputData.IsValidEmail(REG_inputEmail.Text.ToString())) 
             {
+                controlInputData = null;
                 return true;
             }
+            controlInputData = null;
             dumbMessageBox($"Проверьте корректность данных\n" +
                 $"Проверьте чтобы не осталось пустых полей!\n" +
                 $"Проверьте чтобы в введенных данных отсутствовали символы: ', -, ;");
@@ -254,11 +244,11 @@ namespace VR_registration
 
                 };
                 // Регистрация пользователя
-                if (registrtationWorkFromDB.registarationUserInUserTableFromDataBase(allRegistrationDataFromTextBoxes))
+                if (new RegistrationWorkFromDB().registarationUserInUserTableFromDataBase(allRegistrationDataFromTextBoxes))
                 {
                     ThreadEx = true;
                     displayMessageBox("Пользователь зарегистрирован");
-                    programCashReader.createStartWindow();
+                    new ProgramCashReader().createStartWindow();
                     goUserAccountWindow();
                 }
                 else
@@ -287,7 +277,6 @@ namespace VR_registration
         public void authorizationUser(object sender, RoutedEventArgs e)
         {
 
-            
             if (checkCorrectAuthorizationInfo())
             {
                 string readyToAuthorizationPassword = seePassword == false ?
@@ -300,11 +289,11 @@ namespace VR_registration
                 {"Phone", Convert.ToString(deletePhoneMask(AUTH_inputPhone.Text.ToString()))}
                 };
                 // Регистрация пользователя
-                if (authorizationWorkFromDB.returnAuthorizationUserId(allRegistrationDataFromTextBoxes))
+                if (new AuthorizationWorkFromDB().returnAuthorizationUserId(allRegistrationDataFromTextBoxes))
                 {
                     ThreadEx = true;
                     displayMessageBox("пользователь авторизован");
-                    programCashReader.createStartWindow();
+                    new ProgramCashReader().createStartWindow();
                     goUserAccountWindow();
                 }
                 else
@@ -325,10 +314,11 @@ namespace VR_registration
         public void onLastWindow(object sender, RoutedEventArgs e)
         {
 
-            string lastWindowName = programCashReader.returnLastWindowsName();
+            string lastWindowName = new ProgramCashReader().returnLastWindowsName();
             this.Visibility = Visibility.Hidden;
-            programCashReader.recordingLastActiveWindowCoordinates(makeCoordinates());
-            switchWins.Windows_X_Names[lastWindowName]();
+            new ProgramCashReader().recordingLastActiveWindowCoordinates(makeCoordinates());
+            
+            new SwitchWindows().Windows_X_Names[lastWindowName]();
         }
 
         private void displayMessageBox(string messageBoxText)
@@ -499,7 +489,7 @@ namespace VR_registration
         {
             if (dumbMessageBox("Вы уверены что хотите закрыть программу?"))
             {
-                programCashReader.clearCash();
+                new ProgramCashReader().clearCash();
                 Environment.Exit(0);
             }
             

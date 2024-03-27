@@ -34,8 +34,8 @@ namespace VR_registration
                 commandToAddInformationFromTable.Connection = connection;
                 commandToAddInformationFromTable.ExecuteNonQuery();
             }
-            
-            programCashReader.recordingCurrentCustomersIdInCash(activeUsersId);
+
+            new ProgramCashReader().recordingCurrentCustomersIdInCash(activeUsersId);
             return true;
 
         }

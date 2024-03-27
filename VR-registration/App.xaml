@@ -10,7 +10,7 @@
             <Setter Property="Background" Value="#856ADC" />
             <Setter Property="Height" Value="150" />
             <Setter Property="VerticalAlignment" Value="Top" />
-            
+
         </Style>
 
         <!--  Черта {Border}  -->
@@ -20,6 +20,30 @@
 
         </Style>
 
+        <!--  Стиль для ввода даных для брони {Border}  -->
+        <Style x:Key="inputBookingInformationPlace_style" TargetType="Border">
+            <Setter Property="Width" Value="900" />
+            <Setter Property="Height" Value="500" />
+            <Setter Property="CornerRadius" Value="30" />
+            <Setter Property="Background" Value="Pink" />
+        </Style>
+        
+        <!-- Стиль для цены заказа -->
+        <Style x:Key="OrderCostPlace_style" TargetType="Border">
+            <Setter Property="Width" Value="250"/>
+            <Setter Property="Height" Value="200"/>
+            <Setter Property="Margin" Value="0 0 50 0"/>
+            <Setter Property="CornerRadius" Value="20"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Background" Value="Black"/>
+        </Style>
+
+        <!--  Стиль для ввода текста {StackPanel}  -->
+        <Style x:Key="TextInputPlace_style" TargetType="StackPanel">
+            <Setter Property="Width" Value="600" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+        </Style>
+        
         <!--  Стиль для направляющих кнопок при перемотке игр {BORDER}  -->
         <Style x:Key="SideButtonBorder_style" TargetType="Border">
             <Setter Property="Height" Value="250" />
@@ -35,14 +59,113 @@
             <Setter Property="VerticalAlignment" Value="Bottom" />
             <Setter Property="Margin" Value="0,0,100,70" />
         </Style>
-        
-        <!-- Стиль для пользовательского окна {Border} -->
+
+        <!--  Стиль для уголков пользовательского интерфейа {Grid}  -->
+        <Style x:Key="Corners_style" TargetType="Grid">
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Height" Value="120" />
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+
+        <!--  Стиль для Вертикальной черты {Border}  -->
+        <Style x:Key="Vertical_style" TargetType="Border">
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="Width" Value="20" />
+            <Setter Property="CornerRadius" Value="10" />
+        </Style>
+
+        <!--  Стиль для Горизонтальной черты {Border}  -->
+        <Style x:Key="Horizontal_style" TargetType="Border">
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="Height" Value="25" />
+            <Setter Property="CornerRadius" Value="10" />
+        </Style>
+
+        <!--  Стиль для кнопки переключения игры {Border}  -->
+        <Style x:Key="ButtonsLeftRight_style" TargetType="Border">
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="Width" Value="200" />
+            <Setter Property="Opacity" Value="0.2" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+
+        <!--  Подлока для информации клуба {Border}  -->
+        <Style x:Key="clubInformationShowerPlace_style" TargetType="Border">
+            <Setter Property="Background" Value="#8161AE" />
+            <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="Margin" Value="0,40,0,0" />
+            <Setter Property="Width" Value="900" />
+            <Setter Property="Height" Value="500" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+        </Style>
+
+        <!--  Стиль для ценника {Border}  -->
+        <Style x:Key="costShowerPlace_style" TargetType="Border">
+            <Setter Property="Width" Value="300" />
+            <Setter Property="Height" Value="100" />
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="Margin" Value="0,5,0,0" />
+        </Style>
+
+        <!--  Стиль для области кнопок {StackPanel}  -->
+        <Style x:Key="ButtonsPlace_style" TargetType="StackPanel">
+            <Setter Property="Height" Value="330" />
+            <Setter Property="Width" Value="300" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="Margin" Value="0,0,120,0" />
+        </Style>
+
+        <!--  Стиль для текста цены {TextBlock}  -->
+        <Style x:Key="costText_style" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="45" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <!--  Информация про клуб {TextBox}  -->
+        <Style x:Key="clubInformationTextBox_style" TargetType="TextBox">
+            <Setter Property="Height" Value="70" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="IsReadOnly" Value="True" />
+            <Setter Property="FontSize" Value="40" />
+            <Setter Property="Padding" Value="30,0,0,0" />
+            <Setter Property="Margin" Value="0,20,0,0" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="FontStyle" Value="Italic" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+        </Style>
+
+        <!--  Заголовки {TextBlock}  -->
+        <Style x:Key="captionTextBlock_style" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="40" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="Padding" Value="50,0,0,0" />
+            <Setter Property="Margin" Value="0,20,0,0" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+
+        <!--  Стиль для ввода текста при бронировании {TextBox}  -->
+        <Style x:Key="orderTextInput_style" TargetType="TextBox">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Padding" Value="10 0 0 0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#7C42AE"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="50 10 0 0"/>
+            <Setter Property="FontSize" Value="25"/>
+        </Style>
+
+        <!--  Стиль для пользовательского окна {Border}  -->
         <Style x:Key="userPage_style" TargetType="Border">
-            <Setter Property="Width" Value="800"/>
-            <Setter Property="Height" Value="500"/>
-            <Setter Property="Background" Value="#7C4181"/>
-            
-            <Setter Property="CornerRadius" Value="20"/>
+            <Setter Property="Width" Value="800" />
+            <Setter Property="Height" Value="500" />
+            <Setter Property="Background" Value="#7C4181" />
+
+            <Setter Property="CornerRadius" Value="20" />
         </Style>
 
         <!--  Стиль для блока кнопок в календаре {Grid}  -->
@@ -70,56 +193,45 @@
             <Setter Property="Padding" Value="0,0,0,50" />
             <Setter Property="Height" Value="150" />
         </Style>
-        <!-- Стиль для текста в Аккаунте пользователя {TextBlock} -->
+        <!--  Стиль для текста в Аккаунте пользователя {TextBlock}  -->
         <Style x:Key="userAccountTextBlock_Style" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="FontSize" Value="30"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Margin" Value="40 15 0 0"/>
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontSize" Value="30" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Margin" Value="40,15,0,0" />
         </Style>
 
-        <!-- Стиль для текста в Аккаунте пользователя {TextBox} -->
+        <!--  Стиль для текста в Аккаунте пользователя {TextBox}  -->
         <Style x:Key="userAccountTextBox_Style" TargetType="TextBox">
-            <Setter Property="IsReadOnly" Value="True"/>
-            
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="FontSize" Value="30"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Padding" Value="20 5 0 0"/>
+            <Setter Property="IsReadOnly" Value="True" />
+
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="FontSize" Value="30" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Padding" Value="20,5,0,0" />
         </Style>
-        
-        <!-- Стиль для области с инфой пользователя {Border} -->
+
+        <!--  Стиль для области с инфой пользователя {Border}  -->
         <Style x:Key="textBorder_style" TargetType="Border">
-            <Setter Property="Width" Value="450"/>
-            <Setter Property="Height" Value="50"/>
-            <Setter Property="Background" Value="#61336C"/>
-            <Setter Property="CornerRadius" Value="15"/>
-            <Setter Property="Margin" Value="0 20 0 0"/>
+            <Setter Property="Width" Value="450" />
+            <Setter Property="Height" Value="50" />
+            <Setter Property="Background" Value="#61336C" />
+            <Setter Property="CornerRadius" Value="15" />
+            <Setter Property="Margin" Value="0,20,0,0" />
         </Style>
 
-        <!--  Стиль для фоток игр {Border}  -->
-        <Style x:Key="gameImageBorder_style" TargetType="Border">
-            <Setter Property="Height" Value="200" />
-            <Setter Property="Width" Value="150" />
-            <Setter Property="Margin" Value="0,0,200,0" />
-        </Style>
 
-        <!--  Стиль для фоток игр на заднем плане {Border}  -->
-        <Style x:Key="gameBackImageBorder_style" TargetType="Border">
-            <Setter Property="Height" Value="160" />
-            <Setter Property="Width" Value="110" />
-            <Setter Property="Margin" Value="0,0,360,0" />
-            <Setter Property="Opacity" Value="0.4" />
-        </Style>
 
         <!--  Стиль для инфы про игры {Border}  -->
         <Style x:Key="gameInformationBorder_style" TargetType="Border">
-            <Setter Property="Height" Value="200" />
-            <Setter Property="Width" Value="270" />
-            <Setter Property="Margin" Value="230,0,0,0" />
+            <Setter Property="Height" Value="170" />
+            <Setter Property="Width" Value="220" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+
+            <Setter Property="Margin" Value="0,0,70,0" />
         </Style>
 
         <!--  Стиль для сетки дней недели {Grid}  -->
@@ -133,14 +245,25 @@
             <Setter Property="FontSize" Value="25" />
             <Setter Property="FontWeight" Value="Bold" />
             <Setter Property="Foreground" Value="Black" />
-            
-        </Style>
 
-        <!--  Стиль для маленького текста {TextBloxk}  -->
+        </Style>
+        <!--  Стиль для маленького текста {TextBox}  -->
+        <Style x:Key="smallImportantTextBox_style" TargetType="TextBox">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="IsReadOnly" Value="True" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Padding" Value="10,0,0,0" />
+            <Setter Property="Margin" Value="0,10,0,0" />
+        </Style>
+        <!--  Стиль для маленького текста {TextBlock}  -->
         <Style x:Key="smallImportantText_style" TargetType="TextBlock">
             <Setter Property="FontSize" Value="18" />
             <Setter Property="Foreground" Value="White" />
-            <Setter Property="Padding" Value="10,10,0,0" />
+            <Setter Property="Padding" Value="10,0,0,0" />
+            <Setter Property="Margin" Value="0,10,0,0" />
         </Style>
         <!--  Стиль для обычного текста {Text Block}  -->
         <Style x:Key="normalText_style" TargetType="TextBlock">
@@ -149,7 +272,7 @@
             <Setter Property="Foreground" Value="White" />
             <Setter Property="TextAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Center" />
-            
+
         </Style>
 
         <!--  Стиль для иконок мессенджеров {Image}  -->
@@ -237,26 +360,26 @@
             <Setter Property="Margin" Value="0,0,0,80" />
         </Style>
 
-        <!-- Стиль для области с текстовыми данными пользователя {Border}-->
+        <!--  Стиль для области с текстовыми данными пользователя {Border}  -->
         <Style x:Key="textPlaceBorder_style" TargetType="Border">
-            <Setter Property="Width" Value="500"/>
-            <Setter Property="Height" Value="400"/>
-            <Setter Property="CornerRadius" Value="10"/>
-            <Setter Property="Margin" Value="40 0 0 0"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="Background" Value="#C180C6"/>
+            <Setter Property="Width" Value="500" />
+            <Setter Property="Height" Value="400" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Margin" Value="40,0,0,0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Background" Value="#C180C6" />
         </Style>
-        
-        <!-- Стиль для кнопки вызода из аккаунта {Border}-->
+
+        <!--  Стиль для кнопки вызода из аккаунта {Border}  -->
         <Style x:Key="logOutButton_style" TargetType="Border">
-            <Setter Property="Width" Value="200"/>
-            <Setter Property="Height" Value="100"/>
-            <Setter Property="CornerRadius" Value="10"/>
-            <Setter Property="Margin" Value="0 0 20 20"/>
-            <Setter Property="VerticalAlignment" Value="Bottom"/>
-            <Setter Property="HorizontalAlignment" Value="Right"/>
-            <Setter Property="Background" Value="#471C4A"/>
+            <Setter Property="Width" Value="200" />
+            <Setter Property="Height" Value="100" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Margin" Value="0,0,20,20" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Background" Value="#471C4A" />
         </Style>
 
         <!--  Стиль для информации про клубы {Grid}  -->
@@ -267,14 +390,37 @@
             <Setter Property="HorizontalAlignment" Value="Center" />
         </Style>
 
-        <!--  Стиль для информации про набор игр {Grid}  -->
-        <Style x:Key="gamesInformationGrid_style" TargetType="Grid">
-            <Setter Property="Height" Value="250" />
-            <Setter Property="Width" Value="700" />
+        <!--  Стиль для информации про набор игр {Border}  -->
+        <Style x:Key="gamesInformationBorder_style" TargetType="Border">
+            <Setter Property="Height" Value="190" />
+            <Setter Property="Width" Value="550" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Margin" Value="100,0,0,10" />
+            <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="Background" Value="Black" />
+        </Style>
+
+        <!--  Стиль для подставки к игре {Border}  -->
+        <Style x:Key="GamePodium_style" TargetType="Border">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="Opacity" Value="0.4" />
+            <Setter Property="CornerRadius" Value="50" />
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Margin" Value="0,0,150,10" />
             <Setter Property="VerticalAlignment" Value="Bottom" />
             <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="Margin" Value="0,0,0,50" />
         </Style>
+
+        <!--  Стиль для фотографии игр {Border}  -->
+        <Style x:Key="gamePictureStyle" TargetType="Border">
+            <Setter Property="Width" Value="120" />
+            <Setter Property="Height" Value="140" />
+            <Setter Property="Margin" Value="0,0,150,0" />
+
+        </Style>
+
         <!--  Стиль для кнопки "Бронировать" {border}  -->
         <Style x:Key="poster_style" TargetType="Border">
             <Setter Property="Width" Value="600" />

@@ -120,213 +120,122 @@
             ShowGridLines="False"
             Style="{StaticResource body_style}">
             <Image Opacity="0.2" Source="Picture\clubInformationWindowBG.png" />
-            <Grid x:Name="INformationAboutClubs" Style="{StaticResource clubInformationGrid_style}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
 
-                <Image
-                    Grid.Column="0"
-                    Height="80"
-                    Margin="0,0,0,150"
-                    Source="Picture\metka.png" />
-                <Image
-                    Grid.Column="0"
-                    Height="80"
-                    Margin="0,0,0,0"
-                    Source="Picture\mailicon.png" />
-                <Image
-                    Grid.Column="0"
-                    Height="80"
-                    Margin="0,150,0,0"
-                    Source="Picture\phoneicon.png" />
-                <TextBlock
-                    x:Name="ClubName"
-                    Grid.Column="1"
-                    VerticalAlignment="Top"
-                    Foreground="Black"
-                    Style="{StaticResource OrgName_style}"
-                    Text="qwe" />
-                <TextBlock
-                    x:Name="ClubAddress"
-                    Grid.Column="1"
-                    Margin="0,0,0,150"
-                    Padding="70,0,0,0"
-                    Foreground="Black"
-                    Style="{StaticResource normalText_style}"
-                    TextAlignment="Left" />
-                <TextBlock
-                    x:Name="ClubMail"
-                    Grid.Column="1"
-                    Margin="0,0,0,0"
-                    Padding="70,0,0,0"
-                    Foreground="Black"
-                    Style="{StaticResource normalText_style}"
-                    TextAlignment="Left" />
-                <TextBlock
-                    x:Name="ClubPhone"
-                    Grid.Column="1"
-                    Margin="0,150,0,0"
-                    Padding="70,0,0,0"
-                    Foreground="Black"
-                    Style="{StaticResource normalText_style}"
-                    TextAlignment="Left" />
-                <TextBlock
-                    x:Name="ClubPrice"
-                    Grid.Column="1"
-                    Margin="0,300,0,0"
-                    Padding="70,0,0,0"
-                    Foreground="Black"
-                    Style="{StaticResource normalText_style}"
-                    Text="Цена: "
-                    TextAlignment="Left" />
-            </Grid>
-            <!--  Список игр  -->
-            <Grid x:Name="GamesArray" Style="{StaticResource gamesInformationGrid_style}">
+            <Border Style="{StaticResource clubInformationShowerPlace_style}">
+                <StackPanel>
+                    <TextBlock Style="{StaticResource captionTextBlock_style}" Text="Адрес" />
+                    <TextBox
+                        x:Name="clubAddressTextBox"
+                        Style="{StaticResource clubInformationTextBox_style}"
+                        Text="Address" />
+                    <TextBlock Style="{StaticResource captionTextBlock_style}" Text="Почта" />
+                    <TextBox
+                        x:Name="clubMailTextBox"
+                        Style="{StaticResource clubInformationTextBox_style}"
+                        Text="Mail" />
+                    <TextBlock Style="{StaticResource captionTextBlock_style}" Text="Телефон" />
+                    <TextBox
+                        x:Name="clubPhoneTextBox"
+                        Style="{StaticResource clubInformationTextBox_style}"
+                        Text="Phone" />
+                </StackPanel>
+            </Border>
+            <!--  Ценник  -->
+            <StackPanel Style="{StaticResource ButtonsPlace_style}">
+                <Border Style="{StaticResource costShowerPlace_style}">
+                    <TextBlock
+                        x:Name="Cost"
+                        Style="{StaticResource costText_style}"
+                        Text="" />
+                </Border>
                 <Border
-                    x:Name="bgBorder"
                     Background="Black"
-                    CornerRadius="50">
-                    <Grid>
-                        <!--  Игра по середине  -->
-                        <Grid x:Name="FirstViewGames">
-                            <Border
-                                x:Name="backGroundGameImages"
-                                BorderBrush="Gray"
-                                BorderThickness="2"
-                                Style="{StaticResource gameBackImageBorder_style}">
-                                <Image x:Name="rightGamePic" />
-                            </Border>
-                            <Border
-                                x:Name="gameImagesBorder"
-                                Background="Black"
-                                BorderBrush="White"
-                                BorderThickness="1"
-                                Style="{StaticResource gameImageBorder_style}">
-                                <Image x:Name="gamePicture" />
-                            </Border>
-
-                            <Border x:Name="gameInformationBorder" Style="{StaticResource gameInformationBorder_style}">
-                                <Grid>
-                                    <TextBlock
-                                        x:Name="GameNameTitle"
-                                        FontWeight="Bold"
-                                        Style="{StaticResource smallImportantText_style}"
-                                        Text="Название:" />
-                                    <TextBlock
-                                        x:Name="GameName"
-                                        Margin="0,30,0,0"
-                                        Style="{StaticResource smallImportantText_style}"
-                                        Text="" />
-                                    <TextBlock
-                                        x:Name="GameRateTitle"
-                                        Margin="0,60,0,0"
-                                        FontWeight="Bold"
-                                        Style="{StaticResource smallImportantText_style}"
-                                        Text="Рейтинг:" />
-                                    <TextBlock
-                                        x:Name="GameRate"
-                                        Margin="0,90,0,0"
-                                        Style="{StaticResource smallImportantText_style}"
-                                        Text="" />
-                                    <TextBlock
-                                        x:Name="GameCoopTitle"
-                                        Margin="0,120,0,0"
-                                        FontWeight="Bold"
-                                        Style="{StaticResource smallImportantText_style}"
-                                        Text="Кооператив: " />
-                                    <TextBlock
-                                        x:Name="GameCoop"
-                                        Margin="0,150,0,0"
-                                        Style="{StaticResource smallImportantText_style}" />
-
-                                </Grid>
-                            </Border>
-                        </Grid>
-                    </Grid>
-
+                    Cursor="Hand"
+                    MouseDown="timingClub"
+                    MouseEnter="DoSeen"
+                    MouseLeave="DoHide"
+                    Style="{StaticResource costShowerPlace_style}">
+                    <TextBlock Style="{StaticResource costText_style}" Text="Расписание" />
                 </Border>
                 <Border
-                    x:Name="RightButtonBorder"
-                    HorizontalAlignment="Right"
-                    CornerRadius="0 50 50 0"
-                    Style="{StaticResource SideButtonBorder_style}">
-                    <Grid>
-                        <Image Source="Picture\rightArrow.png" />
-                        <Button
-                            x:Name="rightBtn"
-                            Click="swapToRightSide"
-                            Style="{StaticResource button_style}" />
-                    </Grid>
-
-
+                    Background="Black"
+                    Cursor="Hand"
+                    MouseDown="bookingClub"
+                    MouseEnter="DoSeen"
+                    MouseLeave="DoHide"
+                    Style="{StaticResource costShowerPlace_style}">
+                    <TextBlock Style="{StaticResource costText_style}" Text="Заказать" />
                 </Border>
+            </StackPanel>
 
-                <Border
-                    x:Name="LeftButtonBorder"
-                    HorizontalAlignment="Left"
-                    CornerRadius="50 0 0 50"
-                    Style="{StaticResource SideButtonBorder_style}">
-                    <Grid>
+            <!--  Список игр  -->
+            <Border Style="{StaticResource gamesInformationBorder_style}">
+                <Grid>
+                    <Border Style="{StaticResource GamePodium_style}" />
+                    <Border x:Name="GamePictureSocket" Style="{StaticResource gamePictureStyle}">
+                        <Image x:Name="FrontGamePicture" />
+                    </Border>
+
+                    <Border Style="{StaticResource gameInformationBorder_style}">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource smallImportantText_style}" Text="Название" />
+                            <TextBox x:Name="GameName" Style="{StaticResource smallImportantTextBox_style}" />
+                            <TextBlock
+                                x:Name="GameRating"
+                                Style="{StaticResource smallImportantText_style}"
+                                Text="Рейтинг" />
+                            <TextBlock
+                                x:Name="GameCoop"
+                                Style="{StaticResource smallImportantText_style}"
+                                Text="Совместная" />
+
+                        </StackPanel>
+                    </Border>
+                    <Border
+                        x:Name="leftClickButton"
+                        HorizontalAlignment="Left"
+                        CornerRadius="20 0 0 20"
+                        MouseDown="SwapLeft"
+                        MouseEnter="DoSeen"
+                        MouseLeave="DoHide"
+                        Style="{StaticResource ButtonsLeftRight_style}">
                         <Image Source="Picture\leftArrow.png" />
-                        <Button
-                            x:Name="leftBtn"
-                            Click="swapToLeftSide"
-                            Style="{StaticResource button_style}" />
-                    </Grid>
+                    </Border>
+                    <Border
+                        x:Name="rightClickButton"
+                        HorizontalAlignment="Right"
+                        CornerRadius="0 20 20 0"
+                        MouseDown="SwapRight"
+                        MouseEnter="DoSeen"
+                        MouseLeave="DoHide"
+                        Style="{StaticResource ButtonsLeftRight_style}">
+                        <Image Source="Picture\rightArrow.png" />
+                    </Border>
 
+                    <!--  Показать игры  -->
+                    <Border
+                        x:Name="GameInformationSheild"
+                        Background="MediumPurple"
+                        CornerRadius="20">
 
-                </Border>
-
-            </Grid>
-            <Grid
-                x:Name="bookingButtonGrid"
-                Width="150"
-                Height="150"
-                Margin="0,0,25,100"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom">
-                <Border
-                    Height="50"
-                    Margin="0,0,0,100"
-                    Background="DarkGreen"
-                    BorderBrush="Black"
-                    BorderThickness="2"
-                    CornerRadius="20">
-                    <Grid>
-                        <TextBlock
-                            Padding="0,0,0,0"
+                        <Border
+                            Height="150"
                             VerticalAlignment="Center"
-                            Style="{StaticResource smallImportantText_style}"
-                            Text="Забронировать"
-                            TextAlignment="Center" />
-                        <Button Click="bookingClub" Style="{StaticResource button_style}" />
-                    </Grid>
+                            MouseDown="OpenGameInformation"
+                            MouseEnter="DoSeen"
+                            MouseLeave="DoHide"
+                            Style="{StaticResource costShowerPlace_style}">
+                            <TextBlock
+                                Style="{StaticResource costText_style}"
+                                Text="Показать Игры"
+                                TextWrapping="Wrap" />
+                        </Border>
 
-                </Border>
 
-                <Border
-                    Height="50"
-                    Margin="0,100,0,0"
-                    Background="MediumPurple"
-                    BorderBrush="Black"
-                    BorderThickness="2"
-                    CornerRadius="20">
+                    </Border>
+                </Grid>
+            </Border>
 
-                    <Grid>
-                        <TextBlock
-                            Padding="0,0,0,0"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource smallImportantText_style}"
-                            Text="Расписание"
-                            TextAlignment="Center" />
-                        <Button Click="timingClub" Style="{StaticResource button_style}" />
-                    </Grid>
-
-                </Border>
-
-            </Grid>
         </Grid>
     </Grid>
 </Window>

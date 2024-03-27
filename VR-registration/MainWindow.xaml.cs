@@ -28,28 +28,16 @@ namespace VR_registration
     {
         private bool StopThread = false;
         private int bannersPhotoIndex = 1;
-        public ProgramCashReader programCashReader = new ProgramCashReader();
-        public RegistrationWorkFromDB registrtationWorkFromDB = new RegistrationWorkFromDB();
-        public AuthorizationWorkFromDB authorizationWorkFromDB = new AuthorizationWorkFromDB();
-        public ConnectDataBase connectDataBaseClass = new ConnectDataBase();
-        public SwitchWindows switchWins = new SwitchWindows();
-
-        
-        // public const string computerFoldersPATH = @"C:\Users\user\Desktop\Курсовой проект\Vr-club\VR-registration\Picture\";
-        // public const string computerFoldersPATH = @"C:\Users\Олег\Desktop\Хакатон\VR-registration\VR-registration\Picture\";
-        // public const string computerFoldersPATH = @"..//VR-registrarion//Picture/";
         public string computerFoldersPATH = Convert.ToString(String.Join("\\", Environment.CurrentDirectory.ToString().Split('\\').Take(
             Environment.CurrentDirectory.ToString().Split('\\').Length-2))) + "/Picture/";
-        
-
-
 
         public MainWindow()
         {
             InitializeComponent();
+            ProgramCashReader programCashReader = new ProgramCashReader();
             programCashReader.clearCash();
             programCashReader.recordingLastWinsName(this.Title.ToString());
-            
+            programCashReader = null;
             // создание и запуск потока по смене фотографий
             Thread pictureChengerThread = new Thread(pictureChanger);
             pictureChengerThread.Start();
@@ -64,6 +52,7 @@ namespace VR_registration
             try
             {
                 this.DragMove();
+                Console.WriteLine(Head.GetType());
             }
             catch (Exception)
             {
@@ -102,11 +91,14 @@ namespace VR_registration
         public void goUserAcc(object sender, RoutedEventArgs e)
         {
             StopThread = true;
+            ProgramCashReader programCashReader = new ProgramCashReader();
             if (programCashReader.returnActiveUserId() == "out" || programCashReader.returnActiveUserId() == "")
             {
+                programCashReader = null;
                 goUserRegistrationWindow();
                 return;
             }
+            programCashReader = null;
             goUserAccountWindow();
             return;
         }
@@ -152,11 +144,15 @@ namespace VR_registration
         public void goBack(object sender, RoutedEventArgs e)
         {
             StopThread = true;
+            ProgramCashReader programCashReader = new ProgramCashReader();
             string lastWindowName = programCashReader.returnLastWindowsName().Replace("]", "");
             Console.WriteLine("последнее окно " + lastWindowName);
             this.Visibility = Visibility.Hidden;
             programCashReader.recordingLastActiveWindowCoordinates(makeCoordinates());
+            programCashReader = null;
+            SwitchWindows switchWins = new SwitchWindows();
             switchWins.Windows_X_Names[lastWindowName]();
+            switchWins = null;
         }
         public void goVK(object sender, RoutedEventArgs e)
         {
@@ -192,7 +188,7 @@ namespace VR_registration
                 Top = Top
             };
 
-            this.Visibility = Visibility.Collapsed;
+            this.Visibility = Visibility.Hidden;
             chooseClubToBook.Show();
             
         }
@@ -214,7 +210,9 @@ namespace VR_registration
             if (dumbMessageBox("Вы уверены что хотите закрыть программу?"))
             {
                 StopThread = true;
+                ProgramCashReader programCashReader = new ProgramCashReader();
                 programCashReader.clearCash();
+                programCashReader = null;
                 Environment.Exit(0);
             }
 

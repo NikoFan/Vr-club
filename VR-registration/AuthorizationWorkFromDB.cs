@@ -31,7 +31,7 @@ namespace VR_registration
                     while (dr.Read())
                     {
                         int Id = Convert.ToInt32(dr["Id Пользователя"]);
-                        programCashReader.recordingCurrentCustomersIdInCash(Id);
+                        new ProgramCashReader().recordingCurrentCustomersIdInCash(Id);
                         return true;
                     }
                     dr.Close();

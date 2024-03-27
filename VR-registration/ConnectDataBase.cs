@@ -40,10 +40,10 @@ namespace VR_registration
 
         // Корректный id пользователя при регистрации
         public int activeUsersId = 1;
-        public ProgramCashReader programCashReader = new ProgramCashReader();
-        public ControlInputData controlInputData = new ControlInputData();
         
-        public string ConnectionString = "data source=7.tcp.eu.ngrok.io, 16611;" +
+        
+        
+        public string ConnectionString = "data source=6.tcp.eu.ngrok.io, 16707;" +
             "Database=VR_club;" +
             "User Id=sa;" +
             "Password=7784865Oleg#;" +
@@ -113,6 +113,7 @@ namespace VR_registration
         public List<string> takeInformationFromTableAboutGames(string gameFindID)
         {
             DatabaseInformationStruct databaseGameListTableColumn = new DatabaseInformationStruct();
+            Console.WriteLine(gameFindID);
             List<string> gameInformationArray = new List<string>();
             using (SqlConnection conn = new SqlConnection(ConnectionString))
             {
@@ -130,17 +131,17 @@ namespace VR_registration
                     SqlDataReader dr = cmd.ExecuteReader();
                     while (dr.Read())
                     {
-                        databaseGameListTableColumn.gameName = ("" + dr["Игра"]).Trim();
+                        /*databaseGameListTableColumn.gameName = ("" + dr["Игра"]).Trim();
                         databaseGameListTableColumn.gameRating = ("" + dr["Рейтинг"]).Trim();
                         databaseGameListTableColumn.gameCooper = ("" + dr["Совместная"]).Trim();
                         databaseGameListTableColumn.gamePhotoName = ("" + dr["Фото"]).Trim();
 
                         Console.WriteLine($"{databaseGameListTableColumn.gameName};\n{databaseGameListTableColumn.gameRating};\n" +
-                            $"{databaseGameListTableColumn.gameCooper};\n{databaseGameListTableColumn.gamePhotoName};");
-                        gameInformationArray.Add(databaseGameListTableColumn.gameName);
-                        gameInformationArray.Add(databaseGameListTableColumn.gameRating);
-                        gameInformationArray.Add(databaseGameListTableColumn.gameCooper);
-                        gameInformationArray.Add(databaseGameListTableColumn.gamePhotoName);
+                            $"{databaseGameListTableColumn.gameCooper};\n{databaseGameListTableColumn.gamePhotoName};");*/
+                        gameInformationArray.Add(("" + dr["Игра"]).Trim());
+                        gameInformationArray.Add(("" + dr["Рейтинг"]).Trim());
+                        gameInformationArray.Add(("" + dr["Совместная"]).Trim());
+                        gameInformationArray.Add(("" + dr["Фото"]).Trim());
                     }
                     dr.Close();
                 }
@@ -173,7 +174,7 @@ namespace VR_registration
                     SqlDataReader dr = cmd.ExecuteReader();
                     while (dr.Read())
                     {
-                        databaseTarifTableColumn.clubTarif = (string)dr["Цена"];
+                        databaseTarifTableColumn.clubTarif = ((string)dr["Цена"]).Trim();
                         break;
                     }
                     dr.Close();
@@ -204,7 +205,7 @@ namespace VR_registration
                     cmd.Connection = conn;
                     cmd.CommandText = $@"
                     Use VR_club
-                    Select *
+                    Select Адрес, Почта, Телефон, [ID Списка игр], Название, [ID расписания]
                     From Клуб
                     Where Адрес = N'{necessaryClubName}'
                     ";
@@ -212,16 +213,23 @@ namespace VR_registration
                     SqlDataReader dr = cmd.ExecuteReader();
                     while (dr.Read())
                     {
-                        returnInformationDict["Адрес"] = ("" + dr["Адрес"]).Trim();
-                        returnInformationDict["Почта"] = ("" + dr["Почта"]).Trim();
-                        returnInformationDict["Телефон"] = ("" + dr["Телефон"]).Trim();
+                        if (returnInformationDict["Адрес"] == "")
+                        {
+                            returnInformationDict["Адрес"] = ("" + dr["Адрес"]).Trim();
+                            returnInformationDict["Почта"] = ("" + dr["Почта"]).Trim();
+                            returnInformationDict["Телефон"] = ("" + dr["Телефон"]).Trim();
+                            
+
+                            
+                            returnInformationDict["Тариф"] = ("" + dr["Название"]).Trim();
+                            returnInformationDict["Расписание"] = ("" + dr["ID расписания"]).Trim();
+                            databaseClubTableColumn.clubGame = null;
+                        }
                         databaseClubTableColumn.clubGame = ("" + dr["ID Списка игр"]).Trim();
-                        
+                        // Запрашиваем полную информацию по игре
                         returnInformationDict["Список игр"] += String.Join("-",
                             takeInformationFromTableAboutGames(databaseClubTableColumn.clubGame)) + "|";
-                        returnInformationDict["Тариф"] = ("" + dr["Название"]).Trim();
-                        returnInformationDict["Расписание"] = ("" + dr["ID расписания"]).Trim();
-                        databaseClubTableColumn.clubGame = null;
+
 
                     }
                     dr.Close();
@@ -235,10 +243,12 @@ namespace VR_registration
         // проверка почт на совпадение
         public bool checkMails(string userMailFromRegistrationWindow)
         {
+            ControlInputData controlInputData = new ControlInputData();
             if (!controlInputData.IsValidEmail(userMailFromRegistrationWindow))
             {
                 return false;
             }
+            controlInputData = null;
             DatabaseInformationStruct databaseUserTableColumn = new DatabaseInformationStruct();
             using (SqlConnection conn = new SqlConnection(ConnectionString))
             {
@@ -271,9 +281,12 @@ namespace VR_registration
 
         
         
+        // Имя для аккаунта пользователя
         public string getNameOfUserToCompleteInformation()
         {
             DatabaseInformationStruct databaseUserTableColumn = new DatabaseInformationStruct();
+            ProgramCashReader programCashReader = new ProgramCashReader();
+            Console.WriteLine(programCashReader.returnActiveUserId());
             using (SqlConnection conn = new SqlConnection(ConnectionString))
             {
                 conn.Open();
@@ -298,12 +311,15 @@ namespace VR_registration
                 }
                 conn.Close();
             }
+            programCashReader = null;
             return databaseUserTableColumn.userNameFromDB.Trim();
         }
 
+        // Почта для аккаунта пользователя
         public string getMailOfUserToCompleteInformation()
         {
             DatabaseInformationStruct databaseUserTableColumn = new DatabaseInformationStruct();
+            ProgramCashReader programCashReader = new ProgramCashReader();
             using (SqlConnection conn = new SqlConnection(ConnectionString))
             {
                 conn.Open();
@@ -327,11 +343,14 @@ namespace VR_registration
                 }
                 conn.Close();
             }
+            programCashReader = null;
             return databaseUserTableColumn.userMailFromDB.Trim();
         }
 
+        // Номер телефона для аккаунта пользователя
         public string getPhoneOfUserToCompleteInformation()
         {
+            ProgramCashReader programCashReader = new ProgramCashReader();
             DatabaseInformationStruct databaseUserTableColumn = new DatabaseInformationStruct();
             using (SqlConnection conn = new SqlConnection(ConnectionString))
             {
@@ -356,6 +375,7 @@ namespace VR_registration
                 }
                 conn.Close();
             }
+            programCashReader = null;
             return databaseUserTableColumn.userPhoneNumberFromDB.Trim();
         }
 

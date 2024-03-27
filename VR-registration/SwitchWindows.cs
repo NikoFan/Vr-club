@@ -17,17 +17,13 @@ namespace VR_registration
         {
             public string[] coordinates;
         }
-        
-
-        public ConnectDataBase connectData = new ConnectDataBase();
-        public ProgramCashReader filesWork = new ProgramCashReader();
         public Dictionary<string, System.Action> Windows_X_Names = new Dictionary<string, System.Action>();
 
 
         public void switchOn_MainWindow()
         {
             DataSet dataSetStruct = new DataSet();
-            dataSetStruct.coordinates = filesWork.returnLastRecordingCoordinates().Split('_');
+            dataSetStruct.coordinates = new ProgramCashReader().returnLastRecordingCoordinates().Split('_');
             MainWindow mainMenuWindow = new MainWindow()
             {
                 WindowStartupLocation = WindowStartupLocation.Manual,
@@ -39,7 +35,7 @@ namespace VR_registration
         public void switchOn_UserRegistrationWindow()
         {
             DataSet dataSetStruct = new DataSet();
-            dataSetStruct.coordinates = filesWork.returnLastRecordingCoordinates().Split('_');
+            dataSetStruct.coordinates = new ProgramCashReader().returnLastRecordingCoordinates().Split('_');
             UserRegistration userRegistrationWindow = new UserRegistration()
             {
                 WindowStartupLocation = WindowStartupLocation.Manual,
@@ -53,7 +49,7 @@ namespace VR_registration
         public void switchOn_UserAccountWindow()
         {
             DataSet dataSetStruct = new DataSet();
-            dataSetStruct.coordinates = filesWork.returnLastRecordingCoordinates().Split('_');
+            dataSetStruct.coordinates = new ProgramCashReader().returnLastRecordingCoordinates().Split('_');
             UserAccountWindow UserAccountWindow = new UserAccountWindow()
             {
                 WindowStartupLocation = WindowStartupLocation.Manual,
@@ -67,7 +63,7 @@ namespace VR_registration
         public void switchOn_ChooseClubToBook()
         {
             DataSet dataSetStruct = new DataSet();
-            dataSetStruct.coordinates = filesWork.returnLastRecordingCoordinates().Split('_');
+            dataSetStruct.coordinates = new ProgramCashReader().returnLastRecordingCoordinates().Split('_');
             ChooseClubToBook chooseClubToBook = new ChooseClubToBook()
             {
                 WindowStartupLocation = WindowStartupLocation.Manual,
@@ -81,7 +77,7 @@ namespace VR_registration
         public void switchOn_ClubBookingClass()
         {
             DataSet dataSetStruct = new DataSet();
-            dataSetStruct.coordinates = filesWork.returnLastRecordingCoordinates().Split('_');
+            dataSetStruct.coordinates = new ProgramCashReader().returnLastRecordingCoordinates().Split('_');
             ClubBookingClass CLubBookingClass = new ClubBookingClass()
             {
                 WindowStartupLocation = WindowStartupLocation.Manual,
@@ -95,7 +91,7 @@ namespace VR_registration
         public void switchOn_CalendarWindow()
         {
             DataSet dataSetStruct = new DataSet();
-            dataSetStruct.coordinates = filesWork.returnLastRecordingCoordinates().Split('_');
+            dataSetStruct.coordinates = new ProgramCashReader().returnLastRecordingCoordinates().Split('_');
             Calendar calendarWindowClass = new Calendar()
             {
                 WindowStartupLocation = WindowStartupLocation.Manual,
@@ -104,6 +100,20 @@ namespace VR_registration
             };
             this.Visibility = Visibility.Hidden;
             calendarWindowClass.Show();
+        }
+
+        public void switchOn_OrderClubClass()
+        {
+            DataSet dataSetStruct = new DataSet();
+            dataSetStruct.coordinates = new ProgramCashReader().returnLastRecordingCoordinates().Split('_');
+            OrderClubClass orderClubClass = new OrderClubClass()
+            {
+                WindowStartupLocation = WindowStartupLocation.Manual,
+                Left = Convert.ToDouble(dataSetStruct.coordinates[0]),
+                Top = Convert.ToDouble(dataSetStruct.coordinates[1])
+            };
+            this.Visibility = Visibility.Hidden;
+            orderClubClass.Show();
         }
 
         // Конструктор класса
@@ -121,6 +131,8 @@ namespace VR_registration
                 switchOn_ClubBookingClass;
             Windows_X_Names["Расписание клуба"] =
                 switchOn_CalendarWindow;
+            Windows_X_Names["Оформление Заказа"] =
+                switchOn_OrderClubClass;
         }
     }
 }

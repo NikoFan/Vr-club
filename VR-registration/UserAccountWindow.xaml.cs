@@ -21,19 +21,16 @@ namespace VR_registration
     /// </summary>
     public partial class UserAccountWindow : Window
     {
-        
-        public ConnectDataBase connectDataBaseClass = new ConnectDataBase();
-        public ProgramCashReader programCashReader = new ProgramCashReader();
-        public RegistrationWorkFromDB registrtationWorkFromDB = new RegistrationWorkFromDB();
-        public AuthorizationWorkFromDB authorizationWorkFromDB = new AuthorizationWorkFromDB();
-        public SwitchWindows switchWins = new SwitchWindows();
-        public const string computerFoldersPATH = @"picture\";
+
+        public string computerFoldersPATH = Convert.ToString(String.Join("\\", Environment.CurrentDirectory.ToString().Split('\\').Take(
+            Environment.CurrentDirectory.ToString().Split('\\').Length - 2))) + "/Picture/";
         public UserAccountWindow()
         {
-            
             InitializeComponent();
-            programCashReader.recordingLastWinsName(this.Title.ToString());
+            
+            new ProgramCashReader().recordingLastWinsName(this.Title.ToString());
             completeUserInformationOnPage();
+
             
         }
 
@@ -54,6 +51,7 @@ namespace VR_registration
         // Пользовательская информация на страничке
         public void completeUserInformationOnPage()
         {
+            ConnectDataBase connectDataBaseClass = new ConnectDataBase();
             if (connectDataBaseClass.getNameOfUserToCompleteInformation() != "ERROR")
             {
                 CustomerName.Text = connectDataBaseClass.getNameOfUserToCompleteInformation();
@@ -64,7 +62,8 @@ namespace VR_registration
                 // При отсутствии записи - разлогинить пользователя
                 dumbMessageBox("На устройстве отсутствует активный аккаунт!\nСоздайте аккаунт или авторизуйтесь!");
                 
-                programCashReader.recordingInactiveWordInCash();
+                new ProgramCashReader().recordingInactiveWordInCash();
+                
                 changeLastWindowsNameInTxtFile();
                 goUserRegistrationWindow();
             }
@@ -75,7 +74,6 @@ namespace VR_registration
         {
             Console.WriteLine("go user account");
             // отправка названия окна на запись
-            // programCashReader.recordingLastWinsName(this.Title.ToString());
             UserRegistration UserAccount = new UserRegistration()
             {
                 WindowStartupLocation = WindowStartupLocation.Manual,
@@ -99,18 +97,14 @@ namespace VR_registration
         // Возврат к старому окну
         public void goBack(object sender, RoutedEventArgs e)
         {
-            // извлечение имени предыдущего окна
-            string lastWindowName = programCashReader.returnLastWindowsName();
+            
+            
+            string lastWindowName = new ProgramCashReader().returnLastWindowsName();
             Console.WriteLine("последнее окно " + lastWindowName);
-            // перевод окна в невидимый режим
             this.Visibility = Visibility.Hidden;
-            // запись нынешнего окна как предыдущего, для дальнейшей смены
-
-            // programCashReader.recordingLastWinsName(this.Title.ToString());
-            // запись координат окна на момент смены
-            programCashReader.recordingLastActiveWindowCoordinates(makeCoordinates());
-            // смена на предыдущее окно
-            switchWins.Windows_X_Names[lastWindowName]();
+            new ProgramCashReader().recordingLastActiveWindowCoordinates(makeCoordinates());
+            new SwitchWindows().Windows_X_Names[lastWindowName]();
+            
         }
 
         public void goVK(object sender, RoutedEventArgs e)
@@ -134,8 +128,7 @@ namespace VR_registration
         public void goUserRegistrationWindow()
         {
             Console.WriteLine("go user registration");
-            // отправка названия окна на запись
-            // programCashReader.recordingLastWinsName(this.Title.ToString());
+            
             UserRegistration userRegistrationWindow = new UserRegistration()
             {
                 WindowStartupLocation = WindowStartupLocation.Manual,
@@ -149,16 +142,17 @@ namespace VR_registration
         public void logOutFromAccount(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Log out from account");
-            programCashReader.recordingInactiveWordInCash();
+            new ProgramCashReader().recordingInactiveWordInCash();
             changeLastWindowsNameInTxtFile();
             goUserRegistrationWindow();
         }
 
         public void changeLastWindowsNameInTxtFile()
         {
-            programCashReader.recordingLastWinsName("Главное меню");
+            new ProgramCashReader().recordingLastWinsName("Главное меню");
             // запись координат окна на момент смены
-            programCashReader.recordingLastActiveWindowCoordinates(makeCoordinates());
+            new ProgramCashReader().recordingLastActiveWindowCoordinates(makeCoordinates());
+            
         }
 
         // Прекращение работы программы
@@ -166,7 +160,7 @@ namespace VR_registration
         {
             if (dumbMessageBox("Вы уверены что хотите закрыть программу?"))
             {
-                programCashReader.clearCash();
+                new ProgramCashReader().clearCash();
                 Environment.Exit(0);
             }
 

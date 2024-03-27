@@ -124,36 +124,70 @@
             <Grid>
                 <Border Style="{StaticResource userPage_style}">
                     <Grid>
-                        <!-- Текстовые поля -->
+                        <!--  Текстовые поля  -->
                         <Border Style="{StaticResource textPlaceBorder_style}">
-                            <StackPanel Margin="0 0 0 0">
-                                <TextBlock Text="Имя" Style="{StaticResource userAccountTextBlock_Style}"/>
+                            <StackPanel Margin="0,0,0,0">
+                                <TextBlock Style="{StaticResource userAccountTextBlock_Style}" Text="Имя" />
                                 <Border Style="{StaticResource textBorder_style}">
-                                    <TextBox x:Name="CustomerName" Style="{StaticResource userAccountTextBox_Style}"/>
+                                    <TextBox x:Name="CustomerName" Style="{StaticResource userAccountTextBox_Style}" />
                                 </Border>
-                                <TextBlock Text="Телефон" Style="{StaticResource userAccountTextBlock_Style}"/>
+                                <TextBlock Style="{StaticResource userAccountTextBlock_Style}" Text="Телефон" />
                                 <Border Style="{StaticResource textBorder_style}">
-                                    <TextBox x:Name="CustomerPhoneNumber" Style="{StaticResource userAccountTextBox_Style}"/>
+                                    <TextBox x:Name="CustomerPhoneNumber" Style="{StaticResource userAccountTextBox_Style}" />
                                 </Border>
-                                <TextBlock Text="Почта" Style="{StaticResource userAccountTextBlock_Style}"/>
+                                <TextBlock Style="{StaticResource userAccountTextBlock_Style}" Text="Почта" />
                                 <Border Style="{StaticResource textBorder_style}">
-                                    <TextBox x:Name="CustomerMailAddress" Style="{StaticResource userAccountTextBox_Style}"/>
+                                    <TextBox x:Name="CustomerMailAddress" Style="{StaticResource userAccountTextBox_Style}" />
                                 </Border>
-                                
+
                             </StackPanel>
                         </Border>
-                        <Border
-                x:Name="logOut"
-                
-                Style="{StaticResource logOutButton_style}">
+                        <Border x:Name="logOut" Style="{StaticResource logOutButton_style}">
                             <Grid>
                                 <TextBlock Style="{StaticResource normalText_style}" Text="Выйти" />
-                                <Button Click="logOutFromAccount" Style="{StaticResource button_style}"/>
+                                <Button Click="logOutFromAccount" Style="{StaticResource button_style}" />
                             </Grid>
 
                         </Border>
                     </Grid>
                 </Border>
+
+                <Grid
+                    x:Name="RightTopCorner"
+                    Margin="0,50,50,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Style="{StaticResource Corners_style}">
+                    <Border HorizontalAlignment="Right" Style="{StaticResource Vertical_style}" />
+                    <Border VerticalAlignment="Top" Style="{StaticResource Horizontal_style}" />
+                </Grid>
+                <Grid
+                    x:Name="LeftTopCorner"
+                    Margin="50,50,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Style="{StaticResource Corners_style}">
+                    <Border HorizontalAlignment="Left" Style="{StaticResource Vertical_style}" />
+                    <Border VerticalAlignment="Top" Style="{StaticResource Horizontal_style}" />
+                </Grid>
+                <Grid
+                    x:Name="RightBottomCorner"
+                    Margin="0,0,50,50"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Style="{StaticResource Corners_style}">
+                    <Border HorizontalAlignment="Right" Style="{StaticResource Vertical_style}" />
+                    <Border VerticalAlignment="Bottom" Style="{StaticResource Horizontal_style}" />
+                </Grid>
+                <Grid
+                    x:Name="LeftBottomCorner"
+                    Margin="50,0,0,50"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Style="{StaticResource Corners_style}">
+                    <Border HorizontalAlignment="Left" Style="{StaticResource Vertical_style}" />
+                    <Border VerticalAlignment="Bottom" Style="{StaticResource Horizontal_style}" />
+                </Grid>
             </Grid>
         </Grid>
     </Grid>

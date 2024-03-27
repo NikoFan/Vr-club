@@ -70,5 +70,29 @@ namespace VR_registration.Properties {
                 this["choosenClubInfo"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string countOfPeople {
+            get {
+                return ((string)(this["countOfPeople"]));
+            }
+            set {
+                this["countOfPeople"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Date {
+            get {
+                return ((string)(this["Date"]));
+            }
+            set {
+                this["Date"] = value;
+            }
+        }
     }
 }
