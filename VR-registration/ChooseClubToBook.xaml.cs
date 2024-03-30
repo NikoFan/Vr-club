@@ -117,7 +117,6 @@ namespace VR_registration
         // Переход к выбранному клубу
         private void goClubBooking(string informationBUtonName)
         {
-            Console.WriteLine("--------------------------------|||||||||||____________________________________________");
             Console.WriteLine("go club booking");
             Settings.Default["choosenClubInfo"] = buttonsNamesDict[informationBUtonName];
             Settings.Default.Save();
@@ -127,10 +126,12 @@ namespace VR_registration
                 Left = Left,
                 Top = Top
             };
-
+            
             this.Visibility = Visibility.Hidden;
+            Head.Children.Clear();
+            Body.Children.Clear();
             clubBookingClass.Show();
-            Console.WriteLine("--------------------------------||||----||||____________________________________________");
+
         }
 
         //-------------------------------------OTHER-----------------------------------------
@@ -277,14 +278,14 @@ namespace VR_registration
 
         public void goUserAcc(object sender, RoutedEventArgs e)
         {
-            ProgramCashReader programCashReader = new ProgramCashReader();
-            if (programCashReader.returnActiveUserId() == "out" || programCashReader.returnActiveUserId() == "")
+            
+            Head.Children.Clear();
+            Body.Children.Clear();
+            if (new ProgramCashReader().returnActiveUserId() == "out" || new ProgramCashReader().returnActiveUserId() == "")
             {
-                programCashReader = null;
                 goUserRegistrationWindow();
                 return;
             }
-            programCashReader = null;
             goUserAccountWindow();
             return;
         }
@@ -299,6 +300,8 @@ namespace VR_registration
             };
 
             this.Visibility = Visibility.Hidden;
+            Head.Children.Clear();
+            Body.Children.Clear();
             userAccountWindow.Show();
         }
 
@@ -312,6 +315,8 @@ namespace VR_registration
             };
 
             this.Visibility = Visibility.Hidden;
+            Head.Children.Clear();
+            Body.Children.Clear();
             userRegistrationWindow.Show();
         }
 
@@ -324,15 +329,13 @@ namespace VR_registration
         // возвращение к прошлому окну
         public void goBack(object sender, RoutedEventArgs e)
         {
-            ProgramCashReader programCashReader = new ProgramCashReader();
-            string lastWindowName = programCashReader.returnLastWindowsName();
+            string lastWindowName = new ProgramCashReader().returnLastWindowsName();
             Console.WriteLine("последнее окно " + lastWindowName);
             this.Visibility = Visibility.Hidden;
-            programCashReader.recordingLastActiveWindowCoordinates(makeCoordinates());
-            programCashReader = null;
-            SwitchWindows switchWins = new SwitchWindows();
-            switchWins.Windows_X_Names[lastWindowName]();
-            switchWins = null;
+            new ProgramCashReader().recordingLastActiveWindowCoordinates(makeCoordinates());
+            new SwitchWindows().Windows_X_Names[lastWindowName]();
+            Head.Children.Clear();
+            Body.Children.Clear();
         }
 
         public void goVK(object sender, RoutedEventArgs e)

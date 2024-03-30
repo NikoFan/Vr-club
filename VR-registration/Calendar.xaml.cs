@@ -16,6 +16,7 @@ using System.Threading;
 using System.Windows.Shapes;
 using static System.Net.Mime.MediaTypeNames;
 using System.Security.Cryptography.X509Certificates;
+using VR_registration.Properties;
 
 namespace VR_registration
 {
@@ -328,7 +329,10 @@ namespace VR_registration
                 Width = 150,
                 Height = 100,
                 VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(leftSideOffset[blocksOffsetParams[0]], topSideOffset[blocksOffsetParams[1]], rightSideOffset[blocksOffsetParams[0]], 0),
+                Margin = new Thickness(
+                    leftSideOffset[blocksOffsetParams[0]],
+                    topSideOffset[blocksOffsetParams[1]],
+                    rightSideOffset[blocksOffsetParams[0]], 0),
                 BorderBrush = new SolidColorBrush(Colors.MediumPurple),
                 BorderThickness = new Thickness(2),
                 Background = image,
@@ -346,9 +350,38 @@ namespace VR_registration
             };
             calendarBlock.MouseDown += (sender, args) =>
             {
-                Console.WriteLine("Date: " + dateUnderMouse);
+                Console.WriteLine(isDate);
+                if (isDate != "block")
+                    bookDateInClub(dateUnderMouse);
+                else
+                    dumbMessageBox("Дата недоступна к бронированию!");
             };
             return calendarBlock;
+        }
+
+        private void bookDateInClub(string choosenDate)
+        {
+            Console.WriteLine("Выбрана дата");
+            if (dumbMessageBox($"Вы хотите забронировать дату\n{dateUnderMouse}.{monthNumber}.{yearNumber}\nВ клубе:\n{Settings.Default["choosenClubInfo"]}"))
+            {
+                if (new ProgramCashReader().returnActiveUserId() == "out" || new ProgramCashReader().returnActiveUserId() == "")
+                {
+                    dumbMessageBox("Авторизуйтесь в аккаунте или создайте новый для оплаты!");
+                    goUserRegistrationWindow();
+                    return;
+                }
+                Settings.Default["Date"] = $"{yearNumber}-{monthNumber}-{dateUnderMouse}";
+                Settings.Default.Save();
+                OrderClubClass orderClubClass = new OrderClubClass()
+                {
+                    WindowStartupLocation = WindowStartupLocation.Manual,
+                    Left = Left,
+                    Top = Top
+                };
+
+                this.Visibility = Visibility.Hidden;
+                orderClubClass.Show();
+            }
         }
 
 
@@ -397,7 +430,6 @@ namespace VR_registration
             Console.WriteLine($"NOW: {now}");
             DateTime startOfMonth = new DateTime(yearNumber, monthNumber, 1);
             int dayOfTheWeek = weekDaysCounter[startOfMonth.DayOfWeek.ToString().Trim().ToLower()];
-            // int dayOfTheWeek = Convert.ToInt32(startOfMonth.DayOfWeek.ToString("d"));
             Console.WriteLine("day of week: " + startOfMonth.DayOfWeek.ToString());
             // Create usercontrol
             int leftRightArgs = 0;

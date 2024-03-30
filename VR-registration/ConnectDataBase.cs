@@ -10,6 +10,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using static VR_registration.ConnectDataBase;
+using System.Windows;
 
 namespace VR_registration
 {
@@ -43,7 +44,7 @@ namespace VR_registration
         
         
         
-        public string ConnectionString = "data source=0.tcp.eu.ngrok.io, 16847;" +
+        public string ConnectionString = "data source=0.tcp.eu.ngrok.io, 15486;" +
             "Database=VR_club;" +
             "User Id=sa;" +
             "Password=7784865Oleg#;" +
@@ -74,6 +75,34 @@ namespace VR_registration
                 }
                 conn.Close();
             }
+        }
+
+        public string takeTruthOrderId()
+        {
+            string ID = "1";
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                conn.Open();
+                
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = @"
+                    Use VR_club
+                    SELECT [ID записи]
+                    FROM Запись;
+                    ";
+
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        ID = "" + dr["ID записи"];
+                    }
+                    dr.Close();
+                }
+                conn.Close();
+            }
+            return ID;
         }
 
         // метод для проверки телефонных номеров на совпадение
@@ -109,10 +138,37 @@ namespace VR_registration
             return true;
         }
 
+        // Получение ID клуба
+        public string takeClubId(string clubAddress)
+        {
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = $@"
+                    Use VR_club
+                    Select [ID Клуба]
+                    From Клуб
+                    Where [Адрес] = N'{clubAddress}'
+                    ";
+
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        return "" + dr["ID Клуба"];
+                    }
+                    dr.Close();
+                }
+                conn.Close();
+            }
+            return "";
+        }
+
         // Запрос к БД по клубу
         public List<string> takeInformationFromTableAboutGames(string gameFindID)
         {
-            DatabaseInformationStruct databaseGameListTableColumn = new DatabaseInformationStruct();
             Console.WriteLine(gameFindID);
             List<string> gameInformationArray = new List<string>();
             using (SqlConnection conn = new SqlConnection(ConnectionString))
@@ -131,13 +187,7 @@ namespace VR_registration
                     SqlDataReader dr = cmd.ExecuteReader();
                     while (dr.Read())
                     {
-                        /*databaseGameListTableColumn.gameName = ("" + dr["Игра"]).Trim();
-                        databaseGameListTableColumn.gameRating = ("" + dr["Рейтинг"]).Trim();
-                        databaseGameListTableColumn.gameCooper = ("" + dr["Совместная"]).Trim();
-                        databaseGameListTableColumn.gamePhotoName = ("" + dr["Фото"]).Trim();
-
-                        Console.WriteLine($"{databaseGameListTableColumn.gameName};\n{databaseGameListTableColumn.gameRating};\n" +
-                            $"{databaseGameListTableColumn.gameCooper};\n{databaseGameListTableColumn.gamePhotoName};");*/
+                        
                         gameInformationArray.Add(("" + dr["Игра"]).Trim());
                         gameInformationArray.Add(("" + dr["Рейтинг"]).Trim());
                         gameInformationArray.Add(("" + dr["Совместная"]).Trim());
@@ -148,10 +198,7 @@ namespace VR_registration
                 conn.Close();
                 
             }
-            databaseGameListTableColumn.gameName = null;
-            databaseGameListTableColumn.gameRating = null;
-            databaseGameListTableColumn.gameCooper = null;
-            databaseGameListTableColumn.gamePhotoName = null;
+            
             return gameInformationArray;
         }
         public string takeClubPrice(string priceType)
@@ -429,6 +476,34 @@ namespace VR_registration
                 conn.Close();
             }
             return clubFullInformation;
+        }
+
+
+
+
+        public void pay(List<string> payInformation)
+        {
+            /*
+            insert into Запись
+            Values(1, 5, '2024-03-02', '2024-04-02', N'2300 р/час', 1, N'Комсомольский проспект, 27с5', 1)
+             */
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+
+                connection.Open();
+                SqlCommand commandToAddInformationFromTable = new SqlCommand($@"
+                Use VR_club
+                INSERT INTO Запись
+                VALUES({takeTruthOrderId()}, {payInformation[0]}, N'{payInformation[1]}', N'{payInformation[2]}', N'{payInformation[3]}',
+                        {payInformation[4]}, N'{payInformation[5]}', {payInformation[6]})");
+                commandToAddInformationFromTable.Connection = connection;
+                commandToAddInformationFromTable.ExecuteNonQuery();
+            }
+            new ProgramCashReader().clearCash();
+            
+
+
+
         }
         
 

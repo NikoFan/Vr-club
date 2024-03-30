@@ -61,8 +61,16 @@ namespace VR_registration
         // Забронировать клуб
         public void bookingClub(object sender, RoutedEventArgs e)
         {
+
+            if (new ProgramCashReader().returnActiveUserId() == "out" || new ProgramCashReader().returnActiveUserId() == "")
+            {
+                dumbMessageBox("Авторизуйтесь в аккаунте или создайте новый для оплаты!");
+                goUserRegistrationWindow();
+                return;
+            }
             
             Console.WriteLine("Бронирование клуба");
+            new ProgramCashReader().stockDate();
             OrderClubClass orderClubClass = new OrderClubClass()
             {
                 WindowStartupLocation = WindowStartupLocation.Manual,

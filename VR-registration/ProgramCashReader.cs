@@ -16,6 +16,10 @@ namespace VR_registration
             Settings.Default.Save();
             Settings.Default["coordinatesLastWindow"] = "";
             Settings.Default.Save();
+            Settings.Default["Date"] = "Не выбрана";
+            Settings.Default.Save();
+            Settings.Default["choosenClubInfo"] = "";
+            Settings.Default.Save();
         }
         // Запись имени окна
         public void recordingLastWinsName(string windowName)
@@ -46,16 +50,19 @@ namespace VR_registration
             Settings.Default.Save();
         }
 
+        public void stockDate()
+        {
+            Settings.Default["Date"] = "Не выбрана";
+            Settings.Default.Save();
+        }
+
 
 
         // Возврат имени окна
         public string returnLastWindowsName()
         {
-            
-
             string[] cashArray = Settings.Default["lastWindowName"].ToString().Split('_');
             string findingWindowsName = "";
-            Console.WriteLine("------------------------------------------- " + cashArray.Length);
             if (cashArray.Length == 1)
             {
                 Settings.Default["lastWindowName"] = "";

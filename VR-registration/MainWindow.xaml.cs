@@ -91,14 +91,11 @@ namespace VR_registration
         public void goUserAcc(object sender, RoutedEventArgs e)
         {
             StopThread = true;
-            ProgramCashReader programCashReader = new ProgramCashReader();
-            if (programCashReader.returnActiveUserId() == "out" || programCashReader.returnActiveUserId() == "")
+            if (new ProgramCashReader().returnActiveUserId() == "out" || new ProgramCashReader().returnActiveUserId() == "")
             {
-                programCashReader = null;
                 goUserRegistrationWindow();
                 return;
             }
-            programCashReader = null;
             goUserAccountWindow();
             return;
         }
@@ -117,6 +114,8 @@ namespace VR_registration
             };
 
             this.Visibility = Visibility.Hidden;
+            Head.Children.Clear();
+            Body.Children.Clear();
             userAccountWindow.Show();
         }
 
@@ -130,6 +129,8 @@ namespace VR_registration
             };
 
             this.Visibility = Visibility.Hidden;
+            Head.Children.Clear();
+            Body.Children.Clear();
             userRegistrationWindow.Show();
         }
 
@@ -144,15 +145,13 @@ namespace VR_registration
         public void goBack(object sender, RoutedEventArgs e)
         {
             StopThread = true;
-            ProgramCashReader programCashReader = new ProgramCashReader();
-            string lastWindowName = programCashReader.returnLastWindowsName().Replace("]", "");
+            string lastWindowName = new ProgramCashReader().returnLastWindowsName().Replace("]", "");
             Console.WriteLine("последнее окно " + lastWindowName);
             this.Visibility = Visibility.Hidden;
-            programCashReader.recordingLastActiveWindowCoordinates(makeCoordinates());
-            programCashReader = null;
-            SwitchWindows switchWins = new SwitchWindows();
-            switchWins.Windows_X_Names[lastWindowName]();
-            switchWins = null;
+            new ProgramCashReader().recordingLastActiveWindowCoordinates(makeCoordinates());
+            new SwitchWindows().Windows_X_Names[lastWindowName]();
+            Head.Children.Clear();
+            Body.Children.Clear();
         }
         public void goVK(object sender, RoutedEventArgs e)
         {
@@ -189,6 +188,8 @@ namespace VR_registration
             };
 
             this.Visibility = Visibility.Hidden;
+            Head.Children.Clear();
+            Body.Children.Clear();
             chooseClubToBook.Show();
             
         }
@@ -210,9 +211,7 @@ namespace VR_registration
             if (dumbMessageBox("Вы уверены что хотите закрыть программу?"))
             {
                 StopThread = true;
-                ProgramCashReader programCashReader = new ProgramCashReader();
-                programCashReader.clearCash();
-                programCashReader = null;
+                new ProgramCashReader().clearCash();
                 Environment.Exit(0);
             }
 

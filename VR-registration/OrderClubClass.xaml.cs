@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Threading;
+using VR_registration.Properties;
 using System.Runtime.CompilerServices;
 
 namespace VR_registration
@@ -23,6 +24,15 @@ namespace VR_registration
     public partial class OrderClubClass : Window
     {
         bool threadStop = false;
+        private Dictionary<int, int> countDaysInMonthsArray = new Dictionary<int, int>()
+        {
+            {1,31 }, {2,28 }, {3,31 }, {4,30 }, {5,31 }, {6, 30},
+            {7,31 }, {8,31 }, {9,30 }, {10,31 }, {11,30 }, {12,31}
+        };
+        private int yearNumber = 0;
+        private int monthNumber = 0;
+        private int daysInMonth = 0;
+        string costToPay = "";
         public OrderClubClass()
         {
             InitializeComponent();
@@ -30,6 +40,8 @@ namespace VR_registration
             programCashReader.recordingLastWinsName(this.Title.ToString());
             programCashReader = null;
             new Thread(CalculateCostOfOrder).Start();
+            takeCorrectDateInformation();
+            TakenDate.Text = $"Дата: {Settings.Default["Date"].ToString()}";
             
         }
 
@@ -37,7 +49,8 @@ namespace VR_registration
         private void CalculateCostOfOrder()
         {
             
-            this.Dispatcher.BeginInvoke(new Action(() => CostOfOrder.Text = $"Цена:\n{Convert.ToString(Convert.ToInt32(TextBoxValue.Text.ToString()) * 2300)}руб"));
+            this.Dispatcher.BeginInvoke(new Action(() => costToPay = $"{Convert.ToString(Convert.ToInt32(TextBoxValue.Text.ToString()) * 2300)}руб/ч"));
+            this.Dispatcher.BeginInvoke(new Action(() => CostOfOrder.Text = $"Цена:\n{costToPay}"));
                 
             
         }
@@ -218,6 +231,52 @@ namespace VR_registration
         {
             string coord = this.Left.ToString() + "_" + this.Top.ToString();
             return coord;
+        }
+
+        // Получаем дату сегодня
+        private void takeCorrectDateInformation()
+        {
+            string[] splitDate = Convert.ToString(DateTime.Now).Split(' ');
+            yearNumber = Convert.ToInt32(splitDate[0].Split('.')[2]);
+            monthNumber = Convert.ToInt32(splitDate[0].Split('.')[1]);
+            daysInMonth = countDaysInMonthsArray[Convert.ToInt32(monthNumber)];
+        }
+
+        
+        public void Payment(object sender, RoutedEventArgs e)
+        {
+            string Cost = costToPay;
+            string Count = TextBoxValue.Text.ToString();
+            if (Settings.Default["Date"].ToString() == "Не выбрана")
+            {
+                dumbMessageBox("У вас не выбрана дата");
+                return;
+            }
+            string BookingDate = Settings.Default["Date"].ToString();
+            int correctNowDateDay = Convert.ToInt32(DateTime.Today.ToString().Split('.')[0]);
+            int correctNowDateMonth = Convert.ToInt32(DateTime.Today.ToString().Split('.')[1]);
+            string NowDate = $"{yearNumber}-{correctNowDateMonth}-{correctNowDateDay}";
+            string Address = Settings.Default["choosenClubInfo"].ToString();
+            string ClubID = new ConnectDataBase().takeClubId(Address);
+            Console.WriteLine(ClubID);
+            string UserID = Settings.Default["activeUserId"].ToString();
+            List<string> payInformation = new List<string>()
+            {
+                Count, NowDate, BookingDate, Cost, ClubID, Address, UserID
+            };
+
+            new ConnectDataBase().pay(payInformation);
+            dumbMessageBox("Оплата прошла!");
+
+            MainWindow mainWindow = new MainWindow()
+            {
+                WindowStartupLocation = WindowStartupLocation.Manual,
+                Left = Left,
+                Top = Top
+            };
+
+            this.Visibility = Visibility.Hidden;
+            mainWindow.Show();
         }
     }
 }

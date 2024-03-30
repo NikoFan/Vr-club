@@ -143,10 +143,11 @@
                                 Name="TextBoxValue"
                                 Grid.Column="0"
                                 Height="100"
-                                Padding="0,15,0,0"
+                                Padding="0,20,0,0"
                                 BorderBrush="Gray"
                                 BorderThickness="1"
                                 FontSize="40"
+                                FontWeight="Bold"
                                 IsReadOnly="True"
                                 Text="1"
                                 TextAlignment="Center" />
@@ -170,7 +171,10 @@
                                 </Button>
                             </StackPanel>
                         </Grid>
-                        <TextBlock Style="{StaticResource captionTextBlock_style}" Text="Дата" />
+                        <TextBlock
+                            x:Name="TakenDate"
+                            Style="{StaticResource captionTextBlock_style}"
+                            Text="Дата: " />
                         <Border
                             Margin="50,20,0,0"
                             HorizontalAlignment="Left"
@@ -201,6 +205,7 @@
                         Margin="0,350,50,0"
                         Background="Green"
                         Cursor="Hand"
+                        MouseDown="Payment"
                         Style="{StaticResource OrderCostPlace_style}">
                         <TextBlock
                             Padding="30,0,0,0"
